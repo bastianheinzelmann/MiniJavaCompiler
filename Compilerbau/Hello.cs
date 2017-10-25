@@ -12,34 +12,36 @@ namespace Compilerbau
         {
             try
             {
-                //string input = "";
-                //StringBuilder text = new StringBuilder();
-                //Console.WriteLine("Input some shit");
-
-                //while ((input = Console.ReadLine()) != "\u0004")
-                //{
-                //    text.AppendLine(input);
-                //}
-
                 string input = File.ReadAllText(args[0]);
 
                 AntlrInputStream inputStream = new AntlrInputStream(input);
+
                 MiniJavaLexer miniJavaLexer = new MiniJavaLexer(inputStream);
+
                 CommonTokenStream commonTokenStream = new CommonTokenStream(miniJavaLexer);
                 MiniJavaParser miniJavaParser = new MiniJavaParser(commonTokenStream);
+                miniJavaParser.AddErrorListener(ErrorListener.INSTANCE);
+
                 miniJavaParser.prg();
 
             }
             catch (Exception e)
             {
                 Console.WriteLine("Error: " + e);
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("It's all my fault :(");
-                Console.ReadKey();
             }
 
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("You did great!");
+
+            if(ErrorListener.INSTANCE.errorCounter > 0)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Sorry this is all my fault :(");
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("You did great!");
+            }
+
             Console.ReadKey();
         }
     }

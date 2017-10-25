@@ -21,7 +21,6 @@ statement : '{' statement* '}'
 			| 'while' '(' expression ')' statement
 			| Identifier '=' expression ';'
 			| Identifier '[' expression ']' '=' expression ';'
-			| expression ';'
 			| 'System.out.println' '(' expression ')' ';'
 			| 'System.out.write' '(' expression ')' ';';
 
