@@ -12,7 +12,7 @@ methodDeclaration : 'public' type Identifier '(' methodParameters ')' ('throws' 
 
 methodParameters : ( type Identifier (',' type Identifier)*)?;
 
-methodBody : varDeclaration* statement* 'return' expression ';';
+methodBody : varDeclaration* statement* RETURN expression ';';
 
 type : 'int' '[' ']' | 'boolean' | 'int' | Identifier;
 
@@ -38,20 +38,6 @@ expression : expression ( AND | PLUS | MINUS | TIMES | DIV | LT | GT) expression
 			| NOT expression
 			| LP expression RP;
 
-Identifier : IdentifierChars;
-
-IdentifierChars : JavaLetter JavaLetterOrDigit*;
-
-fragment
-JavaLetter : [a-zA-Z$_];
-
-fragment
-JavaLetterOrDigit : [a-zA-Z0-9$_];
-
-BooleanLiteral : 'true' | 'false';
-
-IntegerLiteral : [0-9]+;
-
 AND :'&&';
 PLUS :'+';
 MINUS :'-';
@@ -68,4 +54,31 @@ LT : '<';
 GT : '>';
 DIV : '/';
 
+BooleanLiteral : 'true' | 'false';
+
+IntegerLiteral : DecimalNumeral;
+
+Identifier : IdentifierChars;
+
+IdentifierChars : JavaLetter JavaLetterOrDigit*;
+
+fragment
+JavaLetter : [a-zA-Z$_];
+
+fragment
+JavaLetterOrDigit : [a-zA-Z0-9$_];
+
+fragment
+DecimalNumeral : '0' | NonZeroDigit Digits?;
+
+fragment
+Digits : [0-9]*;
+
+fragment
+NonZeroDigit : [1-9];
+
 WS : [ \r\t\n]+ -> skip;
+
+MULTILINE_COMMENT :  '/*' .*? '*/' -> skip;
+
+LINE_COMMENT :  '//' .*? '\n' -> skip;
