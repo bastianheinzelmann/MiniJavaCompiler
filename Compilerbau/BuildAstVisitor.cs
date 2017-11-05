@@ -6,14 +6,19 @@ namespace Compilerbau
 {
     class BuildAstVisitor : MiniJavaBaseVisitor<Node>
     {
+
         public override Node VisitPrg([NotNull] MiniJavaParser.PrgContext context)
         {
-            return VisitChildren(context);
+            ProgramNode node = new ProgramNode();
+            node.MainClassNode = Visit(context.mainClass());
+            //var das = context.classDeclaration(context);
+
+            return node;
         }
 
         public override Node VisitMainClass([NotNull] MiniJavaParser.MainClassContext context)
         {
-            return base.VisitMainClass(context);
+            return null;
         }
 
         public override Node VisitClassDeclaration([NotNull] MiniJavaParser.ClassDeclarationContext context)
