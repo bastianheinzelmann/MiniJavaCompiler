@@ -3,6 +3,7 @@ using Compilerbau.GeneratedParser;
 using System.Text;
 using Antlr4.Runtime;
 using System.IO;
+using Antlr4.Runtime.Tree;
 
 namespace Compilerbau
 {
@@ -22,7 +23,9 @@ namespace Compilerbau
                 MiniJavaParser miniJavaParser = new MiniJavaParser(commonTokenStream);
                 miniJavaParser.AddErrorListener(ErrorListener.INSTANCE);
 
-                miniJavaParser.prg();
+                var cst = miniJavaParser.prg();
+                var ast = new BuildAstVisitor().VisitPrg(cst);
+
 
             }
             catch (Exception e)

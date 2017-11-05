@@ -45,7 +45,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AstPrinter.cs" />
+    <Compile Include="BuildAstVisitor.cs" />
     <Compile Include="ErrorListener.cs" />
+    <Compile Include="ExpressionNode.cs" />
     <Compile Include="Hello.cs" />
     <Compile Include="MiniJavaVisitor.cs" />
   </ItemGroup>
