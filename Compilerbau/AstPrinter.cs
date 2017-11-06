@@ -6,28 +6,46 @@ using Antlr4.Runtime.Tree;
 
 namespace Compilerbau
 {
-    class AstPrinter
+    class AstPrinter : AstVisitor<string>
     {
-        public void print(RuleContext ctx)
+        public override string Visit(ProgramNode node)
         {
-            explore(ctx, 0);
+            return Visit(node.MainClassNode) + Visit(node.ClassDeclarationNode);
         }
 
-        private void explore(RuleContext ctx, int indentation)
+        public override string Visit(MainClassNode node)
         {
-            string ruleName = MiniJavaParser.ruleNames[ctx.RuleIndex];
-            for (int i = 0; i < indentation; i++)
-            {
-                Console.Write("  ");
-            }
-            Console.WriteLine(ruleName);
-            for (int i = 0; i < ctx.ChildCount; i++)
-            {
-                IParseTree element = ctx.GetChild(i);
-                if (element is RuleContext) {
-                explore((RuleContext)element, indentation + 1);
-            }
+            return node.ClassName + "\n" + node.ParameterName + Visit(node.StatementNode);
+        }
+
+        public override string Visit(ClassDeclarationNode node)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override string Visit(VarDeclarationNode node)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override string Visit(MethodDeclarationNode node)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override string Visit(ParameterNode node)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override string Visit(MethodBodyNode node)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override string Visit(StatementNode node)
+        {
+            throw new NotImplementedException();
         }
     }
-}
 }

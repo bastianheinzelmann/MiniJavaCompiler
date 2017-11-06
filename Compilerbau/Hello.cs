@@ -25,6 +25,8 @@ namespace Compilerbau
 
                 var cst = miniJavaParser.prg();
                 var ast = new BuildAstVisitor().VisitPrg(cst);
+                AstPrinter printer = new AstPrinter();
+                printer.Visit(ast);
 
 
             }

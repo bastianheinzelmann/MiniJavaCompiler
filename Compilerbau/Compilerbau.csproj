@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AstPrinter.cs" />
+    <Compile Include="AstVisitor.cs" />
     <Compile Include="BuildAstVisitor.cs" />
     <Compile Include="ErrorListener.cs" />
     <Compile Include="ExpressionNode.cs" />
@@ -56,6 +57,7 @@
     <Reference Include="Antlr4.Runtime, Version=4.6.0.0, Culture=neutral, PublicKeyToken=09abb75b9ed49849, processorArchitecture=MSIL">
       <HintPath>..\packages\Antlr4.Runtime.4.6.4\lib\net45\Antlr4.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
