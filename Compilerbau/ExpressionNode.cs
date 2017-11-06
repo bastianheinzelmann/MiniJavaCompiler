@@ -29,10 +29,13 @@ namespace Compilerbau
 
     class ClassDeclarationNode : Node
     {
-        public IdentifierNode ClassIdentifier { get; set; }
-        public IdentifierNode InheritedClassIdentifier { get; set; }
-        public VarDeclarationNode[] VarDeclarationNodes { get; set; }
-        public MethodDeclarationNode[] MethodDeclarationNodes { get; set; }
+        public String ClassName { get; set; }
+        public String SuperName { get; set; }
+
+        //public IdentifierNode ClassIdentifier { get; set; }
+        //public IdentifierNode InheritedClassIdentifier { get; set; }
+        public Node[] VarDeclarationNodes { get; set; }
+        public Node[] MethodDeclarationNodes { get; set; }
     }
 
     class VarDeclarationNode : Node

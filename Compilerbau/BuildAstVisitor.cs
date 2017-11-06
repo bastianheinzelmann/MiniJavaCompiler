@@ -10,9 +10,7 @@ namespace Compilerbau
         public override Node VisitPrg([NotNull] MiniJavaParser.PrgContext context)
         {
             ProgramNode node = new ProgramNode();
-            node.MainClassNode = Visit(context.mainClass());
-            //var das = context.classDeclaration(context);
-
+            node.MainClassNode = VisitChildren(context);
             return node;
         }
 
@@ -23,7 +21,33 @@ namespace Compilerbau
 
         public override Node VisitClassDeclaration([NotNull] MiniJavaParser.ClassDeclarationContext context)
         {
-            return base.VisitClassDeclaration(context);
+            ClassDeclarationNode node = new ClassDeclarationNode();
+
+            node.ClassName = context.Identifier()[0].GetText();
+
+            if(context.Identifier().Length > 1)
+                node.ClassName = context.Identifier()[1].GetText();
+
+            var varDeclarationContexts = context.varDeclaration();
+            var methodDeclarations = context.methodDeclaration();
+
+            int varDeclarationLength = varDeclarationContexts.Length;
+            int methodDeclarationLength = methodDeclarations.Length;
+
+            node.VarDeclarationNodes = new Node[varDeclarationLength];
+            node.MethodDeclarationNodes = new Node[methodDeclarationLength];
+
+            for(int i = 0; i < varDeclarationLength; i++)
+            {
+                node.VarDeclarationNodes[i] = Visit(varDeclarationContexts[i]);
+            }
+
+            for (int i = 0; i < varDeclarationLength; i++)
+            {
+                node.MethodDeclarationNodes[i] = Visit(methodDeclarations[i]);
+            }
+
+            return node;
         }
 
         public override Node VisitVarDeclaration([NotNull] MiniJavaParser.VarDeclarationContext context)
