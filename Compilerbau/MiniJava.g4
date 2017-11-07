@@ -14,7 +14,7 @@ methodParameters : ( type Identifier (',' type Identifier)*)?;
 
 methodBody : varDeclaration* statement* RETURN expression ';';
 
-type : 'int' '[' ']' | 'boolean' | 'int' | Identifier;
+type : integerarr='int' '[' ']' | boolean='boolean' | integer='int' | object=Identifier;
 
 statement : '{' statement* '}' #blockStatement
 			| 'if' '(' expression ')' statement 'else' statement #ifelseBlock
@@ -36,13 +36,9 @@ expression :  expression LB expression RB #arrayAccessExpression
 			| 'new' Identifier LP RP #objectInstantiationExpression
 			| NOT expression #notExpression
 			| LP expression RP #parentExpression
-			| expression AND expression #andExpression
-			| expression PLUS expression #plusExpression
-			| expression MINUS expression #minusExpression
-			| expression TIMES expression #timesExpression
-			| expression DIV expression #divisionExpression
-			| expression LT expression #lessThanExpression
-			| expression GT expression #greaterThanExpression;
+			| expression BinaryOperator expression #binaryExpression;
+
+BinaryOperator: AND | PLUS | MINUS | TIMES | DIV | LT | GT;
 
 AND :'&&';
 PLUS :'+';
