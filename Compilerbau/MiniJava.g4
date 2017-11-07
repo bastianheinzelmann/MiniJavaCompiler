@@ -16,27 +16,33 @@ methodBody : varDeclaration* statement* RETURN expression ';';
 
 type : 'int' '[' ']' | 'boolean' | 'int' | Identifier;
 
-statement : '{' statement* '}'
-			| 'if' '(' expression ')' statement 'else' statement
-			| 'while' '(' expression ')' statement
-			| Identifier '=' expression ';'
-			| Identifier '[' expression ']' '=' expression ';'
-			| 'System.out.println' '(' expression ')' ';'
-			| 'System.out.write' '(' expression ')' ';';
+statement : '{' statement* '}' #blockStatement
+			| 'if' '(' expression ')' statement 'else' statement #ifelseBlock
+			| 'while' '(' expression ')' statement #whileBlock
+			| Identifier '=' expression ';' #varAssignment
+			| Identifier '[' expression ']' '=' expression ';' #arrayAssignment
+			| 'System.out.println' '(' expression ')' ';' #print
+			| 'System.out.write' '(' expression ')' ';' #write;
 
-expression : expression ( AND | PLUS | MINUS | TIMES | DIV | LT | GT) expression
-			| expression LB expression RB
-			| expression '.' 'length'
-			| expression '.' Identifier '.' LP (expression (',' expression)*)? RP
-			| 'System.in.read' LP RP
-			| IntegerLiteral
-			| BooleanLiteral
-			| Identifier
-			| 'this'
-			| 'new''int' LB expression RB
-			| 'new' Identifier LB RB
-			| NOT expression
-			| LP expression RP;
+expression :  expression LB expression RB #arrayAccessExpression
+			| expression '.' 'length' #arrayLengthExpression
+			| expression '.' Identifier '.' LP (expression (',' expression)*)? RP #methodCallExpression
+			| 'System.in.read' LP RP #readExpression
+			| IntegerLiteral #integerLitExpression
+			| BooleanLiteral #booleanLitExpression
+			| Identifier #identifierExpression
+			| 'this' #thisExpression
+			| 'new''int' LB expression RB #arrayInstantiationExpression
+			| 'new' Identifier LP RP #objectInstantiationExpression
+			| NOT expression #notExpression
+			| LP expression RP #parentExpression
+			| expression AND expression #andExpression
+			| expression PLUS expression #plusExpression
+			| expression MINUS expression #minusExpression
+			| expression TIMES expression #timesExpression
+			| expression DIV expression #divisionExpression
+			| expression LT expression #lessThanExpression
+			| expression GT expression #greaterThanExpression;
 
 AND :'&&';
 PLUS :'+';

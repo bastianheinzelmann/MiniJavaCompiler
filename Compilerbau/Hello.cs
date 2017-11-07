@@ -27,8 +27,6 @@ namespace Compilerbau
                 var ast = new BuildAstVisitor().VisitPrg(cst);
                 AstPrinter printer = new AstPrinter();
                 printer.Visit(ast);
-
-
             }
             catch (Exception e)
             {
