@@ -14,15 +14,9 @@ namespace Compilerbau.AST
 
     public interface Type { }
 
-    class Int : Type
-    {
+    class Int : Type { }
 
-    }
-
-    class Boolean : Type
-    {
-
-    }
+    class Boolean : Type { }
 
     class IntArray : Type
     {
@@ -46,7 +40,7 @@ namespace Compilerbau.AST
         public ClassDeclaration(string name, string superName, VarDeclaration[] varDeclarations, MethodDeclaration[] methodDeclarations)
         {
             Name = name;
-            SuperName = name;
+            SuperName = superName;
             VarDeclarations = varDeclarations;
             MethodDeclarations = methodDeclarations;
         }
@@ -71,7 +65,42 @@ namespace Compilerbau.AST
 
     class MethodDeclaration : Node
     {
+        public MethodDeclaration(Type returnType, string methodName, Params parameters, bool hasException, MethodBody methodBody)
+        {
+            ReturnType = returnType;
+            MethodName = methodName;
+            Parameters = parameters;
+            MethodBody = methodBody;
+        }
 
+        public Type ReturnType { get; set; }
+        public string MethodName { get; set; }
+        public Params Parameters { get; set; }
+        MethodBody MethodBody { get; set; }
+    }
+
+    class Params : Node
+    {
+        public Params(Tuple<Type, string>[] parameters)
+        {
+            Parameters = parameters;
+        }
+
+        Tuple<Type, string>[] Parameters {get;set;}
+    }
+
+    class MethodBody : Node
+    {
+        public MethodBody(VarDeclaration[] varDeclarations, Statement[] statements, Expression returnExpression)
+        {
+            VarDeclarations = varDeclarations;
+            Statements = statements;
+            ReturnExpression = returnExpression;
+        }
+
+        public VarDeclaration[] VarDeclarations { get; set; }
+        public Statement[] Statements { get; set; }
+        public Expression ReturnExpression { get; set; }
     }
 
     class MainClass : Node
@@ -172,108 +201,204 @@ namespace Compilerbau.AST
     #endregion
 
     #region expressions
-
     interface BinaryExpression : Expression
     {
         Expression Left { get; set; }
         Expression Right { get; set; }
     }
 
+    class Identifier : Expression
+    {
+        public Identifier(string name)
+        {
+            Name = name;
+        }
+
+        public string Name { get; set; }
+    }
+
     class And : BinaryExpression
     {
+        public And(Expression left, Expression right)
+        {
+            Left = left;
+            Right = right;
+        }
+
         public Expression Left { get; set; }
         public Expression Right { get; set; }
     }
 
     class Plus : BinaryExpression
     {
+        public Plus(Expression left, Expression right)
+        {
+            Left = left;
+            Right = right;
+        }
+
         public Expression Left { get; set; }
         public Expression Right { get; set; }
     }
 
     class Minus : BinaryExpression
     {
+        public Minus(Expression left, Expression right)
+        {
+            Left = left;
+            Right = right;
+        }
+
         public Expression Left { get; set; }
         public Expression Right { get; set; }
     }
 
     class Times : BinaryExpression
     {
+        public Times(Expression left, Expression right)
+        {
+            Left = left;
+            Right = right;
+        }
+
         public Expression Left { get; set; }
         public Expression Right { get; set; }
     }
 
     class Division : BinaryExpression
     {
+        public Division(Expression left, Expression right)
+        {
+            Left = left;
+            Right = right;
+        }
+
         public Expression Left { get; set; }
         public Expression Right { get; set; }
     }
 
     class LessThan : BinaryExpression
     {
+        public LessThan(Expression left, Expression right)
+        {
+            Left = left;
+            Right = right;
+        }
+
         public Expression Left { get; set; }
         public Expression Right { get; set; }
     }
 
     class GreaterThan : BinaryExpression
     {
+        public GreaterThan(Expression left, Expression right)
+        {
+            Left = left;
+            Right = right;
+        }
+
         public Expression Left { get; set; }
         public Expression Right { get; set; }
     }
 
     class ArrayAccess : Expression
     {
+        public ArrayAccess(Expression index, Expression val)
+        {
+            Index = index;
+            Val = val;
+        }
 
+        public Expression Index { get; set; }
+        public Expression Val { get; set; }
     }
 
     class ArrayLength : Expression
     {
+        public ArrayLength(Expression exp)
+        {
+            Exp = exp;
+        }
 
+        public Expression Exp { get; set; } 
     }
 
     class MethodCall : Expression
     {
+        public MethodCall(Expression exp, string methodName, Expression[] parameters)
+        {
+            Exp = exp;
+            MethodName = methodName;
+            Parameters = parameters;
+        }
 
+        public Expression Exp { get; set; }
+        public string MethodName { get; set; }
+        public Expression[] Parameters { get; set; }
     }
 
-    class Read : Expression
-    {
-
-    }
+    class Read : Expression { }
 
     class IntegerLit : Expression
     {
+        public IntegerLit(int val)
+        {
+            Val = val;
+        }
 
+        public int Val { get; set; }
     }
 
     class BooleanLit : Expression
     {
+        public BooleanLit(bool val)
+        {
+            Val = val;
+        }
 
+        public bool Val { get; set; }
     }
 
-    class This : Expression
-    {
-
-    }
+    class This : Expression { }
 
     class ArrayInstantiation : Expression
     {
+        public ArrayInstantiation(Expression length)
+        {
+            Length = length;
+        }
 
+        public Expression Length { get; set; }
     }
 
     class ObjectInstantiation : Expression
     {
+        public ObjectInstantiation(string name)
+        {
+            ObjectId = name;
+        }
 
+        public string ObjectId { get; set; }
     }
 
     class Not : Expression
     {
+        public Not(Expression exp)
+        {
+            Exp = exp;
+        }
 
+        public Expression Exp { get; set; }
     }
 
     class Parent : Expression
     {
+        public Parent(Expression exp)
+        {
+            Exp = exp;
+        }
 
+        public Expression Exp { get; set; }
     }
 
     #endregion

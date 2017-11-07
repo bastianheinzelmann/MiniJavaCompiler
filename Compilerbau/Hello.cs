@@ -4,6 +4,8 @@ using System.Text;
 using Antlr4.Runtime;
 using System.IO;
 using Antlr4.Runtime.Tree;
+using Compilerbau.AST;
+using CustomExtensions;
 
 namespace Compilerbau
 {
@@ -11,30 +13,21 @@ namespace Compilerbau
     {
         public static void Main(String[] args)
         {
-            try
-            {
-                string input = File.ReadAllText(args[0]);
+            string input = File.ReadAllText(args[0]);
 
-                AntlrInputStream inputStream = new AntlrInputStream(input);
+            AntlrInputStream inputStream = new AntlrInputStream(input);
 
-                MiniJavaLexer miniJavaLexer = new MiniJavaLexer(inputStream);
+            MiniJavaLexer miniJavaLexer = new MiniJavaLexer(inputStream);
 
-                CommonTokenStream commonTokenStream = new CommonTokenStream(miniJavaLexer);
-                MiniJavaParser miniJavaParser = new MiniJavaParser(commonTokenStream);
-                miniJavaParser.AddErrorListener(ErrorListener.INSTANCE);
+            CommonTokenStream commonTokenStream = new CommonTokenStream(miniJavaLexer);
+            MiniJavaParser miniJavaParser = new MiniJavaParser(commonTokenStream);
+            miniJavaParser.AddErrorListener(ErrorListener.INSTANCE);
 
-                var cst = miniJavaParser.prg();
-                var ast = new BuildAstVisitor().VisitPrg(cst);
-                AstPrinter printer = new AstPrinter();
-                printer.Visit(ast);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Error: " + e);
-            }
+            var cst = miniJavaParser.prg();
 
+            var ast = cst.ToAst();
 
-            if(ErrorListener.INSTANCE.errorCounter > 0)
+            if (ErrorListener.INSTANCE.errorCounter > 0)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Sorry this is all my fault :(");
