@@ -45,17 +45,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AstPrinter.cs" />
-    <Compile Include="AstVisitor.cs" />
-    <Compile Include="BuildAst.cs" />
-    <Compile Include="BuildAstVisitor.cs" />
-    <Compile Include="Class1.cs" />
     <Compile Include="ErrorListener.cs" />
-    <Compile Include="ExpressionNode.cs" />
-    <Compile Include="ExtensionMethods.cs" />
+    <Compile Include="CustomExtensions\ExtensionMethods.cs" />
     <Compile Include="Hello.cs" />
-    <Compile Include="MiniJavaVisitor.cs" />
-    <Compile Include="Node.cs" />
+    <Compile Include="AST\Node.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Antlr4.Runtime, Version=4.6.0.0, Culture=neutral, PublicKeyToken=09abb75b9ed49849, processorArchitecture=MSIL">
