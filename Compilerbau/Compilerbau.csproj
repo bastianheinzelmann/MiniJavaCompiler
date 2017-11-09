@@ -49,6 +49,11 @@
     <Compile Include="CustomExtensions\ExtensionMethods.cs" />
     <Compile Include="Hello.cs" />
     <Compile Include="AST\Node.cs" />
+    <Compile Include="ParserFacade.cs" />
+    <Compile Include="TypeChecker\Class.cs" />
+    <Compile Include="TypeChecker\Method.cs" />
+    <Compile Include="TypeChecker\Program.cs" />
+    <Compile Include="TypeChecker\SymbolTable.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Antlr4.Runtime, Version=4.6.0.0, Culture=neutral, PublicKeyToken=09abb75b9ed49849, processorArchitecture=MSIL">

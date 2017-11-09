@@ -62,10 +62,10 @@ namespace CustomExtensions
             {
                 case "int": return new Int();
                 case "int[]": return new IntArray();
-                case "boolean": return new Compilerbau.AST.Boolean();   
-                // TODO identifier type
+                case "boolean": return new Compilerbau.AST.Boolean();
+                default: return new ObjectType(typeContext.Identifier().GetText()); //identifier case
             }
-            return null;
+
         }
 
         public static Statement ToAst(this StatementContext statementContext)

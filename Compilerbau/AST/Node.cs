@@ -18,9 +18,16 @@ namespace Compilerbau.AST
 
     class Boolean : Type { }
 
-    class IntArray : Type
-    {
+    class IntArray : Type { }
 
+    class ObjectType : Type
+    {
+        public ObjectType(string name)
+        {
+            Name = name;
+        }
+
+        public string Name { get; set; }
     }
 
     class Prg : Node

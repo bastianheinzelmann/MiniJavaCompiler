@@ -25,18 +25,19 @@ statement : '{' statement* '}' #blockStatement
 			| 'System.out.write' '(' expression ')' ';' #write;
 
 expression :  expression LB expression RB #arrayAccessExpression
-			| expression '.' 'length' #arrayLengthExpression
-			| expression '.' Identifier '.' LP (expression (',' expression)*)? RP #methodCallExpression
+			| expression DOTLENGTH #arrayLengthExpression
+			| expression '.' Identifier LP (expression (',' expression)*)? RP #methodCallExpression
 			| 'System.in.read' LP RP #readExpression
 			| IntegerLiteral #integerLitExpression
-			| BooleanLiteral #booleanLitExpression
-			| Identifier #identifierExpression
+			| BooleanLiteral #booleanLitExpression			
 			| 'this' #thisExpression
 			| 'new''int' LB expression RB #arrayInstantiationExpression
+			| expression BinaryOperator expression #binaryExpression
 			| 'new' Identifier LP RP #objectInstantiationExpression
 			| NOT expression #notExpression
+			| Identifier #identifierExpression
 			| LP expression RP #parentExpression
-			| expression BinaryOperator expression #binaryExpression;
+			;
 
 BinaryOperator: AND | PLUS | MINUS | TIMES | DIV | LT | GT;
 
