@@ -1,5 +1,6 @@
 ﻿using Antlr4.Runtime;
 using Compilerbau.GeneratedParser;
+using Compilerbau.TypeChecking;
 using CustomExtensions;
 using System;
 using System.Collections.Generic;
@@ -24,7 +25,7 @@ namespace Compilerbau
             MiniJavaParser miniJavaParser = new MiniJavaParser(commonTokenStream);
             miniJavaParser.AddErrorListener(ErrorListener.INSTANCE);
 
-            var cst = miniJavaParser.prg();           
+            var cst = miniJavaParser.prg();
 
             if (ErrorListener.INSTANCE.errorCounter > 0)
             {
@@ -34,6 +35,11 @@ namespace Compilerbau
             else
             {
                 var ast = cst.ToAst();
+                TypeChecker typeChecker = new TypeChecker();
+                //SymbolTable sym = typeChecker.CreateSymbolTable(ast);
+                typeChecker.InitTypeChecking(ast);
+                typeChecker.StartTypeChecking(ast);
+
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("You did great!");
             }

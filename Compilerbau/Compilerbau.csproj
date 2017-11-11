@@ -54,6 +54,7 @@
     <Compile Include="TypeChecker\Method.cs" />
     <Compile Include="TypeChecker\Program.cs" />
     <Compile Include="TypeChecker\SymbolTable.cs" />
+    <Compile Include="TypeChecker\TypeChecker.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Antlr4.Runtime, Version=4.6.0.0, Culture=neutral, PublicKeyToken=09abb75b9ed49849, processorArchitecture=MSIL">

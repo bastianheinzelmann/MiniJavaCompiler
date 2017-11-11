@@ -8,9 +8,9 @@ namespace Compilerbau.AST
 {
     public interface Node { }
 
-    public interface Expression { }
+    public interface Expression : Node { }
 
-    public interface Statement { }
+    public interface Statement : Node { }
 
     public interface Type { }
 
@@ -66,8 +66,8 @@ namespace Compilerbau.AST
             Name = name;
         }
 
-        Type Type { get; set; }
-        string Name { get; set; }
+        public Type Type { get; set; }
+        public string Name { get; set; }
     }
 
     class MethodDeclaration : Node
@@ -83,7 +83,7 @@ namespace Compilerbau.AST
         public Type ReturnType { get; set; }
         public string MethodName { get; set; }
         public Params Parameters { get; set; }
-        MethodBody MethodBody { get; set; }
+        public MethodBody MethodBody { get; set; }
     }
 
     class Params : Node
@@ -93,7 +93,7 @@ namespace Compilerbau.AST
             Parameters = parameters;
         }
 
-        Tuple<Type, string>[] Parameters {get;set;}
+        public Tuple<Type, string>[] Parameters {get;set;}
     }
 
     class MethodBody : Node

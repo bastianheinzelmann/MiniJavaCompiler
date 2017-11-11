@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Compilerbau.TypeChecker
+namespace Compilerbau.TypeChecking
 {
-    class Program
+    internal class Program
     {
-        public Dictionary<string, Class> ClassTables;
+        public Dictionary<string, Class> classTables = new Dictionary<string, Class>();
     }
 }
