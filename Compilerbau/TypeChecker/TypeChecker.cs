@@ -62,14 +62,22 @@ namespace Compilerbau.TypeChecking
                 foreach (var methodDecl in classDecl.MethodDeclarations)
                 {
                     string currentMethod = methodDecl.MethodName;
-                    TypeChecking(methodDecl.MethodBody, currentClass, currentMethod);
+                    try
+                    {
+                        TypeChecking(methodDecl.MethodBody, currentClass, currentMethod);
+                    }
+                    catch(Exception e)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine(e.Message + " in " + currentClass + "." + currentMethod);
+                        Console.ForegroundColor = ConsoleColor.White;
+                    }
                 }
             }
         }
 
-        public void TypeChecking(Node tree, string currentClass, string currentMethod)
+        public bool TypeChecking(Node tree, string currentClass, string currentMethod)
         {
-            Console.WriteLine("Start type checking in: " + currentClass + "." + currentMethod);
 
             switch (tree)
             {
@@ -96,30 +104,55 @@ namespace Compilerbau.TypeChecking
                         {
                             throw new Exception("Sorry but an if statement awaits a boolean :(");
                         }
-
-                        break;
+                        else
+                        {
+                            return true;
+                        }
                     }
                 case WhileBlock whileBlock:
                     {
-                        break;
+                        if(!(TypeOf(whileBlock.Expression, currentClass, currentMethod) is AST.Boolean))
+                        {
+                            throw new Exception("While type stupid");
+                        }
+                        else
+                        {
+                            return true;
+                        }
                     }
                 case VarAssignment varAss: // yes, Ass!
                     {
-                        break;
+                        AST.Type varType = symbolTable.GetVarType(currentClass, currentMethod, varAss.Id);
+                        if(varType.GetType() != TypeOf(varAss.Expression, currentClass, currentMethod).GetType()){
+                            throw new Exception("Variable Assignment type is shit");
+                        }
+                        else
+                        {
+                            return true;
+                        }
                     }
                 case ArrayAssignment arrAss:
                     {
-                        break;
+                        if(!(TypeOf(arrAss.Index, currentClass, currentMethod) is Int) || !(TypeOf(arrAss.Value, currentClass, currentMethod) is Int))
+                        {
+                            throw new Exception("Indes must be if type int");
+                        }
+                        else
+                        {
+                            return true;
+                        }                      
                     }
                 case Print print:
                     {
-                        break;
+                        return true;
                     }
                 case Write write:
                     {
-                        break;
+                        return true;
                     }
             }
+
+            return false;
         }
 
         public AST.Type TypeOf(Expression exp, string currentClass, string currentMethod)
@@ -132,23 +165,73 @@ namespace Compilerbau.TypeChecking
                     }
                 case And and:
                     {
-                        break;
+                        AST.Type left = TypeOf(and.Left, currentClass, currentMethod);
+                        AST.Type right = TypeOf(and.Right, currentClass, currentMethod);
+
+                        if (left.GetType() != right.GetType())
+                        {
+                            throw new Exception("Binary operator type fail and shit");
+                        }
+                        else
+                        {
+                            return new AST.Boolean();
+                        }
                     }
                 case Plus plus:
                     {
-                        break;
+                        AST.Type left = TypeOf(plus.Left, currentClass, currentMethod);
+                        AST.Type right = TypeOf(plus.Right, currentClass, currentMethod);
+
+                        if (left.GetType() != right.GetType())
+                        {
+                            throw new Exception("Binary operator type fail and shit");
+                        }
+                        else
+                        {
+                            return new Int();
+                        }
                     }
                 case Minus minus:
                     {
-                        break;
+                        AST.Type left = TypeOf(minus.Left, currentClass, currentMethod);
+                        AST.Type right = TypeOf(minus.Right, currentClass, currentMethod);
+
+                        if (left.GetType() != right.GetType())
+                        {
+                            throw new Exception("Binary operator type fail and shit");
+                        }
+                        else
+                        {
+                            return new Int();
+                        }
                     }
                 case Times times:
                     {
-                        break;
+                        AST.Type left = TypeOf(times.Left, currentClass, currentMethod);
+                        AST.Type right = TypeOf(times.Right, currentClass, currentMethod);
+
+                        if (left.GetType() != right.GetType())
+                        {
+                            throw new Exception("Binary operator type fail and shit");
+                        }
+                        else
+                        {
+                            return new Int();
+                        }
                     }
                 case Division division:
                     {
-                        break;
+                        AST.Type left = TypeOf(division.Left, currentClass, currentMethod);
+                        AST.Type right = TypeOf(division.Right, currentClass, currentMethod);
+
+                        if (left.GetType() != right.GetType())
+                        {
+                            throw new Exception("Binary operator type fail and shit");
+                        }
+                        else
+                        {
+                            return new Int();
+                        }
                     }
                 case LessThan lt:
                     {
@@ -183,60 +266,100 @@ namespace Compilerbau.TypeChecking
                     }
                 case ArrayLength arrlength:
                     {
-                        break;
+                        if(!(TypeOf(arrlength.Exp, currentClass, currentMethod) is IntArray))
+                        {
+                            throw new Exception(arrlength.Exp + " is not an array");
+                        }
+                        else
+                        {
+                            return new Int();
+                        }
                     }
                 case MethodCall methodCall:
                     {
-                        break;
+                        ObjectType expType;
+                        if (TypeOf(methodCall.Exp, currentClass, currentMethod) is ObjectType ot)
+                        {
+                            expType = ot;
+                        }
+                        else if(methodCall.Exp is This t)
+                        {
+                            expType = new ObjectType(currentClass);
+                        }
+                        else
+                        {
+                            throw new Exception();
+                        }
+
+                        if (!symbolTable.ExistsMethod(expType.Name, methodCall.MethodName)) throw new Exception("Method does not exist");
+                        AST.Type[] paramTypes = symbolTable.GetMethodParam(expType.Name, methodCall.MethodName);
+                        int i = 0;
+
+                        if (methodCall.Parameters == null) return symbolTable.GetMethodReturnType(expType.Name, methodCall.MethodName);
+
+                        foreach (var par in methodCall.Parameters)
+                        {
+                            if(!CompareTypes(TypeOf(par, currentClass, currentMethod), paramTypes[i]))
+                            {
+                                throw new Exception("Parameters type error");
+                            }
+                        }
+
+                        return symbolTable.GetMethodReturnType(expType.Name, methodCall.MethodName);
                     }
                 case Read read:
                     {
-                        break;
+                        return new AST.Boolean();
                     }
                 case BooleanLit booleanLit:
                     {
-                        break;
+                        return new AST.Boolean();
                     }
                 case IntegerLit intLit:
                     {
-                        break;
+                        return new Int();
                     }
                 case This th:
                     {
-                        break;
+                        return null;
                     }
                 case ArrayInstantiation arrInst:
                     {
-                        break;
+                        return new IntArray();
                     }
                 case ObjectInstantiation objInst:
                     {
-                        break;
+                        return new ObjectType(objInst.ObjectId);
                     }
                 case Not not:
                     {
-                        break;
+                        return new AST.Boolean();
                     }
                 case Parent par:
                     {
-                        break;
+                        return TypeOf(par.Exp, currentClass, currentMethod);
                     }
             }
 
             return null;
         }
 
-        public AST.Type GetType(AST.Type type)
+        public bool CompareTypes(AST.Type t1, AST.Type t2)
         {
-            switch (type)
+            if(t1.GetType() != t2.GetType())
             {
-                case Int i: return new Int();
-                case AST.Boolean b: return b;
-                case IntArray ia: return ia;
-                case ObjectType obj: return obj;
+                return false;
             }
 
-            throw new Exception("This type does not exist.");
+            if(t1 is ObjectType to1 && t2 is ObjectType to2)
+            {
+                if(to1.Name != to2.Name)
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
 

@@ -90,7 +90,15 @@ namespace CustomExtensions
                 case BinaryExpressionContext binaryExContext: return binaryExContext.ToAst();
                 case ArrayAccessExpressionContext arrayAccessContext: return new ArrayAccess(arrayAccessContext.expression()[0].ToAst(), arrayAccessContext.expression()[1].ToAst());
                 case ArrayLengthExpressionContext arrayLengthContext: return new ArrayLength(arrayLengthContext.expression().ToAst());
-                case MethodCallExpressionContext methodCallContext: return new MethodCall(methodCallContext.expression()[0].ToAst(), methodCallContext.Identifier().GetText(), methodCallContext.expression().Select(par => par.ToAst()).ToArray());
+                case MethodCallExpressionContext methodCallContext:
+                    {               
+                        Expression[] parameters = new Expression[methodCallContext.expression().Length - 1];
+                        for (int i = 1; i < methodCallContext.expression().Length; i++)
+                        {
+                            parameters[i - 1] = methodCallContext.expression()[i].ToAst();
+                        }
+                        return new MethodCall(methodCallContext.expression()[0].ToAst(), methodCallContext.Identifier().GetText(), parameters);
+                    }
                 case ReadExpressionContext readContext: return new Read();
                 case IntegerLitExpressionContext integerContext: return new IntegerLit(int.Parse(integerContext.GetText()));
                 case BooleanLitExpressionContext booleanContext: return new BooleanLit(bool.Parse(booleanContext.GetText()));

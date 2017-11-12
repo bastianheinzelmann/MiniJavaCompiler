@@ -61,5 +61,29 @@ namespace Compilerbau.TypeChecking
                 throw new Exception("Variable does not exist");
             }
         }
+
+        public AST.Type[] GetMethodParam(string className, string methodName)
+        {
+            return program.classTables[className].Methods[methodName].Parameters.Select(item => item.Value).ToArray();
+        }
+
+        public AST.Type GetMethodReturnType(string className, string methodName)
+        {
+            return program.classTables[className].Methods[methodName].ReturnType;
+        }
+
+        public bool ExistsMethod(string className, string methodName)
+        {
+            if (program.classTables[className].Methods.ContainsKey(methodName))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+
     }
 }
