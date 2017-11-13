@@ -87,7 +87,11 @@ namespace CustomExtensions
         {
             switch (expressionContext)
             {
-                case BinaryExpressionContext binaryExContext: return binaryExContext.ToAst();
+                //case BinaryExpressionContext binaryExContext: return binaryExContext.ToAst();
+                case MultiplicativeExpressionContext multiContext: return new Times(multiContext.expression()[0].ToAst(), multiContext.expression()[1].ToAst());
+                case AdditiveExpressionContext addContext: return new Plus(addContext.expression()[0].ToAst(), addContext.expression()[1].ToAst());
+                case RelationalExpressionContext relContext: return new LessThan(relContext.expression()[0].ToAst(), relContext.expression()[1].ToAst());
+                case AndExpressionContext andContext: return new And(andContext.expression()[0].ToAst(), andContext.expression()[1].ToAst());
                 case ArrayAccessExpressionContext arrayAccessContext: return new ArrayAccess(arrayAccessContext.expression()[0].ToAst(), arrayAccessContext.expression()[1].ToAst());
                 case ArrayLengthExpressionContext arrayLengthContext: return new ArrayLength(arrayLengthContext.expression().ToAst());
                 case MethodCallExpressionContext methodCallContext:
@@ -109,21 +113,6 @@ namespace CustomExtensions
                 case ParentExpressionContext parentContext: return new Parent(parentContext.expression().ToAst());
                 case IdentifierExpressionContext identifierContext: return new Identifier(identifierContext.Identifier().GetText());
                 default: throw new Exception("No match???");
-            }
-        }
-
-        public static BinaryExpression ToAst(this BinaryExpressionContext binaryExpressionContext)
-        {
-            switch (binaryExpressionContext.BinaryOperator().GetText())
-            {
-                case "&&": return new And(binaryExpressionContext.expression()[0].ToAst(), binaryExpressionContext.expression()[1].ToAst());
-                case "+" : return new Plus(binaryExpressionContext.expression()[0].ToAst(), binaryExpressionContext.expression()[1].ToAst());
-                case "-" : return new Minus(binaryExpressionContext.expression()[0].ToAst(), binaryExpressionContext.expression()[1].ToAst());
-                case "*" : return new Times(binaryExpressionContext.expression()[0].ToAst(), binaryExpressionContext.expression()[1].ToAst());
-                case "/" : return new Division(binaryExpressionContext.expression()[0].ToAst(), binaryExpressionContext.expression()[1].ToAst());
-                case "<" : return new LessThan(binaryExpressionContext.expression()[0].ToAst(), binaryExpressionContext.expression()[1].ToAst());
-                case ">" : return new GreaterThan(binaryExpressionContext.expression()[0].ToAst(), binaryExpressionContext.expression()[1].ToAst());
-                default: throw new Exception(":(");
             }
         }
     }

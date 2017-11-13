@@ -32,14 +32,17 @@ expression :  expression LB expression RB #arrayAccessExpression
 			| BooleanLiteral #booleanLitExpression			
 			| 'this' #thisExpression
 			| 'new''int' LB expression RB #arrayInstantiationExpression
-			| expression BinaryOperator expression #binaryExpression
+			| expression (TIMES | DIV) expression #multiplicativeExpression
+			| expression (PLUS | MINUS) expression #additiveExpression
+			| expression (LT | GT) expression #relationalExpression
+			| expression AND expression #andExpression
 			| 'new' Identifier LP RP #objectInstantiationExpression
 			| NOT expression #notExpression
 			| Identifier #identifierExpression
 			| LP expression RP #parentExpression
 			;
 
-BinaryOperator: AND | PLUS | MINUS | TIMES | DIV | LT | GT;
+//BinaryOperator: AND | PLUS | MINUS | TIMES | DIV | LT | GT;
 
 AND :'&&';
 PLUS :'+';
