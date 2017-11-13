@@ -121,7 +121,7 @@ namespace Compilerbau.AST
 
         public string Name { get; set; }
         public string Param { get; set; }
-        Statement Statement { get; set; }
+        public Statement Statement { get; set; }
     }
 
     #region statements

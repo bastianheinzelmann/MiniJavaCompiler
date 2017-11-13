@@ -21,6 +21,7 @@ namespace Compilerbau
 
             ParserFacade parserFacade = new ParserFacade();
             parserFacade.Parse(input);
+            
 
             stopwatch.Stop();
             Console.WriteLine("I took " + stopwatch.ElapsedMilliseconds + " milliseconds. I am so lame.");

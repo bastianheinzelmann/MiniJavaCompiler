@@ -14,12 +14,27 @@ namespace Compilerbau.TypeChecking
 
         public void InitTypeChecking(Prg tree)
         {
-            symbolTable = CreateSymbolTable(tree);
+            try
+            {
+                symbolTable = CreateSymbolTable(tree);
+            }
+            catch(Exception e)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(e.Message);
+                Console.ForegroundColor = ConsoleColor.White;
+            }
         }
 
         public SymbolTable CreateSymbolTable(Prg tree)
         {
             SymbolTable symbolTable = new SymbolTable();
+
+            // main class
+            symbolTable.AddClass(tree.MainClass.Name);
+            symbolTable.AddMethod(tree.MainClass.Name, "main", new ObjectType("void"));
+            symbolTable.AddMethodParameter(tree.MainClass.Name, "main", tree.MainClass.Param, new ObjectType("StringArray"));
+
 
             // class stuff
             foreach (ClassDeclaration classDecl in tree.ClassDeclarations)
@@ -55,6 +70,9 @@ namespace Compilerbau.TypeChecking
 
         public void StartTypeChecking(Prg tree)
         {
+            // main class
+            TypeChecking(tree.MainClass.Statement, tree.MainClass.Name, "main");
+
             foreach(var classDecl in tree.ClassDeclarations)
             {
                 string currentClass = classDecl.Name;
@@ -87,6 +105,10 @@ namespace Compilerbau.TypeChecking
                         {
                             TypeChecking(stm, currentClass, currentMethod);
                         }
+                        if(symbolTable.GetMethodReturnType(currentClass, currentMethod).GetType() != TypeOf(methodBody.ReturnExpression, currentClass, currentMethod).GetType())
+                        {
+                            throw new Exception("Wrong return type");
+                        }
                         break;
                     }
 
@@ -106,7 +128,7 @@ namespace Compilerbau.TypeChecking
                         }
                         else
                         {
-                            return true;
+                            return TypeChecking(ifElse.TrueBranch, currentClass, currentMethod) && TypeChecking(ifElse.FalseBranch, currentClass, currentMethod);
                         }
                     }
                 case WhileBlock whileBlock:
@@ -135,7 +157,7 @@ namespace Compilerbau.TypeChecking
                     {
                         if(!(TypeOf(arrAss.Index, currentClass, currentMethod) is Int) || !(TypeOf(arrAss.Value, currentClass, currentMethod) is Int))
                         {
-                            throw new Exception("Indes must be if type int");
+                            throw new Exception("???");
                         }
                         else
                         {
@@ -288,7 +310,7 @@ namespace Compilerbau.TypeChecking
                         }
                         else
                         {
-                            throw new Exception();
+                            throw new Exception("This method does not exist... Sorry bro");
                         }
 
                         if (!symbolTable.ExistsMethod(expType.Name, methodCall.MethodName)) throw new Exception("Method does not exist");
