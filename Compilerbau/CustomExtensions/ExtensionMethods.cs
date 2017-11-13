@@ -87,7 +87,7 @@ namespace CustomExtensions
         {
             switch (expressionContext)
             {
-                case BinaryExpressionContext binaryExContext: return binaryExContext.ToAst();
+                case BinaryFunContext binaryFunContext: return binaryFunContext.ToAst();
                 case ArrayAccessExpressionContext arrayAccessContext: return new ArrayAccess(arrayAccessContext.expression()[0].ToAst(), arrayAccessContext.expression()[1].ToAst());
                 case ArrayLengthExpressionContext arrayLengthContext: return new ArrayLength(arrayLengthContext.expression().ToAst());
                 case MethodCallExpressionContext methodCallContext:
@@ -112,18 +112,68 @@ namespace CustomExtensions
             }
         }
 
-        public static BinaryExpression ToAst(this BinaryExpressionContext binaryExpressionContext)
+        public static Expression ToAst(this BinaryFunContext binaryFunContext)
         {
-            switch (binaryExpressionContext.BinaryOperator().GetText())
+            switch (binaryFunContext.GetChild(0))
             {
-                case "&&": return new And(binaryExpressionContext.expression()[0].ToAst(), binaryExpressionContext.expression()[1].ToAst());
-                case "+" : return new Plus(binaryExpressionContext.expression()[0].ToAst(), binaryExpressionContext.expression()[1].ToAst());
-                case "-" : return new Minus(binaryExpressionContext.expression()[0].ToAst(), binaryExpressionContext.expression()[1].ToAst());
-                case "*" : return new Times(binaryExpressionContext.expression()[0].ToAst(), binaryExpressionContext.expression()[1].ToAst());
-                case "/" : return new Division(binaryExpressionContext.expression()[0].ToAst(), binaryExpressionContext.expression()[1].ToAst());
-                case "<" : return new LessThan(binaryExpressionContext.expression()[0].ToAst(), binaryExpressionContext.expression()[1].ToAst());
-                case ">" : return new GreaterThan(binaryExpressionContext.expression()[0].ToAst(), binaryExpressionContext.expression()[1].ToAst());
-                default: throw new Exception(":(");
+                case And1Context and1: return and1.relationalExpression().ToAst();
+                case And2Context and2: return new And(and2.andExpression().ToAst(), and2.relationalExpression().ToAst());
+            }
+
+            return null;
+        }
+
+        public static Expression ToAst(this AndExpressionContext andExpressionContext)
+        {
+            switch (andExpressionContext)
+            {
+                case And1Context and1: return and1.relationalExpression().ToAst();
+                case And2Context and2: return new And(and2.andExpression().ToAst(), and2.relationalExpression().ToAst());
+                default: throw new Exception();
+            }
+        }
+
+        public static Expression ToAst(this RelationalExpressionContext relationalExpressionContext)
+        {
+            switch (relationalExpressionContext)
+            {
+                case Relational1Context relation1: return relation1.additiveExpression().ToAst();
+                case Relational2Context relation2: return new LessThan(relation2.relationalExpression().ToAst(), relation2.additiveExpression().ToAst());
+                case Relational3Context relation3: return new GreaterThan(relation3.relationalExpression().ToAst(), relation3.additiveExpression().ToAst());
+                default: throw new Exception();
+            }
+        }
+
+        public static Expression ToAst(this AdditiveExpressionContext additiveExpressionContext)
+        {
+            switch (additiveExpressionContext)
+            {
+                case Additive1Context add1: return add1.ToAst();
+                case Additive2Context add2: return new Plus(add2.additiveExpression().ToAst(), add2.multiplicativeExpression().ToAst());
+                case Additive3Context add3: return new Minus(add3.additiveExpression().ToAst(), add3.multiplicativeExpression().ToAst());
+                default: throw new Exception();
+            }
+        }
+
+        public static Expression ToAst(this MultiplicativeExpressionContext multiplicativeExpressionContext)
+        {
+            switch (multiplicativeExpressionContext)
+            {
+                case Atom1Context atom: return atom.ToAst();
+                case Multiplicative1Context multi1: return new Times(multi1.multiplicativeExpression()[0].ToAst(), multi1.multiplicativeExpression()[1].ToAst());
+                case Multiplicative2Context multi2: return new Division(multi2.multiplicativeExpression()[0].ToAst(), multi2.multiplicativeExpression()[1].ToAst());
+                default: throw new Exception();
+            }
+        }
+
+        public static Expression ToAst(this Atom1Context atom1Context)
+        {
+            switch (atom1Context.GetChild(0))
+            {
+                case IntAtomContext intLit: return new IntegerLit(int.Parse(intLit.GetText()));
+                case BoolAtomContext boolAtom: return new BooleanLit(bool.Parse(boolAtom.GetText()));
+                case IdAtomContext idAtom: return new Identifier(idAtom.GetText());
+                default: throw new Exception();
             }
         }
     }

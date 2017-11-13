@@ -24,7 +24,7 @@ statement : '{' statement* '}' #blockStatement
 			| 'System.out.println' '(' expression ')' ';' #print
 			| 'System.out.write' '(' expression ')' ';' #write;
 
-expression :  expression LB expression RB #arrayAccessExpression
+expression :  andExpression #binaryFun
 			| expression DOTLENGTH #arrayLengthExpression
 			| expression '.' Identifier LP (expression (',' expression)*)? RP #methodCallExpression
 			| 'System.in.read' LP RP #readExpression
@@ -32,12 +32,31 @@ expression :  expression LB expression RB #arrayAccessExpression
 			| BooleanLiteral #booleanLitExpression			
 			| 'this' #thisExpression
 			| 'new''int' LB expression RB #arrayInstantiationExpression
-			| expression BinaryOperator expression #binaryExpression
+			| expression LB expression RB #arrayAccessExpression
 			| 'new' Identifier LP RP #objectInstantiationExpression
 			| NOT expression #notExpression
 			| Identifier #identifierExpression
 			| LP expression RP #parentExpression
 			;
+
+atom : IntegerLiteral #intAtom
+	| BooleanLiteral #boolAtom
+	| Identifier #idAtom;
+
+multiplicativeExpression : atom #atom1
+			| multiplicativeExpression TIMES multiplicativeExpression #multiplicative1
+			| multiplicativeExpression DIV multiplicativeExpression #multiplicative2;
+
+additiveExpression : multiplicativeExpression #additive1
+			| additiveExpression PLUS multiplicativeExpression #additive2
+			| additiveExpression MINUS multiplicativeExpression #additive3;
+
+relationalExpression : additiveExpression #relational1
+			| relationalExpression LT additiveExpression #relational2
+			| relationalExpression GT additiveExpression #relational3;
+
+andExpression : relationalExpression #and1
+			| andExpression AND relationalExpression #and2;
 
 BinaryOperator: AND | PLUS | MINUS | TIMES | DIV | LT | GT;
 
