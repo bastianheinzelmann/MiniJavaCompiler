@@ -29,7 +29,7 @@ namespace CustomExtensions
 
         public static MethodDeclaration ToAst(this MethodDeclarationContext methodDeclarationContext)
         {
-            return new MethodDeclaration(methodDeclarationContext.type().ToAst(), methodDeclarationContext.Identifier().GetText(), methodDeclarationContext.methodParameters().ToAst(), false, methodDeclarationContext.methodBody().ToAst());
+            return new MethodDeclaration(methodDeclarationContext.type().ToAst(), methodDeclarationContext.Identifier().GetText(), methodDeclarationContext.methodParameters().ToAst(), methodDeclarationContext.Exception() == null ? false : true, methodDeclarationContext.methodBody().ToAst());
         }
 
         public static MethodBody ToAst(this MethodBodyContext methodBodyContext)
@@ -88,9 +88,30 @@ namespace CustomExtensions
             switch (expressionContext)
             {
                 //case BinaryExpressionContext binaryExContext: return binaryExContext.ToAst();
-                case MultiplicativeExpressionContext multiContext: return new Times(multiContext.expression()[0].ToAst(), multiContext.expression()[1].ToAst());
-                case AdditiveExpressionContext addContext: return new Plus(addContext.expression()[0].ToAst(), addContext.expression()[1].ToAst());
-                case RelationalExpressionContext relContext: return new LessThan(relContext.expression()[0].ToAst(), relContext.expression()[1].ToAst());
+                case MultiplicativeExpressionContext multiContext: if (multiContext.TIMES() != null)
+                    {
+                        return new Times(multiContext.expression()[0].ToAst(), multiContext.expression()[1].ToAst());
+                    }
+                    else
+                    {
+                        return new Division(multiContext.expression()[0].ToAst(), multiContext.expression()[1].ToAst());
+                    }
+                case AdditiveExpressionContext addContext: if(addContext.PLUS() != null)
+                    {
+                        return new Plus(addContext.expression()[0].ToAst(), addContext.expression()[1].ToAst());
+                    }
+                    else
+                    {
+                        return new Minus(addContext.expression()[0].ToAst(), addContext.expression()[1].ToAst());
+                    }    
+                case RelationalExpressionContext relContext: if (relContext.LT() != null)
+                    {
+                        return new LessThan(relContext.expression()[0].ToAst(), relContext.expression()[1].ToAst());
+                    }
+                    else
+                    {
+                        return new LessThan(relContext.expression()[0].ToAst(), relContext.expression()[1].ToAst());
+                    }
                 case AndExpressionContext andContext: return new And(andContext.expression()[0].ToAst(), andContext.expression()[1].ToAst());
                 case ArrayAccessExpressionContext arrayAccessContext: return new ArrayAccess(arrayAccessContext.expression()[0].ToAst(), arrayAccessContext.expression()[1].ToAst());
                 case ArrayLengthExpressionContext arrayLengthContext: return new ArrayLength(arrayLengthContext.expression().ToAst());

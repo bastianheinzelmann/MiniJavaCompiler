@@ -8,7 +8,7 @@ classDeclaration : 'class' Identifier ('extends' Identifier)? '{' varDeclaration
 
 varDeclaration : type Identifier ';';
 
-methodDeclaration : 'public' type Identifier '(' methodParameters ')' ('throws' 'java.io.exception')? '{' methodBody '}';
+methodDeclaration : 'public' type Identifier '(' methodParameters ')' (Exception)? '{' methodBody '}';
 
 methodParameters : ( type Identifier (',' type Identifier)*)?;
 
@@ -59,6 +59,8 @@ EQ : '=';
 LT : '<';
 GT : '>';
 DIV : '/';
+
+Exception : 'throws java.io.exception';
 
 BooleanLiteral : 'true' | 'false';
 

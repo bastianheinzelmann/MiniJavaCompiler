@@ -279,12 +279,12 @@ namespace Compilerbau.TypeChecking
                         }
                         else
                         {
-                            return left;
+                            return new AST.Boolean();
                         }
                     }
                 case ArrayAccess arrAcc:
                     {
-                        break;
+                        return new Int();
                     }
                 case ArrayLength arrlength:
                     {

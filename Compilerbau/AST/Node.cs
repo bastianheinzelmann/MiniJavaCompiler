@@ -78,10 +78,12 @@ namespace Compilerbau.AST
             MethodName = methodName;
             Parameters = parameters;
             MethodBody = methodBody;
+            Exception = hasException;
         }
 
         public Type ReturnType { get; set; }
         public string MethodName { get; set; }
+        public bool Exception { get; set; }
         public Params Parameters { get; set; }
         public MethodBody MethodBody { get; set; }
     }
