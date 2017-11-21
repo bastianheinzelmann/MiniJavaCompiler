@@ -12,9 +12,9 @@ namespace Compilerbau.Intermediate.Tree
 
     class TreePrg : TreeNode
     {
-        public Function[] Functions {get; set; }
+        public List<Function> Functions {get; set; }
         
-        public TreePrg(Function[] functions)
+        public TreePrg(List<Function> functions)
         {
             Functions = functions;
         }
@@ -22,33 +22,60 @@ namespace Compilerbau.Intermediate.Tree
 
     class Function : TreeNode
     {
+        public Label Name { get; set; }
+        public int NumberOfParameters { get; set; }
+        public List<Stm> Body { get; set; }
+        public Temp ReturnTemp { get; set; }
 
+        public Function(Label name, int numberOfParameters, List<Stm> body, Temp returnTemp)
+        {
+            Name = name;
+            NumberOfParameters = numberOfParameters;
+            Body = body;
+            ReturnTemp = returnTemp;
+        }
     }
+
+#region Statements
 
     class Stm : TreeNode
     {
 
     }
 
-    class StmCJump
+    class StmCJump : Stm
     {
 
     }
 
-    class StmLabel
+    class StmLabel : Stm
     {
 
     }
 
-    class StmMove
+    class StmMove : Stm
     {
+        public Exp Dest { get; set; }
+        public Exp Source { get; set; }
 
+        public StmMove(Exp dest, Exp source)
+        {
+            Dest = dest;
+            Source = source;
+        }
     }
 
-    class StmSeq
+    class StmSeq : Stm
     {
+        public List<Stm> Stms { get; set; }
 
+        public StmSeq(List<Stm> stms)
+        {
+            Stms = stms;
+        }
     }
+
+#endregion
 
     class Exp
     {

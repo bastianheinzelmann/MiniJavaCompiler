@@ -8,6 +8,18 @@ namespace Compilerbau.Intermediate
 {
     class Temp
     {
-        
+        private static int nextId = 0;
+
+        public int Id { get; set; }
+
+        public Temp()
+        {
+            Id = nextId++;
+        }
+
+        public static void ResetCounter()
+        {
+            nextId = 0;
+        }
     }
 }

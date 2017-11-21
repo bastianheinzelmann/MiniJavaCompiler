@@ -1,5 +1,6 @@
 ﻿using Antlr4.Runtime;
 using Compilerbau.GeneratedParser;
+using Compilerbau.Intermediate;
 using Compilerbau.TypeChecking;
 using CustomExtensions;
 using System;
@@ -34,11 +35,20 @@ namespace Compilerbau
             }
             else
             {
+                // Generate AST //
+
                 var ast = cst.ToAst();
+
+                // Type Checking //
+
                 TypeChecker typeChecker = new TypeChecker();
-                //SymbolTable sym = typeChecker.CreateSymbolTable(ast);
                 typeChecker.InitTypeChecking(ast);
                 typeChecker.StartTypeChecking(ast);
+
+                // Convert to intermediate //
+
+                IntermediateAstBuilder intermediate = new IntermediateAstBuilder();
+                var interTree = intermediate.BuildIntermediateAst(ast);
 
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("You did great!");
