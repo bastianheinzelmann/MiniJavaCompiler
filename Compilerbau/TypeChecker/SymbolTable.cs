@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Compilerbau.TypeChecking
 {
-    internal class SymbolTable
+    class SymbolTable
     {
         Program program = new Program();
 

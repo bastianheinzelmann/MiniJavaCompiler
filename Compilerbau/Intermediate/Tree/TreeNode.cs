@@ -12,22 +12,22 @@ namespace Compilerbau.Intermediate.Tree
 
     class TreePrg : TreeNode
     {
-        public List<Function> Functions {get; set; }
+        public List<TreeFunction> Functions {get; set; }
         
-        public TreePrg(List<Function> functions)
+        public TreePrg(List<TreeFunction> functions)
         {
             Functions = functions;
         }
     }
 
-    class Function : TreeNode
+    class TreeFunction : TreeNode
     {
         public Label Name { get; set; }
         public int NumberOfParameters { get; set; }
-        public List<Stm> Body { get; set; }
+        public List<TreeStm> Body { get; set; }
         public Temp ReturnTemp { get; set; }
 
-        public Function(Label name, int numberOfParameters, List<Stm> body, Temp returnTemp)
+        public TreeFunction(Label name, int numberOfParameters, List<TreeStm> body, Temp returnTemp)
         {
             Name = name;
             NumberOfParameters = numberOfParameters;
@@ -38,38 +38,61 @@ namespace Compilerbau.Intermediate.Tree
 
 #region Statements
 
-    class Stm : TreeNode
+    class TreeStm : TreeNode
     {
 
     }
 
-    class StmCJump : Stm
+    class StmCJump : TreeStm
     {
+        public enum Relation
+        {
+            EQ, NE, LT, GT, LE, GE, ULT, ULE, UGT, UGE
+        }
 
+        public Relation Rel { get; }
+        public TreeExp Left { get; }
+        public TreeExp Right { get; }
+        public Label LabelTrue { get; }
+        public Label LabelFalse { get; }
+
+        public StmCJump(Relation rel, TreeExp left, TreeExp right, Label ltrue, Label lfalse)
+        {
+            Rel = rel;
+            Left = left;
+            Right = right;
+            LabelTrue = ltrue;
+            LabelFalse = lfalse;
+        }
     }
 
-    class StmLabel : Stm
+    class StmLabel : TreeStm
     {
+        public Label Label { get; }
 
+        public StmLabel(Label label)
+        {
+            Label = label;
+        }
     }
 
-    class StmMove : Stm
+    class StmMove : TreeStm
     {
-        public Exp Dest { get; set; }
-        public Exp Source { get; set; }
+        public TreeExp Dest { get; set; }
+        public TreeExp Source { get; set; }
 
-        public StmMove(Exp dest, Exp source)
+        public StmMove(TreeExp dest, TreeExp source)
         {
             Dest = dest;
             Source = source;
         }
     }
 
-    class StmSeq : Stm
+    class StmSeq : TreeStm
     {
-        public List<Stm> Stms { get; set; }
+        public List<TreeStm> Stms { get; set; }
 
-        public StmSeq(List<Stm> stms)
+        public StmSeq(List<TreeStm> stms)
         {
             Stms = stms;
         }
@@ -77,48 +100,133 @@ namespace Compilerbau.Intermediate.Tree
 
 #endregion
 
-    class Exp
+    class TreeExp
     {
 
     }
 
-    class ExpBinOp
+    class ExpBinOp : TreeExp
     {
+        public enum Op
+        {
+            PLUS, MINUS, MUL, DIV, AND, OR, LSHIFT, RSHIFT, ARSHIFT, XOR
+        }
 
+        public Op Operator { get; }
+        public TreeExp Left { get; }
+        public TreeExp Right { get; }
+
+        public ExpBinOp(Op op, TreeExp left, TreeExp right)
+        {
+            Operator = op;
+            Left = left;
+            Right = right;
+        }
     }
 
-    class ExpCall
+    class ExpCall : TreeExp
     {
+        public TreeExp Function { get; }
+        public List<TreeExp> Args { get; }
 
+        public ExpCall(TreeExp func, List<TreeExp> args)
+        {
+            Function = func;
+            Args = args;
+        }
     }
 
-    class ExpConst
+    class ExpConst : TreeExp
     {
+        public int Value { get; }
 
+        public ExpConst(int val)
+        {
+            Value = val;
+        }
     }
 
-    class ExpESeq
+    class ExpESeq : TreeExp
     {
+        public TreeStm Stm { get; }
+        public TreeExp Exp { get; }
 
+        public ExpESeq(TreeStm stm, TreeExp exp)
+        {
+            Stm = stm;
+            Exp = exp;
+        }
     }
 
-    class ExpMem
+    class ExpMem : TreeExp
     {
+        public TreeExp Address { get; }
 
+        public ExpMem(TreeExp address)
+        {
+            Address = address;
+        }
     }
 
-    class ExpName
+    class ExpName : TreeExp
     {
+        public Label Label { get; }
 
+        public ExpName(Label label)
+        {
+            Label = label;
+        }
     }
 
-    class ExpParam
+    class ExpParam : TreeExp
     {
+        public int Number { get; }
 
+        public ExpParam(int number)
+        {
+            Number = number;
+        }
     }
 
-    class ExpTemp
+    class ExpTemp : TreeExp
     {
+        public Temp Temp { get; }
 
+        public ExpTemp(Temp temp)
+        {
+            Temp = temp;
+        }
+    }
+
+    static class ExtensionMethod
+    {
+        public static StmCJump.Relation Negate(this StmCJump.Relation rel)
+        {
+            switch (rel)
+            {
+                case StmCJump.Relation.EQ:
+                    return StmCJump.Relation.NE;
+                case StmCJump.Relation.NE:
+                    return StmCJump.Relation.EQ;
+                case StmCJump.Relation.LT:
+                    return StmCJump.Relation.GE;
+                case StmCJump.Relation.GT:
+                    return StmCJump.Relation.LE;
+                case StmCJump.Relation.LE:
+                    return StmCJump.Relation.GT;
+                case StmCJump.Relation.GE:
+                    return StmCJump.Relation.LT;
+                case StmCJump.Relation.ULT:
+                    return StmCJump.Relation.UGE;
+                case StmCJump.Relation.UGT:
+                    return StmCJump.Relation.ULE;
+                case StmCJump.Relation.ULE:
+                    return StmCJump.Relation.UGT;
+                case StmCJump.Relation.UGE:
+                    return StmCJump.Relation.ULT;
+                default:
+                    return StmCJump.Relation.EQ;
+            }
+        }
     }
 }

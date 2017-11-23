@@ -49,8 +49,12 @@
     <Compile Include="CustomExtensions\ExtensionMethods.cs" />
     <Compile Include="Hello.cs" />
     <Compile Include="AST\Node.cs" />
+    <Compile Include="Intermediate\ClassTable.cs" />
+    <Compile Include="Intermediate\Declassifier.cs" />
+    <Compile Include="Intermediate\Heap.cs" />
     <Compile Include="Intermediate\IntermediateAstBuilder.cs" />
     <Compile Include="Intermediate\Label.cs" />
+    <Compile Include="Intermediate\Stack.cs" />
     <Compile Include="Intermediate\Temp.cs" />
     <Compile Include="Intermediate\Tree\TreeNode.cs" />
     <Compile Include="ParserFacade.cs" />
