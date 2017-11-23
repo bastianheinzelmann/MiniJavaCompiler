@@ -10,9 +10,11 @@ namespace Compilerbau.Intermediate
 {
     class IntermediateAstBuilder
     {
+        const int WORDSIZE = 4;
+
         public TreeNode BuildIntermediateAst(Prg prg)
         {
-                return new TreePrg(BuildFunctions(prg));
+            return new TreePrg(BuildFunctions(prg));
         }
 
         private List<TreeFunction> BuildFunctions(Prg prg)
@@ -22,9 +24,9 @@ namespace Compilerbau.Intermediate
             // main method
             functions.Add(new TreeFunction(new Label("main"), 2, new List<TreeStm>() { (BuildBody(prg.MainClass.Statement)) }, new Temp()));
 
-            foreach(var classDecl in prg.ClassDeclarations)
+            foreach (var classDecl in prg.ClassDeclarations)
             {
-                foreach(var methodDecl in classDecl.MethodDeclarations)
+                foreach (var methodDecl in classDecl.MethodDeclarations)
                 {
                     List<TreeStm> body = new List<TreeStm>();
                     foreach (var stm in methodDecl.MethodBody.Statements)
@@ -54,28 +56,60 @@ namespace Compilerbau.Intermediate
                     }
                 case IfElseBlock ifelseBlock:
                     {
-                        StmCJump.Relation rel;
+                        //StmCJump.Relation rel;
+                        Label labelF = new Label();
+                        Label labelT = new Label();
+                        Label labelExit = new Label();
 
-                        switch (ifelseBlock.Expression)
+						switch (ifelseBlock.Expression)
+						{
+							case LessThan lt:
+								{
+									return new StmSeq(new List<TreeStm>() { new StmCJump(StmCJump.Relation.LT, BuildExpression(lt.Left), BuildExpression(lt.Right),
+								    labelT, labelF), new StmLabel(labelT),BuildBody(ifelseBlock.TrueBranch) , new StmJump(new ExpName(labelExit), new List<Label> { labelExit }),
+								    new StmLabel(labelF), BuildBody(ifelseBlock.FalseBranch), new StmLabel(labelExit) });
+								}
+							case GreaterThan gt:
+								{
+									return new StmSeq(new List<TreeStm>() { new StmCJump(StmCJump.Relation.GT, BuildExpression(gt.Left), BuildExpression(gt.Right),
+								    labelT, labelF), new StmLabel(labelT),BuildBody(ifelseBlock.TrueBranch) , new StmJump(new ExpName(labelExit), new List<Label> { labelExit }),
+								    new StmLabel(labelF), BuildBody(ifelseBlock.FalseBranch), new StmLabel(labelExit) });
+								}
+							default: throw new Exception("No rel matched?");
+						}
+					}
+                case WhileBlock whileBlock:
+                    {
+                        Label labelStart = new Label();
+                        Label labelEnd = new Label();
+                        Label labelTrue = new Label();
+                        switch (whileBlock.Expression)
                         {
-                            case LessThan lt: rel = StmCJump.Relation.LT; break;
-                            case GreaterThan gt: rel = StmCJump.Relation.GT; break;
-                            default: throw new Exception("No rel matched?");
-                        }
-                        if (ifelseBlock.Expression is LessThan lessthan)
-                        {
-                            new StmSeq(new List<TreeStm>() { new StmCJump(rel, BuildExpression(lessthan.Left), BuildExpression(lessthan.Right), new Label(), new Label()), new StmLabel(), new StmLabel(),  });
+                            case LessThan lt:
+                                {
+                                    return new StmSeq(new List<TreeStm> { new StmLabel(labelStart), new StmCJump(StmCJump.Relation.LT, BuildExpression(lt.Left), BuildExpression(lt.Right), labelTrue, labelEnd),
+                                    new StmLabel(labelTrue), BuildBody(whileBlock.Statement), new StmJump(new ExpName(labelStart), new List<Label>{labelStart}), new StmLabel(labelEnd)});
+                                }
+                            case GreaterThan gt:
+                                {
+                                    return new StmSeq(new List<TreeStm> { new StmLabel(labelStart), new StmCJump(StmCJump.Relation.GT, BuildExpression(gt.Left), BuildExpression(gt.Right), labelTrue, labelEnd),
+                                    new StmLabel(labelTrue), BuildBody(whileBlock.Statement), new StmJump(new ExpName(labelStart), new List<Label>{labelStart}), new StmLabel(labelEnd)});
+                                }
+                            default: throw new Exception("No rel matched in while?");
                         }
                     }
-                case WhileBlock whileBlock: break;
                 case VarAssignment varAss:
                     {
                         return new StmMove(BuildExpression(varAss.Expression), BuildExpression(varAss.Expression));
                     }
-                case ArrayAssignment arrAss: break;
+                case ArrayAssignment arrAss:
+                    {
+                        return new StmMove(new ExpMem(new ExpBinOp(ExpBinOp.Op.PLUS, new ExpTemp(new Temp()), new ExpBinOp(ExpBinOp.Op.MUL, new ExpConst(WORDSIZE), new ExpBinOp(ExpBinOp.Op.PLUS, BuildExpression(arrAss.Index), new ExpConst(1))))), 
+                        BuildExpression(arrAss.Value));
+                    }
                 case Print print:
                     {
-                        return new ExpCall(new ExpName(new Label("L_println_int")), new List<TreeExp> { BuildExpression(print.Expression) });
+                        return new StmMove(new ExpTemp(new Temp()), new ExpCall(new ExpName(new Label("L_println_int")), new List<TreeExp> { BuildExpression(print.Expression) }));
                     }
                 case Write write: break;
             }

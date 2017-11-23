@@ -66,6 +66,18 @@ namespace Compilerbau.Intermediate.Tree
         }
     }
 
+    class StmJump : TreeStm
+    {
+        public TreeExp Dest { get; }
+        public List<Label> PossibleTargets { get; }
+
+        public StmJump(TreeExp dest, List<Label> targets)
+        {
+            Dest = dest;
+            PossibleTargets = targets;
+        }
+    }
+
     class StmLabel : TreeStm
     {
         public Label Label { get; }
