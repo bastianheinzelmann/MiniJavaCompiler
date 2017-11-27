@@ -119,6 +119,91 @@ namespace Compilerbau.Intermediate
 
         private TreeExp BuildExpression(Expression expression)
         {
+            switch (expression)
+            {
+                case Identifier id:
+                    {
+                        break;
+                    }
+                case And and:
+                    {
+                        return new ExpBinOp(ExpBinOp.Op.AND, BuildExpression(expression), BuildExpression(expression));
+                    }
+                case Plus plus:
+                    {
+                        return new ExpBinOp(ExpBinOp.Op.PLUS, BuildExpression(expression), BuildExpression(expression));
+                    }
+                case Minus minus:
+                    {
+                        return new ExpBinOp(ExpBinOp.Op.MINUS, BuildExpression(expression), BuildExpression(expression));
+                    }
+                case Times times:
+                    {
+                        return new ExpBinOp(ExpBinOp.Op.MUL, BuildExpression(expression), BuildExpression(expression));
+                    }
+                case Division division:
+                    {
+                        return new ExpBinOp(ExpBinOp.Op.DIV, BuildExpression(expression), BuildExpression(expression));
+                    }
+                case LessThan lt:
+                    {
+                        break;
+                    }
+                case GreaterThan gt:
+                    {
+                        break;
+                    }
+                case ArrayAccess arrAcc:
+                    {
+                        return new ExpMem(new ExpBinOp(ExpBinOp.Op.PLUS, new ExpTemp(new Temp()), new ExpBinOp(ExpBinOp.Op.MUL, new ExpConst(WORDSIZE), new ExpBinOp(ExpBinOp.Op.PLUS, BuildExpression(arrAcc.Index), new ExpConst(1)))));
+                    }
+                case ArrayLength arrlength:
+                    {
+
+                    }
+                case MethodCall call:
+                    {
+
+                    }
+                case Read read:
+                    {
+
+                    }
+                case IntegerLit integerLit:
+                    {
+
+                    }
+                case BooleanLit booleanLit:
+                    {
+
+                    }
+                case This t:
+                    {
+
+                    }
+                case ArrayInstantiation arrayInst:
+                    {
+
+                    }
+                case ObjectInstantiation objInst:
+                    {
+
+                    }
+                case Not not:
+                    {
+
+                    }
+                case Parent:
+                    {
+
+                    }
+                default:
+                    {
+                        throw new Exception("Your expression is weird.");
+                    }
+                
+            }
+
             return null;
         }
     }
