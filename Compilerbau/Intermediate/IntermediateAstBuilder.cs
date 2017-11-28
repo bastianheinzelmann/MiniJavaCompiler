@@ -147,11 +147,17 @@ namespace Compilerbau.Intermediate
                     }
                 case LessThan lt:
                     {
-                        break;
+                        Label ltrue = new Label();
+                        Label lfalse = new Label();
+                        Temp temp = new Temp();
+
+                        return new ExpESeq(new StmSeq(new List<TreeStm>() { new StmMove(new ExpTemp(temp), new ExpConst(0)),
+                        new StmCJump(StmCJump.Relation.LT, BuildExpression(lt.Left), BuildExpression(lt.Right), ltrue, lfalse),
+                        new StmLabel(ltrue), new StmMove(new ExpTemp(temp), new ExpConst(1)), new StmLabel(lfalse)}), new ExpTemp(temp));
                     }
                 case GreaterThan gt:
                     {
-                        break;
+                        break; // i dont care TODO
                     }
                 case ArrayAccess arrAcc:
                     {
@@ -159,43 +165,53 @@ namespace Compilerbau.Intermediate
                     }
                 case ArrayLength arrlength:
                     {
-
+                        return new ExpMem(BuildExpression(arrlength.Exp));
                     }
                 case MethodCall call:
                     {
+                        List<TreeExp> parameters = new List<TreeExp>();
 
+                        foreach(var parameter in call.Parameters)
+                        {
+                            parameters.Add(BuildExpression(parameter));
+                        }
+                        // TODO method call and first parameter
+                        return new ExpCall(new ExpName(new Label(call.MethodName)), parameters);
                     }
                 case Read read:
                     {
-
+                        //TODO
+                        break;
                     }
                 case IntegerLit integerLit:
                     {
-
+                        return new ExpConst(integerLit.Val);
                     }
                 case BooleanLit booleanLit:
                     {
-
+                        int val;
+                        val = booleanLit.Val ? 1 : 0;
+                        return new ExpConst(val);
                     }
                 case This t:
                     {
-
+                        break;
                     }
                 case ArrayInstantiation arrayInst:
                     {
-
+                        break;
                     }
                 case ObjectInstantiation objInst:
                     {
-
+                        break;  // TODO a const list of all standard methods :)
                     }
                 case Not not:
                     {
-
+                        break;
                     }
-                case Parent:
+                case Parent par:
                     {
-
+                        return BuildExpression(par.Exp);
                     }
                 default:
                     {
