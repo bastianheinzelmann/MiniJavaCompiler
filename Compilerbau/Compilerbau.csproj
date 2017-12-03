@@ -55,6 +55,7 @@
     <Compile Include="Intermediate\Stack.cs" />
     <Compile Include="Intermediate\Temp.cs" />
     <Compile Include="Intermediate\Tree\TreeNode.cs" />
+    <Compile Include="Intermediate\VariableShit.cs" />
     <Compile Include="ParserFacade.cs" />
     <Compile Include="TypeChecker\Class.cs" />
     <Compile Include="TypeChecker\Method.cs" />

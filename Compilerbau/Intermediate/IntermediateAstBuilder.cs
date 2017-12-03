@@ -12,6 +12,9 @@ namespace Compilerbau.Intermediate
     {
         const int WORDSIZE = 4;
 
+        public Dictionary<string, Temp> env = new Dictionary<string, Temp>();
+        private Dictionary<string, ExpParam> parEnv = new Dictionary<string, ExpParam>();
+
         public TreeNode BuildIntermediateAst(Prg prg)
         {
             return new TreePrg(BuildFunctions(prg));
