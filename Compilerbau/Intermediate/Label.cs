@@ -28,5 +28,10 @@ namespace Compilerbau.Intermediate
             }
             Name = "L" + name;
         }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

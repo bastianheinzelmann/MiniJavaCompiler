@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,10 +14,28 @@ namespace Compilerbau.Intermediate.Tree
     class TreePrg : TreeNode
     {
         public List<TreeFunction> Functions {get; set; }
-        
+
+        public object Current => throw new NotImplementedException();
+
         public TreePrg(List<TreeFunction> functions)
         {
             Functions = functions;
+        }
+
+        public override string ToString()
+        {
+            StringBuilder s = new StringBuilder();
+            foreach(var f in Functions)
+            {
+                s.Append(f);
+                s.Append("\n");
+            }
+            return s.ToString();
+        }
+
+        public IEnumerator<TreeFunction> GetEnumerator()
+        {
+            return Functions.GetEnumerator();
         }
     }
 
@@ -33,6 +52,26 @@ namespace Compilerbau.Intermediate.Tree
             NumberOfParameters = numberOfParameters;
             Body = body;
             ReturnTemp = returnTemp;
+        }
+
+        public override string ToString()
+        {
+            StringBuilder s = new StringBuilder();
+            s.Append(Name).Append("(").Append(NumberOfParameters).Append(") {\n");
+            foreach(var m in Body)
+            {
+                s.Append(" ");
+                s.Append(m);
+                s.Append("\n");
+            }
+            s.Append(" return ").Append(ReturnTemp).Append("\n");
+            s.Append("}\n");
+            return s.ToString();
+        }
+
+        public IEnumerator<TreeStm> GetEnumerator()
+        {
+            return Body.GetEnumerator();
         }
     }
 
@@ -64,6 +103,11 @@ namespace Compilerbau.Intermediate.Tree
             LabelTrue = ltrue;
             LabelFalse = lfalse;
         }
+
+        public override string ToString()
+        {
+            return "CJUMP(" + Rel + ", " + Left + ", " + Right + ", " + LabelTrue + ", " + LabelFalse + ")";
+        }
     }
 
     class StmJump : TreeStm
@@ -76,6 +120,19 @@ namespace Compilerbau.Intermediate.Tree
             Dest = dest;
             PossibleTargets = targets;
         }
+
+        public override string ToString()
+        {
+            StringBuilder s = new StringBuilder("JUMP(" + Dest + ", ");
+            string sep = "";
+            foreach(var l in PossibleTargets)
+            {
+                s.Append(sep).Append(l);
+                sep = ", ";
+            }
+            s.Append(")");
+            return s.ToString();
+        }
     }
 
     class StmLabel : TreeStm
@@ -85,6 +142,11 @@ namespace Compilerbau.Intermediate.Tree
         public StmLabel(Label label)
         {
             Label = label;
+        }
+
+        public override string ToString()
+        {
+            return "LABEL(" + Label + ")";
         }
     }
 
@@ -98,6 +160,11 @@ namespace Compilerbau.Intermediate.Tree
             Dest = dest;
             Source = source;
         }
+
+        public override string ToString()
+        {
+            return "MOVE(" + Dest + ", " + Source + ")";
+        }
     }
 
     class StmSeq : TreeStm
@@ -107,6 +174,19 @@ namespace Compilerbau.Intermediate.Tree
         public StmSeq(List<TreeStm> stms)
         {
             Stms = stms;
+        }
+
+        public override string ToString()
+        {
+            StringBuilder buf = new StringBuilder();
+            buf.Append("SEQ(");
+            for(int i = 0; i < Stms.Count; i++)
+            {
+                buf.Append(Stms[i]);
+                if (i != Stms.Count - 1) buf.Append(", ");
+            }
+            buf.Append(") ");
+            return buf.ToString();
         }
     }
 
@@ -134,6 +214,11 @@ namespace Compilerbau.Intermediate.Tree
             Left = left;
             Right = right;
         }
+
+        public override string ToString()
+        {
+            return "BINOP(" + Operator + ", " + Left + ", " + Right + ")";
+        }
     }
 
     class ExpCall : TreeExp
@@ -146,6 +231,17 @@ namespace Compilerbau.Intermediate.Tree
             Function = func;
             Args = args;
         }
+
+        public override string ToString()
+        {
+            StringBuilder s = new StringBuilder("CALL(" + Function);
+            foreach(var arg in Args)
+            {
+                s.Append(", ").Append(arg);
+            }
+            s.Append(")");
+            return s.ToString();
+        }
     }
 
     class ExpConst : TreeExp
@@ -155,6 +251,11 @@ namespace Compilerbau.Intermediate.Tree
         public ExpConst(int val)
         {
             Value = val;
+        }
+
+        public override string ToString()
+        {
+            return "CONST(" + Value + ")";
         }
     }
 
@@ -168,6 +269,11 @@ namespace Compilerbau.Intermediate.Tree
             Stm = stm;
             Exp = exp;
         }
+
+        public override string ToString()
+        {
+            return "ESEQ(" + Stm + ", " + Exp + ")";
+        }
     }
 
     class ExpMem : TreeExp
@@ -177,6 +283,11 @@ namespace Compilerbau.Intermediate.Tree
         public ExpMem(TreeExp address)
         {
             Address = address;
+        }
+
+        public override string ToString()
+        {
+            return "MEM(" + Address + ")";
         }
     }
 
@@ -188,6 +299,11 @@ namespace Compilerbau.Intermediate.Tree
         {
             Label = label;
         }
+
+        public override string ToString()
+        {
+            return "NAME(" + Label + ")";
+        }
     }
 
     class ExpParam : TreeExp
@@ -198,6 +314,11 @@ namespace Compilerbau.Intermediate.Tree
         {
             Number = number;
         }
+
+        public override string ToString()
+        {
+            return "PARAM(" + Number + ")";
+        }
     }
 
     class ExpTemp : TreeExp
@@ -207,6 +328,11 @@ namespace Compilerbau.Intermediate.Tree
         public ExpTemp(Temp temp)
         {
             Temp = temp;
+        }
+
+        public override string ToString()
+        {
+            return "TEMP(" + Temp + ")";
         }
     }
 

@@ -50,6 +50,8 @@ namespace Compilerbau
                 IntermediateAstBuilder intermediate = new IntermediateAstBuilder();
                 var interTree = intermediate.BuildIntermediateAst(ast);
 
+                File.WriteAllText(@"C:\Users\WhynotPanda\Documents\Compilerbau1718\tree2c\Examples\factorial.tree", interTree.ToString());
+
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("You did great!");
             }

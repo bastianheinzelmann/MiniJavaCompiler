@@ -11,13 +11,29 @@ namespace Compilerbau.Intermediate
     class IntermediateAstBuilder
     {
         const int WORDSIZE = 4;
+        Label L_HALLOC = new Label("L_halloc");
+        
 
         public Dictionary<string, Temp> env = new Dictionary<string, Temp>();
         private Dictionary<string, ExpParam> parEnv = new Dictionary<string, ExpParam>();
+        private VariableShit vshit = new VariableShit();
 
         public TreeNode BuildIntermediateAst(Prg prg)
         {
+            PrepareTree(prg);
             return new TreePrg(BuildFunctions(prg));
+        }
+
+        private void PrepareTree(Prg prg)
+        {
+            foreach (var classDecl in prg.ClassDeclarations)
+            {
+                vshit.RawClass.Add(classDecl.Name, classDecl.VarDeclarations.Select(v => v.Name).ToArray());
+                foreach(var methodDecl in classDecl.MethodDeclarations)
+                {
+                    methodDecl.MethodName = classDecl.Name + "$" + methodDecl.MethodName;
+                }
+            }
         }
 
         private List<TreeFunction> BuildFunctions(Prg prg)
@@ -32,11 +48,32 @@ namespace Compilerbau.Intermediate
                 foreach (var methodDecl in classDecl.MethodDeclarations)
                 {
                     List<TreeStm> body = new List<TreeStm>();
+
+                    // register all params in environment
+                    for(int i = 0; i < methodDecl.Parameters.Parameters.Length; i++)
+                    {
+                        // (i + 1) because of the this pointer which is always the first param 
+                        parEnv.Add(methodDecl.Parameters.Parameters[i].Item2, new ExpParam(i + 1));
+                    }
+
+                    // register local variables in environment
+                    foreach(var local in methodDecl.MethodBody.VarDeclarations)
+                    {
+                        env.Add(local.Name, new Temp());
+                    }
+
                     foreach (var stm in methodDecl.MethodBody.Statements)
                     {
                         body.Add(BuildBody(stm));
                     }
-                    functions.Add(new TreeFunction(new Label(classDecl.Name + "$" + methodDecl.MethodName), methodDecl.Parameters.Parameters.Length + 1, body, new Temp()));
+                    // separate return shit
+                    Temp returnVal = new Temp();
+                    body.Add(new StmMove(new ExpTemp(returnVal), BuildExpression(methodDecl.MethodBody.ReturnExpression)));
+
+                    // create the treefunction and clear enviroments
+                    functions.Add(new TreeFunction(new Label(methodDecl.MethodName), methodDecl.Parameters.Parameters.Length + 1, body, returnVal));
+                    parEnv.Clear();
+                    env.Clear();
                 }
             }
 
@@ -103,7 +140,7 @@ namespace Compilerbau.Intermediate
                     }
                 case VarAssignment varAss:
                     {
-                        return new StmMove(BuildExpression(varAss.Expression), BuildExpression(varAss.Expression));
+                        return new StmMove(new ExpTemp(FindVarInEnv(varAss.Id)), BuildExpression(varAss.Expression));
                     }
                 case ArrayAssignment arrAss:
                     {
@@ -126,27 +163,38 @@ namespace Compilerbau.Intermediate
             {
                 case Identifier id:
                     {
-                        break;
+                        if (env.ContainsKey(id.Name))
+                        {
+                            return new ExpTemp(env[id.Name]);
+                        }
+                        else if (parEnv.ContainsKey(id.Name))
+                        {
+                            return new ExpParam(parEnv[id.Name].Number);
+                        }
+                        else
+                        {
+                            throw new Exception("Could not find id in environment");
+                        }
                     }
                 case And and:
                     {
-                        return new ExpBinOp(ExpBinOp.Op.AND, BuildExpression(expression), BuildExpression(expression));
+                        return new ExpBinOp(ExpBinOp.Op.AND, BuildExpression(and.Left), BuildExpression(and.Right));
                     }
                 case Plus plus:
                     {
-                        return new ExpBinOp(ExpBinOp.Op.PLUS, BuildExpression(expression), BuildExpression(expression));
+                        return new ExpBinOp(ExpBinOp.Op.PLUS, BuildExpression(plus.Left), BuildExpression(plus.Right));
                     }
                 case Minus minus:
                     {
-                        return new ExpBinOp(ExpBinOp.Op.MINUS, BuildExpression(expression), BuildExpression(expression));
+                        return new ExpBinOp(ExpBinOp.Op.MINUS, BuildExpression(minus.Left), BuildExpression(minus.Right));
                     }
                 case Times times:
                     {
-                        return new ExpBinOp(ExpBinOp.Op.MUL, BuildExpression(expression), BuildExpression(expression));
+                        return new ExpBinOp(ExpBinOp.Op.MUL, BuildExpression(times.Left), BuildExpression(times.Right));
                     }
                 case Division division:
                     {
-                        return new ExpBinOp(ExpBinOp.Op.DIV, BuildExpression(expression), BuildExpression(expression));
+                        return new ExpBinOp(ExpBinOp.Op.DIV, BuildExpression(division.Left), BuildExpression(division.Right));
                     }
                 case LessThan lt:
                     {
@@ -160,7 +208,7 @@ namespace Compilerbau.Intermediate
                     }
                 case GreaterThan gt:
                     {
-                        break; // i dont care TODO
+                        throw new Exception("Not implemented"); ; // i dont care TODO
                     }
                 case ArrayAccess arrAcc:
                     {
@@ -173,6 +221,19 @@ namespace Compilerbau.Intermediate
                 case MethodCall call:
                     {
                         List<TreeExp> parameters = new List<TreeExp>();
+                        
+                        if(call.Exp is This)
+                        {
+                            parameters.Add(new ExpParam(0));
+                        }
+                        else if(call.Exp is Identifier)
+                        {
+                            throw new Exception("not implemented");
+                        }
+                        else
+                        {
+                            parameters.Add(BuildExpression(call.Exp));
+                        }
 
                         foreach(var parameter in call.Parameters)
                         {
@@ -184,7 +245,7 @@ namespace Compilerbau.Intermediate
                 case Read read:
                     {
                         //TODO
-                        break;
+                        throw new Exception("Not implemented");
                     }
                 case IntegerLit integerLit:
                     {
@@ -198,19 +259,19 @@ namespace Compilerbau.Intermediate
                     }
                 case This t:
                     {
-                        break;
+                        throw new Exception("Not implemented");
                     }
                 case ArrayInstantiation arrayInst:
                     {
-                        break;
+                        return new ExpCall(new ExpName(L_HALLOC), new List<TreeExp> { BuildExpression(arrayInst.Length) });
                     }
                 case ObjectInstantiation objInst:
                     {
-                        break;  // TODO a const list of all standard methods :)
+                        return new ExpCall(new ExpName(L_HALLOC), new List<TreeExp> { new ExpConst((vshit.RawClass[objInst.ObjectId].Length) * WORDSIZE) });
                     }
                 case Not not:
                     {
-                        break;
+                        throw new Exception("Not implemented");
                     }
                 case Parent par:
                     {
@@ -222,8 +283,25 @@ namespace Compilerbau.Intermediate
                     }
                 
             }
+        }
 
-            return null;
+        private Temp FindVarInEnv(string id)
+        {
+            if (env.ContainsKey(id))
+            {
+                return env[id];
+            }
+            else if (parEnv.ContainsKey(id))
+            {
+                //return parEnv[id];
+                return null;
+            }
+            else
+            {
+                throw new Exception("Could not find id in environment");
+            }
+
+            // instance variables
         }
     }
 }

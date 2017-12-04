@@ -21,5 +21,10 @@ namespace Compilerbau.Intermediate
         {
             nextId = 0;
         }
+
+        public override string ToString()
+        {
+            return "t" + Id;
+        }
     }
 }
