@@ -11,16 +11,18 @@ namespace Compilerbau.Intermediate
     class IntermediateAstBuilder
     {
         const int WORDSIZE = 4;
-        Label L_HALLOC = new Label("L_halloc");
+        Label HALLOC = new Label("_halloc");
         
 
         public Dictionary<string, Temp> env = new Dictionary<string, Temp>();
         private Dictionary<string, ExpParam> parEnv = new Dictionary<string, ExpParam>();
+        private Dictionary<string, AST.Type> instanceVariables = new Dictionary<string, AST.Type>();
         private VariableShit vshit = new VariableShit();
+        private String currentClass;
 
         public TreeNode BuildIntermediateAst(Prg prg)
         {
-            PrepareTree(prg);
+            //PrepareTree(prg);
             return new TreePrg(BuildFunctions(prg));
         }
 
@@ -38,6 +40,7 @@ namespace Compilerbau.Intermediate
 
         private List<TreeFunction> BuildFunctions(Prg prg)
         {
+            PrepareTree(prg);
             List<TreeFunction> functions = new List<TreeFunction>();
 
             // main method
@@ -45,6 +48,12 @@ namespace Compilerbau.Intermediate
 
             foreach (var classDecl in prg.ClassDeclarations)
             {
+                currentClass = classDecl.Name;
+                foreach (var instanceVar in classDecl.VarDeclarations)
+                {
+                    instanceVariables.Add(instanceVar.Name, instanceVar.Type);
+                }
+
                 foreach (var methodDecl in classDecl.MethodDeclarations)
                 {
                     List<TreeStm> body = new List<TreeStm>();
@@ -75,6 +84,9 @@ namespace Compilerbau.Intermediate
                     parEnv.Clear();
                     env.Clear();
                 }
+
+                instanceVariables.Clear();
+
             }
 
             return functions;
@@ -149,7 +161,7 @@ namespace Compilerbau.Intermediate
                     }
                 case Print print:
                     {
-                        return new StmMove(new ExpTemp(new Temp()), new ExpCall(new ExpName(new Label("L_println_int")), new List<TreeExp> { BuildExpression(print.Expression) }));
+                        return new StmMove(new ExpTemp(new Temp()), new ExpCall(new ExpName(new Label("_println_int")), new List<TreeExp> { BuildExpression(print.Expression) }));
                     }
                 case Write write: break;
             }
@@ -163,6 +175,7 @@ namespace Compilerbau.Intermediate
             {
                 case Identifier id:
                     {
+                        // TODO instance stuff
                         if (env.ContainsKey(id.Name))
                         {
                             return new ExpTemp(env[id.Name]);
@@ -170,6 +183,19 @@ namespace Compilerbau.Intermediate
                         else if (parEnv.ContainsKey(id.Name))
                         {
                             return new ExpParam(parEnv[id.Name].Number);
+                        }
+                        else if (instanceVariables.ContainsKey(id.Name))
+                        {
+                            int index = -1;
+                            for(int i = 0; i < vshit.RawClass[currentClass].Length; i++)
+                            {
+                                if(vshit.RawClass[currentClass][i] == id.Name)
+                                {
+                                    index = i;
+                                }
+                            }
+                            if (index < 0) throw new Exception("Instance Variable not found");
+                            return new ExpMem(new ExpBinOp(ExpBinOp.Op.PLUS, new ExpParam(0), new ExpConst(index)));
                         }
                         else
                         {
@@ -228,7 +254,8 @@ namespace Compilerbau.Intermediate
                         }
                         else if(call.Exp is Identifier)
                         {
-                            throw new Exception("not implemented");
+                            parameters.Add(BuildExpression(call.Exp));
+                            // TODO
                         }
                         else
                         {
@@ -239,8 +266,8 @@ namespace Compilerbau.Intermediate
                         {
                             parameters.Add(BuildExpression(parameter));
                         }
-                        // TODO method call and first parameter
-                        return new ExpCall(new ExpName(new Label(call.MethodName)), parameters);
+
+                        return new ExpCall(new ExpName(new Label(call.EnhancedName)), parameters);
                     }
                 case Read read:
                     {
@@ -263,15 +290,15 @@ namespace Compilerbau.Intermediate
                     }
                 case ArrayInstantiation arrayInst:
                     {
-                        return new ExpCall(new ExpName(L_HALLOC), new List<TreeExp> { BuildExpression(arrayInst.Length) });
+                        return new ExpCall(new ExpName(HALLOC), new List<TreeExp> { BuildExpression(arrayInst.Length) });
                     }
                 case ObjectInstantiation objInst:
                     {
-                        return new ExpCall(new ExpName(L_HALLOC), new List<TreeExp> { new ExpConst((vshit.RawClass[objInst.ObjectId].Length) * WORDSIZE) });
+                        return new ExpCall(new ExpName(HALLOC), new List<TreeExp> { new ExpConst((vshit.RawClass[objInst.ObjectId].Length) * WORDSIZE) });
                     }
                 case Not not:
                     {
-                        throw new Exception("Not implemented");
+                        return new ExpBinOp(ExpBinOp.Op.MINUS, new ExpConst(1), BuildExpression(not.Exp)); // und +- 1?
                     }
                 case Parent par:
                     {

@@ -344,6 +344,7 @@ namespace Compilerbau.AST
         public Expression Exp { get; set; }
         public string MethodName { get; set; }
         public Expression[] Parameters { get; set; }
+        public string EnhancedName { get; set; }
     }
 
     class Read : Expression { }

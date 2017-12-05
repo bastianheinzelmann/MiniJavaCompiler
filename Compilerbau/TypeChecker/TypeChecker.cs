@@ -166,7 +166,14 @@ namespace Compilerbau.TypeChecking
                     }
                 case Print print:
                     {
-                        return true;
+                        if(TypeOf(print.Expression, currentClass, currentMethod) is AST.Int)
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
                     }
                 case Write write:
                     {
@@ -327,6 +334,8 @@ namespace Compilerbau.TypeChecking
                             }
                         }
 
+                        methodCall.EnhancedName = expType.Name + "$" + methodCall.MethodName;
+
                         return symbolTable.GetMethodReturnType(expType.Name, methodCall.MethodName);
                     }
                 case Read read:
@@ -383,7 +392,5 @@ namespace Compilerbau.TypeChecking
 
             return true;
         }
-
-
     }
 }
