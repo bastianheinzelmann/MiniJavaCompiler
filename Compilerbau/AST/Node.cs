@@ -155,7 +155,7 @@ namespace Compilerbau.AST
         public WhileBlock(Expression expression, Statement statement)
         {
             Expression = expression;
-            Statement = Statement;
+            Statement = statement;
         }
 
         public Expression Expression { get; set; }

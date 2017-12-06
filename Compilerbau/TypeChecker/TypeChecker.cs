@@ -96,7 +96,6 @@ namespace Compilerbau.TypeChecking
 
         public bool TypeChecking(Node tree, string currentClass, string currentMethod)
         {
-
             switch (tree)
             {
                 case MethodBody methodBody:
@@ -109,16 +108,20 @@ namespace Compilerbau.TypeChecking
                         {
                             throw new Exception("Wrong return type");
                         }
-                        break;
+                        else
+                        {
+                            return true;
+                        }
                     }
 
                 case BlockStatement blockStm:
                     {
+                        bool result = false;
                         foreach(var stm in blockStm.Statements)
                         {
-                            TypeChecking(stm, currentClass, currentMethod);
+                            result = TypeChecking(stm, currentClass, currentMethod);
                         }
-                        break;
+                        return result;
                     }
                 case IfElseBlock ifElse:
                     {
@@ -139,7 +142,7 @@ namespace Compilerbau.TypeChecking
                         }
                         else
                         {
-                            return true;
+                            return TypeChecking(whileBlock.Statement, currentClass, currentMethod);
                         }
                     }
                 case VarAssignment varAss: // yes, Ass!
@@ -176,12 +179,19 @@ namespace Compilerbau.TypeChecking
                         }
                     }
                 case Write write:
-                    {
-                        return true;
+                    { 
+                        if(TypeOf(write.Expression, currentClass, currentMethod) is AST.IntegerLit)
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            //throw new Exception("Write is shit");
+                            return true;
+                        }
                     }
+                default: throw new Exception("Not thingy matched");
             }
-
-            return false;
         }
 
         public AST.Type TypeOf(Expression exp, string currentClass, string currentMethod)
@@ -311,10 +321,6 @@ namespace Compilerbau.TypeChecking
                         {
                             expType = ot;
                         }
-                        else if(methodCall.Exp is This t)
-                        {
-                            expType = new ObjectType(currentClass);
-                        }
                         else
                         {
                             throw new Exception("This method does not exist... Sorry bro");
@@ -332,6 +338,7 @@ namespace Compilerbau.TypeChecking
                             {
                                 throw new Exception("Parameters type error");
                             }
+                            i++;
                         }
 
                         methodCall.EnhancedName = expType.Name + "$" + methodCall.MethodName;
@@ -352,7 +359,7 @@ namespace Compilerbau.TypeChecking
                     }
                 case This th:
                     {
-                        return null;
+                        return new ObjectType(currentClass);
                     }
                 case ArrayInstantiation arrInst:
                     {

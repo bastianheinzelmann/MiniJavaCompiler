@@ -94,7 +94,10 @@ namespace Compilerbau.Intermediate
 
         private TreeStm BuildBody(Statement statement)
         {
-
+            if(statement == null)
+            {
+                throw new Exception("Wtf???");
+            }
             switch (statement)
             {
                 case BlockStatement blockStm:
@@ -113,60 +116,38 @@ namespace Compilerbau.Intermediate
                         Label labelT = new Label();
                         Label labelExit = new Label();
 
-						switch (ifelseBlock.Expression)
-						{
-							case LessThan lt:
-								{
-									return new StmSeq(new List<TreeStm>() { new StmCJump(StmCJump.Relation.LT, BuildExpression(lt.Left), BuildExpression(lt.Right),
-								    labelT, labelF), new StmLabel(labelT),BuildBody(ifelseBlock.TrueBranch) , new StmJump(new ExpName(labelExit), new List<Label> { labelExit }),
-								    new StmLabel(labelF), BuildBody(ifelseBlock.FalseBranch), new StmLabel(labelExit) });
-								}
-							case GreaterThan gt:
-								{
-									return new StmSeq(new List<TreeStm>() { new StmCJump(StmCJump.Relation.GT, BuildExpression(gt.Left), BuildExpression(gt.Right),
-								    labelT, labelF), new StmLabel(labelT),BuildBody(ifelseBlock.TrueBranch) , new StmJump(new ExpName(labelExit), new List<Label> { labelExit }),
-								    new StmLabel(labelF), BuildBody(ifelseBlock.FalseBranch), new StmLabel(labelExit) });
-								}
-							default: throw new Exception("No rel matched?");
-						}
+						return new StmSeq(new List<TreeStm>() { new StmCJump(StmCJump.Relation.EQ, BuildExpression(ifelseBlock.Expression), new ExpConst(1),
+						labelT, labelF), new StmLabel(labelT),BuildBody(ifelseBlock.TrueBranch) , new StmJump(new ExpName(labelExit), new List<Label> { labelExit }),
+						new StmLabel(labelF), BuildBody(ifelseBlock.FalseBranch), new StmLabel(labelExit) });
+						
 					}
                 case WhileBlock whileBlock:
                     {
                         Label labelStart = new Label();
                         Label labelEnd = new Label();
                         Label labelTrue = new Label();
-                        switch (whileBlock.Expression)
-                        {
-                            case LessThan lt:
-                                {
-                                    return new StmSeq(new List<TreeStm> { new StmLabel(labelStart), new StmCJump(StmCJump.Relation.LT, BuildExpression(lt.Left), BuildExpression(lt.Right), labelTrue, labelEnd),
-                                    new StmLabel(labelTrue), BuildBody(whileBlock.Statement), new StmJump(new ExpName(labelStart), new List<Label>{labelStart}), new StmLabel(labelEnd)});
-                                }
-                            case GreaterThan gt:
-                                {
-                                    return new StmSeq(new List<TreeStm> { new StmLabel(labelStart), new StmCJump(StmCJump.Relation.GT, BuildExpression(gt.Left), BuildExpression(gt.Right), labelTrue, labelEnd),
-                                    new StmLabel(labelTrue), BuildBody(whileBlock.Statement), new StmJump(new ExpName(labelStart), new List<Label>{labelStart}), new StmLabel(labelEnd)});
-                                }
-                            default: throw new Exception("No rel matched in while?");
-                        }
+                        return new StmSeq(new List<TreeStm> { new StmLabel(labelStart), new StmCJump(StmCJump.Relation.EQ, BuildExpression(whileBlock.Expression), new ExpConst(1), labelTrue, labelEnd),
+                        new StmLabel(labelTrue), BuildBody(whileBlock.Statement), new StmJump(new ExpName(labelStart), new List<Label>{labelStart}), new StmLabel(labelEnd)});              
                     }
                 case VarAssignment varAss:
                     {
-                        return new StmMove(new ExpTemp(FindVarInEnv(varAss.Id)), BuildExpression(varAss.Expression));
+                        return new StmMove(BuildExpression(new Identifier(varAss.Id)), BuildExpression(varAss.Expression));
                     }
                 case ArrayAssignment arrAss:
                     {
-                        return new StmMove(new ExpMem(new ExpBinOp(ExpBinOp.Op.PLUS, new ExpTemp(new Temp()), new ExpBinOp(ExpBinOp.Op.MUL, new ExpConst(WORDSIZE), new ExpBinOp(ExpBinOp.Op.PLUS, BuildExpression(arrAss.Index), new ExpConst(1))))), 
+                        return new StmMove(new ExpMem(new ExpBinOp(ExpBinOp.Op.PLUS, BuildExpression(new Identifier(arrAss.Id)), new ExpBinOp(ExpBinOp.Op.MUL, new ExpConst(WORDSIZE), new ExpBinOp(ExpBinOp.Op.PLUS, BuildExpression(arrAss.Index), new ExpConst(1))))), 
                         BuildExpression(arrAss.Value));
                     }
                 case Print print:
                     {
                         return new StmMove(new ExpTemp(new Temp()), new ExpCall(new ExpName(new Label("_println_int")), new List<TreeExp> { BuildExpression(print.Expression) }));
                     }
-                case Write write: break;
+                case Write write:
+                    {
+                        return new StmMove( new ExpTemp(new Temp()), new ExpCall(new ExpName(new Label("_write")), new List<TreeExp> { BuildExpression(write.Expression) }));
+                    }
+                default: throw new Exception("Did not match statement");
             }
-
-            return null;
         }
 
         private TreeExp BuildExpression(Expression expression)
@@ -195,7 +176,7 @@ namespace Compilerbau.Intermediate
                                 }
                             }
                             if (index < 0) throw new Exception("Instance Variable not found");
-                            return new ExpMem(new ExpBinOp(ExpBinOp.Op.PLUS, new ExpParam(0), new ExpConst(index)));
+                            return new ExpMem(new ExpBinOp(ExpBinOp.Op.PLUS, new ExpParam(0), new ExpBinOp(ExpBinOp.Op.MUL, new ExpConst(index), new ExpConst(WORDSIZE))));
                         }
                         else
                         {
@@ -238,7 +219,7 @@ namespace Compilerbau.Intermediate
                     }
                 case ArrayAccess arrAcc:
                     {
-                        return new ExpMem(new ExpBinOp(ExpBinOp.Op.PLUS, new ExpTemp(new Temp()), new ExpBinOp(ExpBinOp.Op.MUL, new ExpConst(WORDSIZE), new ExpBinOp(ExpBinOp.Op.PLUS, BuildExpression(arrAcc.Index), new ExpConst(1)))));
+                        return new ExpMem(new ExpBinOp(ExpBinOp.Op.PLUS, BuildExpression(arrAcc.Index), new ExpBinOp(ExpBinOp.Op.MUL, new ExpConst(WORDSIZE), new ExpBinOp(ExpBinOp.Op.PLUS, BuildExpression(arrAcc.Val), new ExpConst(1)))));
                     }
                 case ArrayLength arrlength:
                     {
@@ -251,11 +232,6 @@ namespace Compilerbau.Intermediate
                         if(call.Exp is This)
                         {
                             parameters.Add(new ExpParam(0));
-                        }
-                        else if(call.Exp is Identifier)
-                        {
-                            parameters.Add(BuildExpression(call.Exp));
-                            // TODO
                         }
                         else
                         {
@@ -286,11 +262,12 @@ namespace Compilerbau.Intermediate
                     }
                 case This t:
                     {
-                        throw new Exception("Not implemented");
+                        return new ExpParam(0);
                     }
                 case ArrayInstantiation arrayInst:
                     {
-                        return new ExpCall(new ExpName(HALLOC), new List<TreeExp> { BuildExpression(arrayInst.Length) });
+                        Temp temptemp = new Temp();
+                        return new ExpESeq(new StmSeq(new List<TreeStm> { new StmMove(new ExpTemp(temptemp), new ExpCall(new ExpName(HALLOC), new List<TreeExp> { new ExpBinOp(ExpBinOp.Op.MUL, new ExpBinOp(ExpBinOp.Op.PLUS, BuildExpression(arrayInst.Length), new ExpConst(1)), new ExpConst(WORDSIZE)) })), new StmMove(new ExpMem(new ExpTemp(temptemp)), BuildExpression(arrayInst.Length)) }), new ExpTemp(temptemp));
                     }
                 case ObjectInstantiation objInst:
                     {
@@ -298,7 +275,7 @@ namespace Compilerbau.Intermediate
                     }
                 case Not not:
                     {
-                        return new ExpBinOp(ExpBinOp.Op.MINUS, new ExpConst(1), BuildExpression(not.Exp)); // und +- 1?
+                        return new ExpBinOp(ExpBinOp.Op.MINUS, new ExpConst(1), BuildExpression(not.Exp));
                     }
                 case Parent par:
                     {
@@ -310,25 +287,6 @@ namespace Compilerbau.Intermediate
                     }
                 
             }
-        }
-
-        private Temp FindVarInEnv(string id)
-        {
-            if (env.ContainsKey(id))
-            {
-                return env[id];
-            }
-            else if (parEnv.ContainsKey(id))
-            {
-                //return parEnv[id];
-                return null;
-            }
-            else
-            {
-                throw new Exception("Could not find id in environment");
-            }
-
-            // instance variables
         }
     }
 }
