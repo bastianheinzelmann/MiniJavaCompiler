@@ -49,6 +49,8 @@
     <Compile Include="CustomExtensions\ExtensionMethods.cs" />
     <Compile Include="Hello.cs" />
     <Compile Include="AST\Node.cs" />
+    <Compile Include="Intermediate\Canon\CanonizedExp.cs" />
+    <Compile Include="Intermediate\Canon\Canonizer.cs" />
     <Compile Include="Intermediate\Heap.cs" />
     <Compile Include="Intermediate\IntermediateAstBuilder.cs" />
     <Compile Include="Intermediate\Label.cs" />
