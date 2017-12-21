@@ -1,6 +1,8 @@
 ﻿using Antlr4.Runtime;
 using Compilerbau.GeneratedParser;
 using Compilerbau.Intermediate;
+using Compilerbau.Intermediate.Canon;
+using Compilerbau.Intermediate.Tree;
 using Compilerbau.TypeChecking;
 using CustomExtensions;
 using System;
@@ -49,8 +51,10 @@ namespace Compilerbau
 
                 IntermediateAstBuilder intermediate = new IntermediateAstBuilder();
                 var interTree = intermediate.BuildIntermediateAst(ast);
+                var canonizedTree = new Canonizer().CanonPrg((TreePrg)interTree);
 
-                File.WriteAllText(@"C:\Users\WhynotPanda\Documents\Compilerbau1718\tree2c\Examples\random.tree", interTree.ToString());
+                //File.WriteAllText(@"C:\Users\WhynotPanda\Documents\Compilerbau1718\tree2c\Examples\randomCan.tree", canonizedTree.ToString());
+                File.WriteAllText(@"C:\Users\WhynotPanda\Documents\Compilerbau1718\tree2c\Examples\random.tree", canonizedTree.ToString());
 
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("You did great!");
