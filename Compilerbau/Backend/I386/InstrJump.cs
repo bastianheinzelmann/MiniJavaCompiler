@@ -1,0 +1,95 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Compilerbau.Intermediate;
+
+namespace Compilerbau.Backend.I386
+{
+    class InstrJump : IMachineInstruction
+    {
+        enum Kind
+        {
+            JMP, J, CALL
+        }
+
+        enum Cond
+        {
+            E, NE, L, LE, G, GE, Z
+        }
+
+        private Kind kind;
+        private Label label;
+        private Operand dest;
+        private Cond cond;
+
+        InstrJump(Kind kind, Label label)
+        {
+            this.kind = kind;
+            this.label = label;
+        }
+
+        InstrJump(Kind kind, Operand dest)
+        {
+            this.kind = kind;
+            this.dest = dest;
+        }
+
+        InstrJump(Cond cond, Label label)
+        {
+            kind = Kind.J;
+            this.label = label;
+            this.cond = cond;
+        }
+
+        InstrJump(Kind kind, Label label, Operand dest, Cond cond)
+        {
+            this.kind = kind;
+            this.label = label;
+            this.dest = dest;
+            this.cond = cond;
+        }
+
+        public IEnumerator<Temp> Def()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool IsFallThrough()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Label IsLabel()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Tuple<Temp, Temp> IsMoveBetweenTemps()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerator<Temp> Jumps()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Rename(Func<Temp, Temp> sigma)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerator<Temp> Use()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override string ToString()
+        {
+            String ins = (kind == Kind.J) ? (kind.ToString() + cond.ToString()) : kind.ToString();
+            return "\t" + ins + " " + (label != null ? label.ToString() : dest.ToString()) + "\n";
+        }
+    }
+}

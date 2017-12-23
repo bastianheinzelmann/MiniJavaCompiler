@@ -45,6 +45,19 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Backend\I386\I386CodeGenerator.cs" />
+    <Compile Include="Backend\I386\I386Function.cs" />
+    <Compile Include="Backend\I386\I386Prg.cs" />
+    <Compile Include="Backend\I386\InstrBinary.cs" />
+    <Compile Include="Backend\I386\InstrJump.cs" />
+    <Compile Include="Backend\I386\InstrLabel.cs" />
+    <Compile Include="Backend\I386\InstrNullary.cs" />
+    <Compile Include="Backend\I386\InstrUnary.cs" />
+    <Compile Include="Backend\I386\Operand.cs" />
+    <Compile Include="Backend\ICodeGenerator.cs" />
+    <Compile Include="Backend\IMachineFunction.cs" />
+    <Compile Include="Backend\IMachineInstruction.cs" />
+    <Compile Include="Backend\MachinePrg.cs" />
     <Compile Include="ErrorListener.cs" />
     <Compile Include="CustomExtensions\ExtensionMethods.cs" />
     <Compile Include="Hello.cs" />

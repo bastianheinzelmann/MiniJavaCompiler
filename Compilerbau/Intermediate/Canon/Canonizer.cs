@@ -135,7 +135,6 @@ namespace Compilerbau.Intermediate.Canon
                     }
                 case ExpMem mem:
                     {
-                        // TODO
                         return CanonNoTopCall(mem.Address).MapExp((a) => new ExpMem(a));
                     }
                 case ExpBinOp binop:
