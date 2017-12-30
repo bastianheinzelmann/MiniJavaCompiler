@@ -9,7 +9,7 @@ namespace Compilerbau.Backend.I386
 {
     class InstrBinary : IMachineInstruction
     {
-        enum Kind
+        public enum Kind
         {
             MOV, ADD, SUB, SHL, SHR, SAL, SAR, AND, OR, XOR, TEST, CMP, LEA, IMUL
         }
@@ -18,7 +18,7 @@ namespace Compilerbau.Backend.I386
         private Operand dst;
         private Kind kind;
 
-        InstrBinary(Kind kind, Operand dst, Operand src)
+        public InstrBinary(Kind kind, Operand dst, Operand src)
         {
             this.src = src;
             this.dst = dst;

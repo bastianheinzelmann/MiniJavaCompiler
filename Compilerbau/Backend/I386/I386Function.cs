@@ -12,7 +12,7 @@ namespace Compilerbau.Backend.I386
         public Label Name { get; }
         private List<IMachineInstruction> body;
 
-        I386Function(Label name, List<IMachineInstruction> body)
+        public I386Function(Label name, List<IMachineInstruction> body)
         {
             Name = name;
             this.body = body;

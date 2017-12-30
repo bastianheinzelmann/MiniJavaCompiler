@@ -9,7 +9,7 @@ namespace Compilerbau.Backend.I386
 {
     class InstrUnary : IMachineInstruction
     {
-        enum Kind
+        public enum Kind
         {
             PUSH, POP, NEG, NOT, INC, DEC, IDIV
         }
@@ -17,7 +17,7 @@ namespace Compilerbau.Backend.I386
         private Operand op;
         private Kind kind;
 
-        InstrUnary(Kind kind, Operand op)
+        public InstrUnary(Kind kind, Operand op)
         {
             this.op = op;
             this.kind = kind;

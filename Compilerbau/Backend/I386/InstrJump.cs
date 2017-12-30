@@ -9,12 +9,12 @@ namespace Compilerbau.Backend.I386
 {
     class InstrJump : IMachineInstruction
     {
-        enum Kind
+        public enum Kind
         {
             JMP, J, CALL
         }
 
-        enum Cond
+        public enum Cond
         {
             E, NE, L, LE, G, GE, Z
         }
@@ -24,26 +24,26 @@ namespace Compilerbau.Backend.I386
         private Operand dest;
         private Cond cond;
 
-        InstrJump(Kind kind, Label label)
+        public InstrJump(Kind kind, Label label)
         {
             this.kind = kind;
             this.label = label;
         }
 
-        InstrJump(Kind kind, Operand dest)
+        public InstrJump(Kind kind, Operand dest)
         {
             this.kind = kind;
             this.dest = dest;
         }
 
-        InstrJump(Cond cond, Label label)
+        public InstrJump(Cond cond, Label label)
         {
             kind = Kind.J;
             this.label = label;
             this.cond = cond;
         }
 
-        InstrJump(Kind kind, Label label, Operand dest, Cond cond)
+        public InstrJump(Kind kind, Label label, Operand dest, Cond cond)
         {
             this.kind = kind;
             this.label = label;

@@ -7,11 +7,11 @@ namespace Compilerbau.Backend.I386
 {
     abstract class Operand
     {
-        class Imm : Operand
+        public class Imm : Operand
         {
             int imm;
 
-            Imm(int imm)
+            public Imm(int imm)
             {
                 this.imm = imm;
             }
@@ -27,14 +27,30 @@ namespace Compilerbau.Backend.I386
             }
         }
 
-        class Mem : Operand
+        public class Reg : Operand
+        {
+            Temp reg;
+
+            public Reg(Temp reg)
+            {
+                this.reg = reg;
+            }
+
+
+            public override Operand Rename(Func<Temp, Temp> sigma)
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public class Mem : Operand
         {
             Temp bas;
             int scale;
             Temp index;
             int displacement;
 
-            Mem(Temp bas, int scale, Temp index, int displacement)
+            public Mem(Temp bas, int scale, Temp index, int displacement)
             {
                 this.bas = bas;
                 this.scale = scale;
@@ -42,7 +58,7 @@ namespace Compilerbau.Backend.I386
                 this.displacement = displacement;
             }
 
-            Mem(Temp bas)
+            public Mem(Temp bas)
             {
                 this.bas = bas;
                 displacement = 0;

@@ -9,14 +9,14 @@ namespace Compilerbau.Backend.I386
 {
     class InstrNullary : IMachineInstruction
     {
-        enum Kind
+        public enum Kind
         {
-            RET, LEAVE, NOP
+            RET, LEAVE, NOP, CDQ
         }
 
         private Kind kind;
 
-        InstrNullary(Kind kind)
+        public InstrNullary(Kind kind)
         {
             this.kind = kind;
         }

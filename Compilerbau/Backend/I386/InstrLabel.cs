@@ -11,7 +11,7 @@ namespace Compilerbau.Backend.I386
     {
         Label label;
 
-        InstrLabel(Label label)
+        public InstrLabel(Label label)
         {
             this.label = label;
         }

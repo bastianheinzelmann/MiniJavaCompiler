@@ -10,7 +10,7 @@ namespace Compilerbau.Backend.I386
     {
         private List<I386Function> functions;
 
-        I386Prg(List<I386Function> functions)
+        public I386Prg(List<I386Function> functions)
         {
             this.functions = functions;
         }
