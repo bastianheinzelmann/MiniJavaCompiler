@@ -18,7 +18,7 @@ namespace Compilerbau.Backend.I386
 
             public override string ToString()
             {
-                return base.ToString();
+                return imm.ToString();
             }
 
             public override Operand Rename(Func<Temp, Temp> sigma)
@@ -40,6 +40,11 @@ namespace Compilerbau.Backend.I386
             public override Operand Rename(Func<Temp, Temp> sigma)
             {
                 throw new NotImplementedException();
+            }
+
+            public override string ToString()
+            {
+                return reg.ToString();
             }
         }
 
@@ -66,7 +71,7 @@ namespace Compilerbau.Backend.I386
 
             public override string ToString()
             {
-                throw new NotImplementedException();
+                return (index == null ? "[" + bas + " + " + displacement : "fuck");
             }
 
             public override List<Temp> Use()

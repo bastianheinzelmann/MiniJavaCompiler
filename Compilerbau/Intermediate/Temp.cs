@@ -27,4 +27,19 @@ namespace Compilerbau.Intermediate
             return "t" + Id;
         }
     }
+
+    class RegTemp : Temp
+    {
+        public string Id { get; }
+
+        public RegTemp(string id)
+        {
+            Id = id;
+        }
+
+        public override string ToString()
+        {
+            return Id;
+        }
+    }
 }

@@ -10,14 +10,14 @@ namespace Compilerbau.Backend.I386
 {
     class I386CodeGenerator : ICodeGenerator
     {
-        Temp EAX = new Temp();
-        Temp ESP = new Temp();
-        Temp EBP = new Temp();
+        Temp EAX = new RegTemp("eax");
+        Temp ESP = new RegTemp("esp");
+        Temp EBP = new RegTemp("ebp");
 
         // Callee save registers
-        Temp EBX = new Temp();
-        Temp ESI = new Temp();
-        Temp EDI = new Temp();
+        Temp EBX = new RegTemp("ebx");
+        Temp ESI = new RegTemp("esi");
+        Temp EDI = new RegTemp("edi");
 
         List<IMachineInstruction> currentBody;
 
@@ -221,7 +221,13 @@ namespace Compilerbau.Backend.I386
                         }
                         else
                         {
-                            throw new Exception("No labelö");
+                            throw new Exception("No label");
+                        }
+
+                        for(int i = 0; i < call.Args.Count; i++)
+                        {
+                            Temp argTemp = new Temp();
+                            Emit(new InstrBinary(InstrBinary.Kind.MOV, new Operand.Mem(ESP, 0, null, i * 4), MunchExp(call.Args[i])));
                         }
 
                         //Emit(new InstrBinary(InstrBinary.Kind.SUB, ))
@@ -234,7 +240,12 @@ namespace Compilerbau.Backend.I386
                     }
                 case ExpMem mem:
                     {
-                        break;
+                        // very confusing
+
+                        Temp bas = new Temp(); Temp index = new Temp();
+                        Emit(new InstrBinary(InstrBinary.Kind.MOV, new Operand.Reg(bas), MunchExp(mem.Address)));
+
+                        return new Operand.Mem(bas);
                     }
                 case ExpName name:
                     {
@@ -243,7 +254,9 @@ namespace Compilerbau.Backend.I386
                     }
                 case ExpParam param:
                     {
-                        break;
+                        Temp parTemp = new Temp();
+                        Emit(new InstrBinary(InstrBinary.Kind.MOV, new Operand.Reg(parTemp), new Operand.Mem(ESP, 0, null, param.Number * 4)));
+                        return new Operand.Reg(parTemp);
                     }
                 case ExpTemp temp:
                     {
