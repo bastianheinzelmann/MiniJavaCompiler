@@ -71,7 +71,7 @@ namespace Compilerbau.Backend.I386
 
             public override string ToString()
             {
-                return (index == null ? "[" + bas + " + " + displacement : "fuck");
+                return (index == null ? "DWORD PTR [" + bas + " + " + displacement + "]" : "fuck");
             }
 
             public override List<Temp> Use()

@@ -44,7 +44,10 @@ namespace Compilerbau.Intermediate
             List<TreeFunction> functions = new List<TreeFunction>();
 
             // main method
-            functions.Add(new TreeFunction(new Label("main"), 2, new List<TreeStm>() { (BuildBody(prg.MainClass.Statement)) }, new Temp()));
+            Temp mainReturnTemp = new Temp();
+            functions.Add(new TreeFunction(new Label("main"), 2, new List<TreeStm>() { (BuildBody(prg.MainClass.Statement)), new StmMove(new ExpTemp(mainReturnTemp), new ExpConst(0)) }, mainReturnTemp));
+
+
 
             foreach (var classDecl in prg.ClassDeclarations)
             {
@@ -78,7 +81,6 @@ namespace Compilerbau.Intermediate
                     // separate return shit
                     Temp returnVal = new Temp();
                     body.Add(new StmMove(new ExpTemp(returnVal), BuildExpression(methodDecl.MethodBody.ReturnExpression)));
-
                     // create the treefunction and clear enviroments
                     functions.Add(new TreeFunction(new Label(methodDecl.MethodName), methodDecl.Parameters.Parameters.Length + 1, body, returnVal));
                     parEnv.Clear();

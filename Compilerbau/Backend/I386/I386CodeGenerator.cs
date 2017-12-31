@@ -61,6 +61,7 @@ namespace Compilerbau.Backend.I386
                 MunchStm(stm);
             }
 
+
             Emit(new InstrBinary(InstrBinary.Kind.MOV, new Operand.Reg(EAX), new Operand.Reg(function.ReturnTemp)));
 
             Emit(new InstrBinary(InstrBinary.Kind.MOV, new Operand.Reg(EBX), new Operand.Reg(ebxTemp)));
@@ -226,8 +227,10 @@ namespace Compilerbau.Backend.I386
 
                         for(int i = 0; i < call.Args.Count; i++)
                         {
+                            Console.WriteLine("Emit params " + i);
                             Temp argTemp = new Temp();
-                            Emit(new InstrBinary(InstrBinary.Kind.MOV, new Operand.Mem(ESP, 0, null, i * 4), MunchExp(call.Args[i])));
+                            Emit(new InstrBinary(InstrBinary.Kind.MOV, new Operand.Reg(argTemp), MunchExp(call.Args[i])));
+                            Emit(new InstrUnary(InstrUnary.Kind.PUSH, new Operand.Reg(argTemp)));
                         }
 
                         //Emit(new InstrBinary(InstrBinary.Kind.SUB, ))
@@ -255,7 +258,7 @@ namespace Compilerbau.Backend.I386
                 case ExpParam param:
                     {
                         Temp parTemp = new Temp();
-                        Emit(new InstrBinary(InstrBinary.Kind.MOV, new Operand.Reg(parTemp), new Operand.Mem(ESP, 0, null, param.Number * 4)));
+                        Emit(new InstrBinary(InstrBinary.Kind.MOV, new Operand.Reg(parTemp), new Operand.Mem(EBP, 0, null, param.Number * 4)));
                         return new Operand.Reg(parTemp);
                     }
                 case ExpTemp temp:
