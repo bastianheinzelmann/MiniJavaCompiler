@@ -21,6 +21,8 @@ namespace Compilerbau.Backend.I386
 
         List<IMachineInstruction> currentBody;
 
+        int currentParamCount;
+
         public IMachinePrg CodeGen(TreePrg frag)
         {
             List<I386Function> translatedFunctions = new List<I386Function>();
@@ -46,7 +48,7 @@ namespace Compilerbau.Backend.I386
         I386Function TranslateFunction(TreeFunction function)
         {
             currentBody = new List<IMachineInstruction>();
-
+            currentParamCount = function.NumberOfParameters - 1;
             Emit(new InstrUnary(InstrUnary.Kind.PUSH, new Operand.Reg(EBP)));
             Emit(new InstrBinary(InstrBinary.Kind.MOV, new Operand.Reg(EBP), new Operand.Reg(ESP)));
 
@@ -225,6 +227,8 @@ namespace Compilerbau.Backend.I386
                             throw new Exception("No label");
                         }
 
+                        Console.WriteLine(name.Label);
+
                         for(int i = 0; i < call.Args.Count; i++)
                         {
                             Console.WriteLine("Emit params " + i);
@@ -247,7 +251,6 @@ namespace Compilerbau.Backend.I386
 
                         Temp bas = new Temp(); Temp index = new Temp();
                         Emit(new InstrBinary(InstrBinary.Kind.MOV, new Operand.Reg(bas), MunchExp(mem.Address)));
-
                         return new Operand.Mem(bas);
                     }
                 case ExpName name:
@@ -258,7 +261,8 @@ namespace Compilerbau.Backend.I386
                 case ExpParam param:
                     {
                         Temp parTemp = new Temp();
-                        Emit(new InstrBinary(InstrBinary.Kind.MOV, new Operand.Reg(parTemp), new Operand.Mem(EBP, 0, null, param.Number * 4)));
+                        Emit(new InstrBinary(InstrBinary.Kind.MOV, new Operand.Reg(parTemp), new Operand.Mem(EBP, 0, null, (currentParamCount - param.Number) * 4 + 8)));
+                        Console.WriteLine("Temp: " + parTemp);
                         return new Operand.Reg(parTemp);
                     }
                 case ExpTemp temp:

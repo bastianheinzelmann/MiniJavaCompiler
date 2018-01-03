@@ -59,7 +59,7 @@ namespace Compilerbau
                 var i386Prg = (I386Prg)codeGenerator.CodeGen(canonizedTree);
                 
 
-                File.WriteAllText(@"C:\Users\WhynotPanda\Documents\Compilerbau1718\tree2c\Examples\randomCan.tree", canonizedTree.ToString());
+                File.WriteAllText(@"C:\Users\WhynotPanda\Documents\Compilerbau1718\tree2c\Examples\random.tree", canonizedTree.ToString());
                 File.WriteAllText(@"C:\Users\WhynotPanda\Documents\Compilerbau1718\risc386\Examples\random.s", i386Prg.RenderAssembly());
 
                 Console.ForegroundColor = ConsoleColor.Green;
