@@ -88,44 +88,54 @@ namespace Compilerbau.Backend.I386
             {
                 case StmCJump cjump:
                     {
-                        Emit(new InstrBinary(InstrBinary.Kind.CMP, MunchExp(cjump.Left), MunchExp(cjump.Right)));
+                        if(cjump.Left is ExpConst c)
+                        {
+                            Temp constTemp = new Temp();
+                            Emit(new InstrBinary(InstrBinary.Kind.MOV, new Operand.Reg(constTemp), new Operand.Imm(c.Value)));
+                            Emit(new InstrBinary(InstrBinary.Kind.CMP, new Operand.Reg(constTemp), MunchExp(cjump.Right)));
+                        }
+                        else
+                        {
+                            Emit(new InstrBinary(InstrBinary.Kind.CMP, MunchExp(cjump.Left), MunchExp(cjump.Right)));
+                        }
+
                         InstrJump.Cond cond;
 
                         switch (cjump.Rel)
                         {
                             case StmCJump.Relation.EQ:
                                 {
-                                    cond = InstrJump.Cond.E;
+                                    cond = InstrJump.Cond.NE;
                                     break;
                                 }
                             case StmCJump.Relation.GE:
                                 {
-                                    cond = InstrJump.Cond.GE;
+                                    cond = InstrJump.Cond.L;
                                     break;
                                 }
                             case StmCJump.Relation.GT:
                                 {
-                                    cond = InstrJump.Cond.G;
+                                    cond = InstrJump.Cond.LE;
                                     break;
                                 }
                             case StmCJump.Relation.LE:
                                 {
-                                    cond = InstrJump.Cond.LE;
+                                    cond = InstrJump.Cond.G;
                                     break;
                                 }
                             case StmCJump.Relation.LT:
                                 {
-                                    cond = InstrJump.Cond.L;
+                                    cond = InstrJump.Cond.GE;
                                     break;
                                 }
                             case StmCJump.Relation.NE:
                                 {
-                                    cond = InstrJump.Cond.NE;
+                                    cond = InstrJump.Cond.E;
                                     break;
                                 }
                             default: throw new Exception("No Relation matched!");
                         }
-                        Emit(new InstrJump(cond, cjump.LabelTrue));
+                        Emit(new InstrJump(cond, cjump.LabelFalse));
                         break;
                     }
                 case StmJump jump:
@@ -227,11 +237,8 @@ namespace Compilerbau.Backend.I386
                             throw new Exception("No label");
                         }
 
-                        Console.WriteLine(name.Label);
-
                         for(int i = 0; i < call.Args.Count; i++)
                         {
-                            Console.WriteLine("Emit params " + i);
                             Temp argTemp = new Temp();
                             Emit(new InstrBinary(InstrBinary.Kind.MOV, new Operand.Reg(argTemp), MunchExp(call.Args[i])));
                             Emit(new InstrUnary(InstrUnary.Kind.PUSH, new Operand.Reg(argTemp)));
@@ -262,7 +269,6 @@ namespace Compilerbau.Backend.I386
                     {
                         Temp parTemp = new Temp();
                         Emit(new InstrBinary(InstrBinary.Kind.MOV, new Operand.Reg(parTemp), new Operand.Mem(EBP, 0, null, (currentParamCount - param.Number) * 4 + 8)));
-                        Console.WriteLine("Temp: " + parTemp);
                         return new Operand.Reg(parTemp);
                     }
                 case ExpTemp temp:
