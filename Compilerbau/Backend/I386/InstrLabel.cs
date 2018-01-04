@@ -23,12 +23,12 @@ namespace Compilerbau.Backend.I386
 
         public bool IsFallThrough()
         {
-            throw new NotImplementedException();
+            return true;
         }
 
         public Label IsLabel()
         {
-            throw new NotImplementedException();
+            return label;
         }
 
         public Tuple<Temp, Temp> IsMoveBetweenTemps()
@@ -36,9 +36,9 @@ namespace Compilerbau.Backend.I386
             throw new NotImplementedException();
         }
 
-        public IEnumerator<Temp> Jumps()
+        public IEnumerator<Label> Jumps()
         {
-            throw new NotImplementedException();
+            return null;
         }
 
         public void Rename(Func<Temp, Temp> sigma)

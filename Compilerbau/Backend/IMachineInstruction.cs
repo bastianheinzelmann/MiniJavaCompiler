@@ -14,7 +14,7 @@ namespace Compilerbau.Backend
 
         IEnumerator<Temp> Def();
 
-        IEnumerator<Temp> Jumps();
+        IEnumerator<Label> Jumps();
 
         bool IsFallThrough();
 

@@ -58,12 +58,19 @@ namespace Compilerbau.Backend.I386
 
         public bool IsFallThrough()
         {
-            throw new NotImplementedException();
+            if(kind == Kind.JMP)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
 
         public Label IsLabel()
         {
-            throw new NotImplementedException();
+            return null;
         }
 
         public Tuple<Temp, Temp> IsMoveBetweenTemps()
@@ -71,9 +78,10 @@ namespace Compilerbau.Backend.I386
             throw new NotImplementedException();
         }
 
-        public IEnumerator<Temp> Jumps()
+        public IEnumerator<Label> Jumps()
         {
-            throw new NotImplementedException();
+            List<Label> list = new List<Label> { label };
+            return list.GetEnumerator();
         }
 
         public void Rename(Func<Temp, Temp> sigma)

@@ -8,7 +8,7 @@ namespace Compilerbau.Backend.I386
 {
     class I386Prg : IMachinePrg
     {
-        private List<I386Function> functions;
+        public List<I386Function> Functions { get; }
 
         public I386Prg(List<I386Function> functions)
         {

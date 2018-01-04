@@ -45,6 +45,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Backend\ControlFlowGraph\DirectedGraph.cs" />
+    <Compile Include="Backend\ControlFlowGraph\GraphGenerator.cs" />
     <Compile Include="Backend\I386\I386CodeGenerator.cs" />
     <Compile Include="Backend\I386\I386Function.cs" />
     <Compile Include="Backend\I386\I386Prg.cs" />
