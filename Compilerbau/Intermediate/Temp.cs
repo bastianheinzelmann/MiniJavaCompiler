@@ -26,6 +26,20 @@ namespace Compilerbau.Intermediate
         {
             return "t" + Id;
         }
+
+        public override bool Equals(Object obj)
+        {
+            Temp other = (Temp)obj;
+
+            if(this.Id == other.Id)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 
     class RegTemp : Temp
@@ -40,6 +54,20 @@ namespace Compilerbau.Intermediate
         public override string ToString()
         {
             return Id;
+        }
+
+        public override bool Equals(object obj)
+        {
+            RegTemp other = (RegTemp)obj;
+
+            if(Id == other.Id)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

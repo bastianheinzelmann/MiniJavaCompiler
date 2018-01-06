@@ -29,7 +29,7 @@ namespace Compilerbau.Backend.I386
 
         public class Reg : Operand
         {
-            Temp reg;
+            public Temp reg { get; }
 
             public Reg(Temp reg)
             {

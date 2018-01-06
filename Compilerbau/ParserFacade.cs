@@ -1,5 +1,6 @@
 ﻿using Antlr4.Runtime;
 using Compilerbau.Backend.I386;
+using Compilerbau.Backend.LivenessAnalysis;
 using Compilerbau.GeneratedParser;
 using Compilerbau.Intermediate;
 using Compilerbau.Intermediate.Canon;
@@ -57,6 +58,12 @@ namespace Compilerbau
                 // assembly //
                 I386CodeGenerator codeGenerator = new I386CodeGenerator();
                 var i386Prg = (I386Prg)codeGenerator.CodeGen(canonizedTree);
+
+                // Liveness analysis //
+                GraphGenerator graphgenerator = new GraphGenerator();
+                var cfg = graphgenerator.GenGraphs(i386Prg);
+
+                new LivenessMachine().CalcLiveness(cfg[0]);
                 
 
                 File.WriteAllText(@"C:\Users\WhynotPanda\Documents\Compilerbau1718\tree2c\Examples\random.tree", canonizedTree.ToString());

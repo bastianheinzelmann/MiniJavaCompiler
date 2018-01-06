@@ -10,7 +10,7 @@ namespace Compilerbau.Backend.I386
     class I386Function : IMachineFunction
     {
         public Label Name { get; }
-        private List<IMachineInstruction> body;
+        public List<IMachineInstruction> body { get; }
 
         public I386Function(Label name, List<IMachineInstruction> body)
         {

@@ -45,8 +45,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Backend\ControlFlowGraph\DirectedGraph.cs" />
-    <Compile Include="Backend\ControlFlowGraph\GraphGenerator.cs" />
+    <Compile Include="Backend\LivenessAnalysis\DirectedGraph.cs" />
+    <Compile Include="Backend\LivenessAnalysis\GraphGenerator.cs" />
     <Compile Include="Backend\I386\I386CodeGenerator.cs" />
     <Compile Include="Backend\I386\I386Function.cs" />
     <Compile Include="Backend\I386\I386Prg.cs" />
@@ -59,6 +59,7 @@
     <Compile Include="Backend\ICodeGenerator.cs" />
     <Compile Include="Backend\IMachineFunction.cs" />
     <Compile Include="Backend\IMachineInstruction.cs" />
+    <Compile Include="Backend\LivenessAnalysis\LivenessMachine.cs" />
     <Compile Include="Backend\MachinePrg.cs" />
     <Compile Include="ErrorListener.cs" />
     <Compile Include="CustomExtensions\ExtensionMethods.cs" />

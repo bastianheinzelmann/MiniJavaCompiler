@@ -27,7 +27,17 @@ namespace Compilerbau.Backend.I386
 
         public IEnumerator<Temp> Def()
         {
-            throw new NotImplementedException();
+            List<Temp> definedTemps = new List<Temp>();
+
+            if(kind == Kind.CMP)
+            {
+                return definedTemps.GetEnumerator();
+            }
+            if (dst is Operand.Reg reg)
+            {
+                definedTemps.Add(reg.reg);
+            }
+            return definedTemps.GetEnumerator();
         }
 
         public bool IsFallThrough()
@@ -57,7 +67,17 @@ namespace Compilerbau.Backend.I386
 
         public IEnumerator<Temp> Use()
         {
-            throw new NotImplementedException();
+            List<Temp> activeTemps = new List<Temp>();
+            if(dst is Operand.Reg reg)
+            {
+                activeTemps.Add(reg.reg);
+            }
+            if(src is Operand.Reg reg2)
+            {
+                activeTemps.Add(reg2.reg);
+            }
+
+            return activeTemps.GetEnumerator();
         }
 
         public override string ToString()

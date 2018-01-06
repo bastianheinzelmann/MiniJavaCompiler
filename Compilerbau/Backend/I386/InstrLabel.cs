@@ -18,7 +18,7 @@ namespace Compilerbau.Backend.I386
 
         public IEnumerator<Temp> Def()
         {
-            throw new NotImplementedException();
+            return new List<Temp>().GetEnumerator();
         }
 
         public bool IsFallThrough()
@@ -48,7 +48,7 @@ namespace Compilerbau.Backend.I386
 
         public IEnumerator<Temp> Use()
         {
-            throw new NotImplementedException();
+            return new List<Temp>().GetEnumerator();
         }
 
         public override string ToString()

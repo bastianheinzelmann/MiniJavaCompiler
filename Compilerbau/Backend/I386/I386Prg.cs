@@ -12,7 +12,7 @@ namespace Compilerbau.Backend.I386
 
         public I386Prg(List<I386Function> functions)
         {
-            this.functions = functions;
+            this.Functions = functions;
         }
 
         public string RenderAssembly()
@@ -20,7 +20,7 @@ namespace Compilerbau.Backend.I386
             StringBuilder s = new StringBuilder();
             s.Append("\t.intel_syntax\n");
             s.Append("\t.global Lmain\n");
-            foreach(var m in functions)
+            foreach(var m in Functions)
             {
                 RenderFunction(m, s);
             }

@@ -25,12 +25,17 @@ namespace Compilerbau.Backend.I386
 
         public IEnumerator<Temp> Use()
         {
-            throw new NotImplementedException();
+            List<Temp> activeTemps = new List<Temp>();
+            if(op is Operand.Reg reg)
+            {
+                activeTemps.Add(reg.reg);
+            }
+            return activeTemps.GetEnumerator();
         }
 
         public IEnumerator<Temp> Def()
         {
-            throw new NotImplementedException();
+            return new List<Temp>().GetEnumerator();
         }
 
         public IEnumerator<Label> Jumps()
