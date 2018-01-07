@@ -40,6 +40,25 @@ namespace Compilerbau.Intermediate
                 return false;
             }
         }
+
+        public static bool IsSpecialReg(Temp t)
+        {
+            if(t is RegTemp rt)
+            {
+                if(rt.Id == "ebp" || rt.Id == "esp")
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 
     class RegTemp : Temp

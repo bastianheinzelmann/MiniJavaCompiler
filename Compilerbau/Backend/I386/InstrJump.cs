@@ -75,7 +75,7 @@ namespace Compilerbau.Backend.I386
 
         public Tuple<Temp, Temp> IsMoveBetweenTemps()
         {
-            throw new NotImplementedException();
+            return null;
         }
 
         public IEnumerator<Label> Jumps()

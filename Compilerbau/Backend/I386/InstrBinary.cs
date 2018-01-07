@@ -31,10 +31,14 @@ namespace Compilerbau.Backend.I386
 
             if(kind == Kind.CMP)
             {
-                return definedTemps.GetEnumerator();
+                return Enumerable.Empty<Temp>().GetEnumerator();
             }
             if (dst is Operand.Reg reg)
             {
+                if (Temp.IsSpecialReg(reg.reg))
+                {
+                    return Enumerable.Empty<Temp>().GetEnumerator();
+                }
                 definedTemps.Add(reg.reg);
             }
             return definedTemps.GetEnumerator();
@@ -52,7 +56,10 @@ namespace Compilerbau.Backend.I386
 
         public Tuple<Temp, Temp> IsMoveBetweenTemps()
         {
-            throw new NotImplementedException();
+            if(kind == Kind.MOV)
+            {
+
+            }
         }
 
         public IEnumerator<Label> Jumps()
@@ -70,11 +77,17 @@ namespace Compilerbau.Backend.I386
             List<Temp> activeTemps = new List<Temp>();
             if(dst is Operand.Reg reg)
             {
-                activeTemps.Add(reg.reg);
+                if (!Temp.IsSpecialReg(reg.reg))
+                {
+                    activeTemps.Add(reg.reg);
+                }
             }
             if(src is Operand.Reg reg2)
             {
-                activeTemps.Add(reg2.reg);
+                if (!Temp.IsSpecialReg(reg2.reg))
+                {
+                    activeTemps.Add(reg2.reg);
+                }
             }
 
             return activeTemps.GetEnumerator();

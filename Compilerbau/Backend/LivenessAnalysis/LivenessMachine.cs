@@ -18,19 +18,17 @@ namespace Compilerbau.Backend.LivenessAnalysis
             Dictionary<IMachineInstruction, HashSet<Temp>> inActiveOld = new Dictionary<IMachineInstruction, HashSet<Temp>>();
 
             // we start from the fucking last instruction
-            graph.Nodes.Reverse();
-
-            foreach(var node in graph.Nodes)
+            foreach(var node in graph.Nodes.Reverse())
             {
-                outActive.Add(node, null);
-                inActive.Add(node, null);
+                outActive.Add(node, new HashSet<Temp>());
+                inActive.Add(node, new HashSet<Temp>());
             }
 
             bool weAreDone = false;
 
             while (!weAreDone)
             {
-                foreach (var n in graph.Nodes)
+                foreach (var n in graph.Nodes.Reverse())
                 {
                     // save old state
                     outActiveOld = new Dictionary<IMachineInstruction, HashSet<Temp>>(outActive);
@@ -60,7 +58,7 @@ namespace Compilerbau.Backend.LivenessAnalysis
                         definedTemps.Add(enumerator.Current);
                     }
 
-                    inActive[n] = new HashSet<Temp>(outActive[n].Except(definedTemps));
+                    inActive[n] = new HashSet<Temp>(usedTemps.Union(outActive[n].Except(definedTemps)));
                 }
 
                 // compare old and new
@@ -68,8 +66,13 @@ namespace Compilerbau.Backend.LivenessAnalysis
                 {
                     weAreDone = true;
                 } 
-
             }
+
+        }
+
+        public void CalcInterferenceGraph()
+        {
+
         }
 
         private bool CompareDicts(Dictionary<IMachineInstruction, HashSet<Temp>> first, Dictionary<IMachineInstruction, HashSet<Temp>> second)

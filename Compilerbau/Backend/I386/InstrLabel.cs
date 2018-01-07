@@ -18,7 +18,7 @@ namespace Compilerbau.Backend.I386
 
         public IEnumerator<Temp> Def()
         {
-            return new List<Temp>().GetEnumerator();
+            return Enumerable.Empty<Temp>().GetEnumerator();
         }
 
         public bool IsFallThrough()
@@ -33,7 +33,7 @@ namespace Compilerbau.Backend.I386
 
         public Tuple<Temp, Temp> IsMoveBetweenTemps()
         {
-            throw new NotImplementedException();
+            return null;
         }
 
         public IEnumerator<Label> Jumps()
@@ -48,7 +48,7 @@ namespace Compilerbau.Backend.I386
 
         public IEnumerator<Temp> Use()
         {
-            return new List<Temp>().GetEnumerator();
+            return Enumerable.Empty<Temp>().GetEnumerator();
         }
 
         public override string ToString()
