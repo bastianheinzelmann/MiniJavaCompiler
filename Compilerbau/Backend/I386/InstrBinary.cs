@@ -58,7 +58,25 @@ namespace Compilerbau.Backend.I386
         {
             if(kind == Kind.MOV)
             {
-
+                if(src is Operand.Reg r1 && dst is Operand.Reg r2)
+                {
+                    if(!(r1.reg is RegTemp) && !(r2.reg is RegTemp))
+                    {
+                        return new Tuple<Temp, Temp>(r1.reg, r2.reg);
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            else
+            {
+                return null;
             }
         }
 

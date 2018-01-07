@@ -9,7 +9,7 @@ namespace Compilerbau.Backend.LivenessAnalysis
 {
     class LivenessMachine
     {
-        public void CalcLiveness(DirectedGraph<IMachineInstruction> graph)
+        public Dictionary<IMachineInstruction, HashSet<Temp>> CalcLiveness(DirectedGraph<IMachineInstruction> graph)
         {
             Dictionary<IMachineInstruction, HashSet<Temp>> outActive = new Dictionary < IMachineInstruction, HashSet< Temp >>();
             Dictionary<IMachineInstruction, HashSet<Temp>> inActive = new Dictionary < IMachineInstruction, HashSet< Temp >>();
@@ -68,11 +68,37 @@ namespace Compilerbau.Backend.LivenessAnalysis
                 } 
             }
 
+            return outActive;
+
         }
 
-        public void CalcInterferenceGraph()
+        public void CalcInterferenceGraph(DirectedGraph<IMachineInstruction> graph)
         {
+            Dictionary<IMachineInstruction, HashSet<Temp>> outActive = CalcLiveness(graph);
 
+            foreach(var n in graph.Nodes)
+            {
+                if(n.IsMoveBetweenTemps() == null)
+                {
+                    // IEnumerator.Current is t
+                    while (n.Def().MoveNext())
+                    {
+                        foreach(var u in outActive[n])
+                        {
+                            // kante (t, u)
+                        }
+                    }
+                }
+                else
+                {
+                    // t <- v
+                    Tuple<Temp, Temp> temps = n.IsMoveBetweenTemps();
+                    foreach(var u in outActive[n])
+                    {
+                        // kante (t, u)
+                    }
+                }
+            }
         }
 
         private bool CompareDicts(Dictionary<IMachineInstruction, HashSet<Temp>> first, Dictionary<IMachineInstruction, HashSet<Temp>> second)
