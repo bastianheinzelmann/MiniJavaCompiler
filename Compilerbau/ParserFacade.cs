@@ -63,8 +63,10 @@ namespace Compilerbau
                 GraphGenerator graphgenerator = new GraphGenerator();
                 var cfg = graphgenerator.GenGraphs(i386Prg);
 
-                new LivenessMachine().CalcLiveness(cfg[0]);
-                
+                var livemachine = new LivenessMachine();
+                var interferenceGraph = livemachine.CalcInterferenceGraph(cfg[0]);
+
+
 
                 File.WriteAllText(@"C:\Users\WhynotPanda\Documents\Compilerbau1718\tree2c\Examples\random.tree", canonizedTree.ToString());
                 File.WriteAllText(@"C:\Users\WhynotPanda\Documents\Compilerbau1718\risc386\Examples\random.s", i386Prg.RenderAssembly());

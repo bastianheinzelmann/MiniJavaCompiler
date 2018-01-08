@@ -49,7 +49,7 @@ namespace Compilerbau.Backend.I386
 
         public bool IsFallThrough()
         {
-            return false;
+            return true;
         }
 
         public Tuple<Temp, Temp> IsMoveBetweenTemps()

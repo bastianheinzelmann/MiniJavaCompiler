@@ -1,6 +1,7 @@
 ﻿using Compilerbau.Intermediate;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -68,11 +69,43 @@ namespace Compilerbau.Backend.LivenessAnalysis
                 } 
             }
 
+            /*int i = 0;
+            string stuff = "In\n";
+            foreach(var a in inActive)
+            {
+
+                stuff += i + ": ";
+                foreach(var b in a.Value)
+                {
+                    stuff += b + ", ";
+                }
+
+                stuff += "\n";
+                i++;
+            }
+
+            i = 0; stuff += "\n\nOut";
+
+            foreach (var a in outActive)
+            {
+                stuff += i + ": ";
+                foreach (var b in a.Value)
+                {
+                    stuff += b + ", ";
+                }
+
+                stuff += "\n";
+                i++;
+            }
+
+            File.WriteAllText(@"C:\Users\Panda\Documents\Compilerbau1718\risc386\Examples\graph.txt", stuff);
+            */
+
             return outActive;
 
         }
 
-        public void CalcInterferenceGraph(DirectedGraph<IMachineInstruction> graph)
+        public Dictionary<Temp, HashSet<Temp>> CalcInterferenceGraph(DirectedGraph<IMachineInstruction> graph)
         {
             Dictionary<IMachineInstruction, HashSet<Temp>> outActive = CalcLiveness(graph);
             Dictionary<Temp, HashSet<Temp>> interferenceGraph = new Dictionary<Temp, HashSet<Temp>>();
@@ -91,13 +124,22 @@ namespace Compilerbau.Backend.LivenessAnalysis
             {
                 if(n.IsMoveBetweenTemps() == null)
                 {
+                    IEnumerator<Temp> enumerator = n.Def();
                     // IEnumerator.Current is t
-                    while (n.Def().MoveNext())
+                    while (enumerator.MoveNext())
                     {
                         foreach(var u in outActive[n])
                         {
                             // kante (t, u)
-                            interferenceGraph[n.Def().Current].Add(u);
+                            Temp shit = enumerator.Current;
+                            if (interferenceGraph.ContainsKey(enumerator.Current))
+                            {
+                                interferenceGraph[enumerator.Current].Add(u);
+                            }
+                            else
+                            {
+                                Console.WriteLine(enumerator.Current);
+                            }
                         }
                     }
                 }
@@ -107,11 +149,16 @@ namespace Compilerbau.Backend.LivenessAnalysis
                     Tuple<Temp, Temp> temps = n.IsMoveBetweenTemps();
                     foreach(var u in outActive[n])
                     {
-                        // kante (t, u)
-                        interferenceGraph[temps.Item1].Add(u);
+                        if (!u.Equals(temps.Item2))
+                        {
+                            // kante (t, u)
+                            interferenceGraph[temps.Item1].Add(u);
+                        }                      
                     }
                 }
             }
+
+            return interferenceGraph;
         }
 
         private bool CompareDicts(Dictionary<IMachineInstruction, HashSet<Temp>> first, Dictionary<IMachineInstruction, HashSet<Temp>> second)

@@ -62,7 +62,7 @@ namespace Compilerbau.Backend.I386
                 {
                     if(!(r1.reg is RegTemp) && !(r2.reg is RegTemp))
                     {
-                        return new Tuple<Temp, Temp>(r1.reg, r2.reg);
+                        return new Tuple<Temp, Temp>(r2.reg, r1.reg);
                     }
                     else
                     {
@@ -93,7 +93,7 @@ namespace Compilerbau.Backend.I386
         public IEnumerator<Temp> Use()
         {
             List<Temp> activeTemps = new List<Temp>();
-            if(dst is Operand.Reg reg)
+            if(dst is Operand.Reg reg && kind == Kind.CMP)
             {
                 if (!Temp.IsSpecialReg(reg.reg))
                 {
