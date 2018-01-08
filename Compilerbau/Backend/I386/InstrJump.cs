@@ -24,10 +24,19 @@ namespace Compilerbau.Backend.I386
         private Operand dest;
         private Cond cond;
 
+        private List<RegTemp> callerSaveRegs;
+
         public InstrJump(Kind kind, Label label)
         {
             this.kind = kind;
             this.label = label;
+        }
+
+        public InstrJump(Kind kind, Label label, List<RegTemp> callerSaveRegs)
+        {
+            this.kind = kind;
+            this.label = label;
+            this.callerSaveRegs = callerSaveRegs;
         }
 
         public InstrJump(Kind kind, Operand dest)
@@ -53,7 +62,14 @@ namespace Compilerbau.Backend.I386
 
         public IEnumerator<Temp> Def()
         {
-            return new List<Temp>().GetEnumerator();
+            if(kind == Kind.CALL)
+            {
+                return callerSaveRegs.GetEnumerator();
+            }
+            else
+            {
+                return new List<Temp>().GetEnumerator();
+            }           
         }
 
         public bool IsFallThrough()

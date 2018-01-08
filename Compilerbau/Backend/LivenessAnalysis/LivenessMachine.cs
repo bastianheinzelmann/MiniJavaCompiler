@@ -75,6 +75,17 @@ namespace Compilerbau.Backend.LivenessAnalysis
         public void CalcInterferenceGraph(DirectedGraph<IMachineInstruction> graph)
         {
             Dictionary<IMachineInstruction, HashSet<Temp>> outActive = CalcLiveness(graph);
+            Dictionary<Temp, HashSet<Temp>> interferenceGraph = new Dictionary<Temp, HashSet<Temp>>();
+            foreach(var n in outActive)
+            {
+                foreach(var t in n.Value)
+                {
+                    if (!interferenceGraph.ContainsKey(t))
+                    {
+                        interferenceGraph.Add(t, new HashSet<Temp>());
+                    }
+                }
+            }
 
             foreach(var n in graph.Nodes)
             {
@@ -86,6 +97,7 @@ namespace Compilerbau.Backend.LivenessAnalysis
                         foreach(var u in outActive[n])
                         {
                             // kante (t, u)
+                            interferenceGraph[n.Def().Current].Add(u);
                         }
                     }
                 }
@@ -96,6 +108,7 @@ namespace Compilerbau.Backend.LivenessAnalysis
                     foreach(var u in outActive[n])
                     {
                         // kante (t, u)
+                        interferenceGraph[temps.Item1].Add(u);
                     }
                 }
             }

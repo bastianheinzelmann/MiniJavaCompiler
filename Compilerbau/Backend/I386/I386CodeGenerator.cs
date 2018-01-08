@@ -10,7 +10,12 @@ namespace Compilerbau.Backend.I386
 {
     class I386CodeGenerator : ICodeGenerator
     {
+        // Caller save EAX, ECX, EDX
         Temp EAX = new RegTemp("eax");
+        Temp ECX = new RegTemp("ecx");
+        Temp EDX = new RegTemp("edx");
+
+        // special purpose registers
         Temp ESP = new RegTemp("esp");
         Temp EBP = new RegTemp("ebp");
 
@@ -37,12 +42,12 @@ namespace Compilerbau.Backend.I386
 
         public List<Temp> GetAllRegisters()
         {
-            throw new NotImplementedException();
+            return new List<Temp> { EAX, ECX, EDX, ESP, EBP, EBX, ESI, EDI };
         }
 
         public List<Temp> GetGeneralPurposeRegisters()
         {
-            throw new NotImplementedException();
+            return new List<Temp> { EAX, ECX, EDX, EBX, ESI, EDI };
         }
 
         I386Function TranslateFunction(TreeFunction function)
@@ -245,7 +250,7 @@ namespace Compilerbau.Backend.I386
                         }
 
                         //Emit(new InstrBinary(InstrBinary.Kind.SUB, ))
-                        Emit(new InstrJump(InstrJump.Kind.CALL, name.Label));
+                        Emit(new InstrJump(InstrJump.Kind.CALL, name.Label, new List<RegTemp> { (RegTemp)EAX, (RegTemp)ECX, (RegTemp)EDX}));
                         return new Operand.Reg(EAX);
                     }
                 case ExpConst con:
