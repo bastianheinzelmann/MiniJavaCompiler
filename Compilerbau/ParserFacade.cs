@@ -65,13 +65,17 @@ namespace Compilerbau
                 var cfg = graphgenerator.GenGraphs(i386Prg);
 
                 var livemachine = new LivenessMachine();
-                var interferenceGraph = livemachine.CalcInterferenceGraph(cfg[0]);
-
                 GraphColorizer graphColor = new GraphColorizer(codeGenerator.GetGeneralPurposeRegisters().Count, codeGenerator.GetGeneralPurposeRegisters());
-                graphColor.ColorizeGraph(interferenceGraph);
 
-                File.WriteAllText(@"C:\Users\WhynotPanda\Documents\Compilerbau1718\tree2c\Examples\random.tree", canonizedTree.ToString());
-                File.WriteAllText(@"C:\Users\WhynotPanda\Documents\Compilerbau1718\risc386\Examples\random.s", i386Prg.RenderAssembly());
+                foreach (var n in cfg)
+                {
+                    var interferenceGraph = livemachine.CalcInterferenceGraph(n);
+                    graphColor.ColorizeGraph(interferenceGraph);
+                }
+            
+
+                File.WriteAllText(@"C:\Users\Panda\Documents\Compilerbau1718\tree2c\Examples\random.tree", canonizedTree.ToString());
+                File.WriteAllText(@"C:\Users\Panda\Documents\Compilerbau1718\risc386\Examples\random.s", i386Prg.RenderAssembly());
 
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("You did great!");

@@ -1,9 +1,6 @@
 ﻿using Compilerbau.Intermediate;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Compilerbau.Backend.RegisterAllocation
 {
@@ -32,106 +29,115 @@ namespace Compilerbau.Backend.RegisterAllocation
                 graphCopy.Add(n.Key, new HashSet<Temp>(n.Value));
             }
 
-
-            // simplify
-
-            foreach (var n in graphCopy)
+            while (true)
             {
-                if (registerDict.ContainsKey(n.Key))
+                Simplify();
+                if (spillCandidates.Count > 0)
                 {
-                    // dann isser schon gefärbt
-                    continue;
-                }
-                else if (n.Key is RegTemp r)
-                {
-                    registerDict.Add(r, r);
-                }
-                else if (interferenceGraph[n.Key].Count < colours)
-                {
-                    tempStack.Push(n.Key);
-                    foreach (var o in interferenceGraph)
-                    {
-                        if (o.Value.Contains(n.Key))
-                        {
-                            o.Value.Remove(n.Key);
-                        }
-                    }
-                    interferenceGraph.Remove(n.Key);
+                    // remove some shit like spilling candidate with highest stuff
                 }
                 else
                 {
-                    spillCandidates.Add(n.Key);
-                    tempStack.Push(n.Key);
-                    foreach (var o in interferenceGraph)
+                    Select();
+                }
+                break;
+            }
+
+            // simplify
+            void Simplify()
+            {
+                foreach (var n in graphCopy)
+                {
+                    if (registerDict.ContainsKey(n.Key))
                     {
-                        if (o.Value.Contains(n.Key))
-                        {
-                            o.Value.Remove(n.Key);
-                        }
+                        // dann isser schon gefärbt
+                        continue;
                     }
-                    interferenceGraph.Remove(n.Key);
+                    else if (n.Key is RegTemp r)
+                    {
+                        registerDict.Add(r, r);
+                    }
+                    else if (interferenceGraph[n.Key].Count < colours)
+                    {
+                        tempStack.Push(n.Key);
+                        foreach (var o in interferenceGraph)
+                        {
+                            if (o.Value.Contains(n.Key))
+                            {
+                                o.Value.Remove(n.Key);
+                            }
+                        }
+                        interferenceGraph.Remove(n.Key);
+                    }
+                    else
+                    {
+                        spillCandidates.Add(n.Key);
+                        //tempStack.Push(n.Key);
+                        //foreach (var o in interferenceGraph)
+                        //{
+                        //    if (o.Value.Contains(n.Key))
+                        //    {
+                        //        o.Value.Remove(n.Key);
+                        //    }
+                        //}
+                        //interferenceGraph.Remove(n.Key);
+                    }
                 }
             }
+
+
 
             // simplify end
 
             // backwards
-
-            while(tempStack.Count != 0)
+            void Select()
             {
-                Temp key = tempStack.Pop();
-                interferenceGraph.Add(key, new HashSet<Temp>());
-                
-                // alte kanten wiederherstellen 
-                foreach (var n in interferenceGraph)
+                while (tempStack.Count != 0)
                 {
-                    if (graphCopy[key].Contains(n.Key))
-                    {
-                        interferenceGraph[key].Add(n.Key);
-                    }
-                }
+                    Temp key = tempStack.Pop();
+                    interferenceGraph.Add(key, new HashSet<Temp>());
 
-                if (!FindReg(key))
-                {
-                    // spill
-                    Console.WriteLine("Spill " + key);
-                    registerDict.Add(key, null);
+                    // alte kanten wiederherstellen 
+                    foreach (var n in interferenceGraph)
+                    {
+                        if (graphCopy[key].Contains(n.Key))
+                        {
+                            interferenceGraph[key].Add(n.Key);
+                        }
+                    }
+
+                    if (!FindReg(key))
+                    {
+                        // spill
+                        Console.WriteLine("Spill " + key);
+                        registerDict.Add(key, null);
+                    }
                 }
             }
 
 
-
             bool FindReg(Temp key)
             {
-                if (spillCandidates.Contains(key))
-                {
-                    Console.WriteLine("Spill in findReg " + key);
-                }
-
                 bool foundReg = false;
                 // register zuweisen
-                foreach (var reg in registers)
+                foreach(var r in registers)
                 {
-                    foreach (var n in interferenceGraph[key])
+                    bool regIsUsed = false;
+                    foreach(var neighbour in interferenceGraph[key])
                     {
-                        if (!n.Equals(key))
+                        if (registerDict[neighbour].Equals(r))
                         {
-                            if (registerDict[n].Equals(reg))
-                            {
-                                continue;
-                            }
-                            else
-                            {
-                                registerDict.Add(key, (RegTemp)reg);
-                                foundReg = true;
-                                break;
-                            }
+                            regIsUsed = true;
+                            break;
                         }
                     }
-                    if (foundReg) break;
+                    if(regIsUsed == false)
+                    {
+                        registerDict.Add(key, (RegTemp)r);
+                        return true;
+                    }
                 }
-
-                return foundReg;
+                return false;
             }
         }
     }

@@ -50,9 +50,9 @@ namespace Compilerbau.Backend.I386
 
         public class Mem : Operand
         {
-            Temp bas;
+            public Temp bas;
             int scale;
-            Temp index;
+            public Temp index;
             int displacement;
 
             public Mem(Temp bas, int scale, Temp index, int displacement)

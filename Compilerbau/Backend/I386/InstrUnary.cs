@@ -34,6 +34,14 @@ namespace Compilerbau.Backend.I386
                 }
                 activeTemps.Add(reg.reg);
             }
+            else if(op is Operand.Mem mem)
+            {
+                if (Temp.IsSpecialReg(mem.bas))
+                {
+                    return Enumerable.Empty<Temp>().GetEnumerator();
+                }
+                activeTemps.Add(mem.bas);
+            }
             return activeTemps.GetEnumerator();
         }
 

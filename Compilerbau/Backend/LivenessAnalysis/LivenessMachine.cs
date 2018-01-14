@@ -69,7 +69,7 @@ namespace Compilerbau.Backend.LivenessAnalysis
                 } 
             }
 
-            /*int i = 0;
+            int i = 0;
             string stuff = "In\n";
             foreach(var a in inActive)
             {
@@ -79,7 +79,7 @@ namespace Compilerbau.Backend.LivenessAnalysis
                 {
                     stuff += b + ", ";
                 }
-
+            
                 stuff += "\n";
                 i++;
             }
@@ -99,7 +99,7 @@ namespace Compilerbau.Backend.LivenessAnalysis
             }
 
             File.WriteAllText(@"C:\Users\Panda\Documents\Compilerbau1718\risc386\Examples\graph.txt", stuff);
-            */
+            
 
             return outActive;
 
@@ -134,7 +134,10 @@ namespace Compilerbau.Backend.LivenessAnalysis
                             Temp shit = enumerator.Current;
                             if (interferenceGraph.ContainsKey(enumerator.Current))
                             {
-                                interferenceGraph[enumerator.Current].Add(u);
+                                if (!u.Equals(enumerator.Current))
+                                {
+                                    interferenceGraph[enumerator.Current].Add(u);
+                                }
                             }
                         }
                     }
@@ -145,7 +148,7 @@ namespace Compilerbau.Backend.LivenessAnalysis
                     Tuple<Temp, Temp> temps = n.IsMoveBetweenTemps();
                     foreach(var u in outActive[n])
                     {
-                        if (!u.Equals(temps.Item2))
+                        if (!u.Equals(temps.Item2) && !u.Equals(temps.Item1))
                         {
                             // kante (t, u)
                             interferenceGraph[temps.Item1].Add(u);
