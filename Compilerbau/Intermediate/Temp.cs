@@ -77,15 +77,24 @@ namespace Compilerbau.Intermediate
 
         public override bool Equals(object obj)
         {
-            RegTemp other = (RegTemp)obj;
-
-            if(Id == other.Id)
+            if(obj is RegTemp other)
             {
-                return true;
+                if (Id == other.Id)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else if(obj is Temp)
+            {
+                return false;
             }
             else
             {
-                return false;
+                throw new Exception();
             }
         }
     }

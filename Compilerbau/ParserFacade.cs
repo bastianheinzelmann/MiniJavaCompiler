@@ -1,6 +1,7 @@
 ﻿using Antlr4.Runtime;
 using Compilerbau.Backend.I386;
 using Compilerbau.Backend.LivenessAnalysis;
+using Compilerbau.Backend.RegisterAllocation;
 using Compilerbau.GeneratedParser;
 using Compilerbau.Intermediate;
 using Compilerbau.Intermediate.Canon;
@@ -66,7 +67,8 @@ namespace Compilerbau
                 var livemachine = new LivenessMachine();
                 var interferenceGraph = livemachine.CalcInterferenceGraph(cfg[0]);
 
-
+                GraphColorizer graphColor = new GraphColorizer(codeGenerator.GetGeneralPurposeRegisters().Count, codeGenerator.GetGeneralPurposeRegisters());
+                graphColor.ColorizeGraph(interferenceGraph);
 
                 File.WriteAllText(@"C:\Users\WhynotPanda\Documents\Compilerbau1718\tree2c\Examples\random.tree", canonizedTree.ToString());
                 File.WriteAllText(@"C:\Users\WhynotPanda\Documents\Compilerbau1718\risc386\Examples\random.s", i386Prg.RenderAssembly());

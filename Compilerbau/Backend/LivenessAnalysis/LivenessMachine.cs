@@ -136,10 +136,6 @@ namespace Compilerbau.Backend.LivenessAnalysis
                             {
                                 interferenceGraph[enumerator.Current].Add(u);
                             }
-                            else
-                            {
-                                Console.WriteLine(enumerator.Current);
-                            }
                         }
                     }
                 }
