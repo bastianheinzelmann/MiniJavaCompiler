@@ -17,30 +17,53 @@ namespace Compilerbau.Backend.RegisterAllocation
 
         public void ColorizeGraph(Dictionary<Temp, HashSet<Temp>> interferenceGraph)
         {
-            Dictionary<Temp, HashSet<Temp>> graphCopy = new Dictionary<Temp, HashSet<Temp>>();
+            Dictionary<Temp, HashSet<Temp>> graphCopy;
             Dictionary<Temp, RegTemp> registerDict = new Dictionary<Temp, RegTemp>();  
             Stack<Temp> tempStack = new Stack<Temp>();
             List<Temp> spillCandidates = new List<Temp>();
             List<Temp> spillNode = new List<Temp>();
 
-            // make a copy of graph
-            foreach(var n in interferenceGraph)
+            void CopyGraph()
             {
-                graphCopy.Add(n.Key, new HashSet<Temp>(n.Value));
+                graphCopy = new Dictionary<Temp, HashSet<Temp>>();
+                // make a copy of graph
+                foreach (var n in interferenceGraph)
+                {
+                    graphCopy.Add(n.Key, new HashSet<Temp>(n.Value));
+                }
             }
 
             while (true)
             {
+                CopyGraph();
                 Simplify();
+                // spill shit
                 if (spillCandidates.Count > 0)
                 {
                     // remove some shit like spilling candidate with highest stuff
+                    Temp spillCandidate = spillCandidates[0];
+                    foreach(var n in spillCandidates)
+                    {
+                        if(interferenceGraph[n].Count > interferenceGraph[spillCandidate].Count)
+                        {
+                            spillCandidate = n;
+                        }
+                    }
+                    tempStack.Push(spillCandidate);
+                    foreach (var o in interferenceGraph)
+                    {
+                        if (o.Value.Contains(spillCandidate))
+                        {
+                            o.Value.Remove(spillCandidate);
+                        }
+                    }
+                    interferenceGraph.Remove(spillCandidate);
                 }
                 else
                 {
                     Select();
+                    break;
                 }
-                break;
             }
 
             // simplify
@@ -118,7 +141,6 @@ namespace Compilerbau.Backend.RegisterAllocation
 
             bool FindReg(Temp key)
             {
-                bool foundReg = false;
                 // register zuweisen
                 foreach(var r in registers)
                 {

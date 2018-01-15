@@ -98,7 +98,7 @@ namespace Compilerbau.Backend.LivenessAnalysis
                 i++;
             }
 
-            File.WriteAllText(@"C:\Users\Panda\Documents\Compilerbau1718\risc386\Examples\graph.txt", stuff);
+            File.WriteAllText(@"C:\Users\WhynotPanda\Documents\Compilerbau1718\risc386\Examples\graph.txt", stuff);
             
 
             return outActive;
@@ -137,6 +137,7 @@ namespace Compilerbau.Backend.LivenessAnalysis
                                 if (!u.Equals(enumerator.Current))
                                 {
                                     interferenceGraph[enumerator.Current].Add(u);
+                                    interferenceGraph[u].Add(enumerator.Current);
                                 }
                             }
                         }
