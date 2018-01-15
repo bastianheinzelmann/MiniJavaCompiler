@@ -15,28 +15,32 @@ namespace Compilerbau.Backend.RegisterAllocation
             this.registers = registers;
         }
 
-        public void ColorizeGraph(Dictionary<Temp, HashSet<Temp>> interferenceGraph)
+        public Dictionary<Temp, RegTemp> ColorizeGraph(Dictionary<Temp, HashSet<Temp>> interferenceGraph)
         {
-            Dictionary<Temp, HashSet<Temp>> graphCopy;
+            Dictionary<Temp, HashSet<Temp>> graphCopy = new Dictionary<Temp, HashSet<Temp>>();
             Dictionary<Temp, RegTemp> registerDict = new Dictionary<Temp, RegTemp>();  
             Stack<Temp> tempStack = new Stack<Temp>();
             List<Temp> spillCandidates = new List<Temp>();
             List<Temp> spillNode = new List<Temp>();
 
-            void CopyGraph()
+            void CopyGraph(Dictionary<Temp, HashSet<Temp>> to, Dictionary<Temp, HashSet<Temp>> from)
             {
-                graphCopy = new Dictionary<Temp, HashSet<Temp>>();
+                to.Clear();
+                //to = new Dictionary<Temp, HashSet<Temp>>();
                 // make a copy of graph
-                foreach (var n in interferenceGraph)
+                foreach (var n in from)
                 {
-                    graphCopy.Add(n.Key, new HashSet<Temp>(n.Value));
+                    to.Add(n.Key, new HashSet<Temp>(n.Value));
                 }
             }
 
+            CopyGraph(graphCopy, interferenceGraph);
+            Dictionary<Temp, HashSet<Temp>> currentGraph = new Dictionary<Temp, HashSet<Temp>>();
+            CopyGraph(currentGraph, graphCopy);
             while (true)
             {
-                CopyGraph();
-                Simplify();
+                spillCandidates.Clear();
+                Simplify(currentGraph);
                 // spill shit
                 if (spillCandidates.Count > 0)
                 {
@@ -64,12 +68,13 @@ namespace Compilerbau.Backend.RegisterAllocation
                     Select();
                     break;
                 }
+                CopyGraph(currentGraph, interferenceGraph);
             }
 
             // simplify
-            void Simplify()
+            void Simplify(Dictionary<Temp, HashSet<Temp>> currentGraphCopy)
             {
-                foreach (var n in graphCopy)
+                foreach (var n in currentGraphCopy)
                 {
                     if (registerDict.ContainsKey(n.Key))
                     {
@@ -161,6 +166,8 @@ namespace Compilerbau.Backend.RegisterAllocation
                 }
                 return false;
             }
+
+            return registerDict;
         }
     }
 }

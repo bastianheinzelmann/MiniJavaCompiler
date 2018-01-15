@@ -87,7 +87,22 @@ namespace Compilerbau.Backend.I386
 
         public void Rename(Func<Temp, Temp> sigma)
         {
-            throw new NotImplementedException();
+            if(dst is Operand.Reg t)
+            {
+                t.reg = sigma.Invoke(t.reg);
+            }
+            else if(dst is Operand.Mem m)
+            {
+                m.bas = sigma.Invoke(m.bas);
+            }
+            if (src is Operand.Reg t2)
+            {
+                t2.reg = sigma.Invoke(t2.reg);
+            }
+            else if(src is Operand.Mem m2)
+            {
+                m2.bas = sigma.Invoke(m2.bas);
+            }
         }
 
         public IEnumerator<Temp> Use()

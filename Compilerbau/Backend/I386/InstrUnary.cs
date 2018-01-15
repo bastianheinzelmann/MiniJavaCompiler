@@ -72,7 +72,14 @@ namespace Compilerbau.Backend.I386
 
         public void Rename(Func<Temp, Temp> sigma)
         {
-            throw new NotImplementedException();
+            if (op is Operand.Reg t)
+            {
+                t.reg = sigma.Invoke(t.reg);
+            }
+            else if (op is Operand.Mem m)
+            {
+                m.bas = sigma.Invoke(m.bas);
+            }
         }
 
         public override string ToString()

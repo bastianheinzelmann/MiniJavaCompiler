@@ -43,7 +43,7 @@ namespace Compilerbau.Backend.I386
 
         public void Rename(Func<Temp, Temp> sigma)
         {
-            throw new NotImplementedException();
+            // do nothing
         }
 
         public IEnumerator<Temp> Use()

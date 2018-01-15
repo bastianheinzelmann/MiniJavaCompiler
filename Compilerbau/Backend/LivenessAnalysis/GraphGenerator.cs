@@ -9,57 +9,50 @@ namespace Compilerbau.Backend.LivenessAnalysis
 {
     class GraphGenerator
     {
-        public List<DirectedGraph<IMachineInstruction>> GenGraphs(I386Prg prg)
+        public DirectedGraph<IMachineInstruction> GenGraphs(I386Function function)
         {
-            List<DirectedGraph<IMachineInstruction>> graphs = new List<DirectedGraph<IMachineInstruction>>();
+            DirectedGraph<IMachineInstruction> graph = new DirectedGraph<IMachineInstruction>();
+            List<InstrLabel> labels = FindAllLabelNodes(function.body);
 
-            foreach (var function in prg.Functions)
+
+            for (int i = 0; i < function.body.Count; i++)
             {
-                DirectedGraph<IMachineInstruction> graph = new DirectedGraph<IMachineInstruction>();
-                List<InstrLabel> labels = FindAllLabelNodes(function.body);
+                graph.Nodes.Add(function.body[i]);
+                HashSet<IMachineInstruction> successors = new HashSet<IMachineInstruction>();
 
-
-                for (int i = 0; i < function.body.Count; i++)
+                if (function.body[i].Jumps() != null)
                 {
-                    graph.Nodes.Add(function.body[i]);
-                    HashSet<IMachineInstruction> successors = new HashSet<IMachineInstruction>();
+                    IEnumerator<Intermediate.Label> enumerator = function.body[i].Jumps();
 
-                    if (function.body[i].Jumps() != null)
+                    while (enumerator.MoveNext())
                     {
-                        IEnumerator<Intermediate.Label> enumerator = function.body[i].Jumps();
-
-                        while (enumerator.MoveNext())
+                        // search for the label instructions
+                        foreach (var label in labels)
                         {
-                            // search for the label instructions
-                            foreach(var label in labels)
+                            if (enumerator.Current.Name == label.IsLabel().Name)
                             {
-                                if (enumerator.Current.Name == label.IsLabel().Name)
-                                {
-                                    successors.Add(label);
-                                    break;
-                                }
+                                successors.Add(label);
+                                break;
                             }
                         }
                     }
-
-                    if (function.body[i].IsFallThrough())
-                    {
-                        successors.Add(function.body[i + 1]);
-                    }
-
-                    graph.Successors.Add(function.body[i], successors);
                 }
 
-                graphs.Add(graph);
+                if (function.body[i].IsFallThrough())
+                {
+                    successors.Add(function.body[i + 1]);
+                }
+
+                graph.Successors.Add(function.body[i], successors);
             }
 
-            return graphs;
+            return graph;
         }
 
         List<InstrLabel> FindAllLabelNodes(List<IMachineInstruction> body)
         {
             List<InstrLabel> labelNodes = new List<InstrLabel>();
-            foreach(var i in body)
+            foreach (var i in body)
             {
                 if (i.IsLabel() != null)
                 {

@@ -60,6 +60,7 @@
     <Compile Include="Backend\IMachineFunction.cs" />
     <Compile Include="Backend\IMachineInstruction.cs" />
     <Compile Include="Backend\LivenessAnalysis\LivenessMachine.cs" />
+    <Compile Include="Backend\LivenessAnalysis\RegisterAllocator.cs" />
     <Compile Include="Backend\MachinePrg.cs" />
     <Compile Include="Backend\RegisterAllocation\GraphColorizer.cs" />
     <Compile Include="ErrorListener.cs" />
