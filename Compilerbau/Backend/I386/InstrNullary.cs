@@ -60,7 +60,15 @@ namespace Compilerbau.Backend.I386
 
         public IEnumerator<Temp> Use()
         {
-            return Enumerable.Empty<Temp>().GetEnumerator();
+            if(kind == Kind.RET)
+            {
+                List<Temp> temps = new List<Temp> { I386CodeGenerator.EBX, I386CodeGenerator.EDI, I386CodeGenerator.ESI };
+                return temps.GetEnumerator();
+            }
+            else
+            {
+                return Enumerable.Empty<Temp>().GetEnumerator();
+            }
         }
 
         public override string ToString()

@@ -12,6 +12,8 @@ namespace Compilerbau.Backend.I386
         public Label Name { get; }
         public List<IMachineInstruction> body { get; }
 
+        private int framePointerCounter = -16;
+
         public I386Function(Label name, List<IMachineInstruction> body)
         {
             Name = name;
@@ -30,7 +32,47 @@ namespace Compilerbau.Backend.I386
 
         public void Spill(List<Temp> toSpill)
         {
-            throw new NotImplementedException();
+            int fp = framePointerCounter;
+            Temp newTemp;
+
+            foreach (var t in toSpill)
+            {
+                newTemp = null;
+
+                for (int i = 0; i < body.Count; i++)
+                {
+                    var usedEnumerator = body[i].Use();
+
+                    while (usedEnumerator.MoveNext())
+                    {
+                        if (t.Equals(usedEnumerator.Current))
+                        {
+                            if (newTemp == null) newTemp = new Temp();
+                            body[i].Rename((x) => x.Equals(t) ? newTemp : x);
+                            body.Insert(i, new InstrBinary(InstrBinary.Kind.MOV, new Operand.Reg(newTemp), new Operand.Mem(I386CodeGenerator.EBP, fp)));
+                            i++;
+                        }
+                    }
+
+                    var defedEnumerator = body[i].Def();
+
+                    while (defedEnumerator.MoveNext())
+                    {
+                        if (t.Equals(defedEnumerator.Current))
+                        {
+                            if (newTemp == null) newTemp = new Temp();
+                            body[i].Rename((x) => x.Equals(t) ? newTemp : x);
+                            body.Insert(i + 1, new InstrBinary(InstrBinary.Kind.MOV, new Operand.Mem(I386CodeGenerator.EBP, fp), new Operand.Reg(newTemp)));
+                            i++;
+                        }
+                    }
+                }
+
+                fp -= 4;
+            }
+
+            framePointerCounter = fp - 4;
+            body[2] = new InstrBinary(InstrBinary.Kind.SUB, new Operand.Reg(I386CodeGenerator.ESP), new Operand.Imm(Math.Abs(fp + 4)));
         }
     }
 }

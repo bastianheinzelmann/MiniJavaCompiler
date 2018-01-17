@@ -38,9 +38,9 @@ namespace Compilerbau.Backend.LivenessAnalysis
                     // out stuff
                     foreach (var s in graph.Successors[n])
                     {
-                        foreach (var shit in inActive[s])
+                        foreach (var o in inActive[s])
                         {
-                            outActive[n].Add(shit);
+                            outActive[n].Add(o);
                         }
                     }
 
@@ -96,9 +96,9 @@ namespace Compilerbau.Backend.LivenessAnalysis
 
                 stuff += "\n";
                 i++;
-            }
+            }*/
 
-            File.WriteAllText(@"C:\Users\WhynotPanda\Documents\Compilerbau1718\risc386\Examples\graph.txt", stuff);*/
+            //File.WriteAllText(@"C:\Users\WhynotPanda\Documents\Compilerbau1718\risc386\Examples\graph.txt", stuff);
             
 
             return outActive;

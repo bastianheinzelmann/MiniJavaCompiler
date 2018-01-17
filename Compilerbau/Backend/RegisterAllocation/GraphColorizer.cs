@@ -100,15 +100,6 @@ namespace Compilerbau.Backend.RegisterAllocation
                     else
                     {
                         spillCandidates.Add(n.Key);
-                        //tempStack.Push(n.Key);
-                        //foreach (var o in interferenceGraph)
-                        //{
-                        //    if (o.Value.Contains(n.Key))
-                        //    {
-                        //        o.Value.Remove(n.Key);
-                        //    }
-                        //}
-                        //interferenceGraph.Remove(n.Key);
                     }
                 }
             }

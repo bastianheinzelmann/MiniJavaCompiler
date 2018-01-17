@@ -62,14 +62,16 @@ namespace Compilerbau.Backend.I386
 
         public IEnumerator<Temp> Def()
         {
-            if(kind == Kind.CALL)
+            if (kind == Kind.CALL)
             {
                 return callerSaveRegs.GetEnumerator();
             }
             else
             {
                 return new List<Temp>().GetEnumerator();
-            }           
+            }
+
+            return Enumerable.Empty<Temp>().GetEnumerator();
         }
 
         public bool IsFallThrough()

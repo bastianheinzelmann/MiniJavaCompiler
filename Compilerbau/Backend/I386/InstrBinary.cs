@@ -108,7 +108,7 @@ namespace Compilerbau.Backend.I386
         public IEnumerator<Temp> Use()
         {
             List<Temp> activeTemps = new List<Temp>();
-            if(dst is Operand.Reg reg && kind == Kind.CMP)
+            if(dst is Operand.Reg reg && kind != Kind.MOV)
             {
                 if (!Temp.IsSpecialReg(reg.reg))
                 {

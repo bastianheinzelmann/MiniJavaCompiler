@@ -63,15 +63,15 @@ namespace Compilerbau.Backend.I386
                 this.displacement = displacement;
             }
 
-            public Mem(Temp bas)
+            public Mem(Temp bas, int displacement = 0)
             {
                 this.bas = bas;
-                displacement = 0;
+                this.displacement = displacement;
             }
 
             public override string ToString()
             {
-                return (index == null ? "DWORD PTR [" + bas + " + " + displacement + "]" : "fuck");
+                return (index == null ? "DWORD PTR [" + bas + " + " + displacement + "]" : "thats a problem");
             }
 
             public override List<Temp> Use()
