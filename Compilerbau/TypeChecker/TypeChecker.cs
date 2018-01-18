@@ -131,7 +131,9 @@ namespace Compilerbau.TypeChecking
                         }
                         else
                         {
-                            return TypeChecking(ifElse.TrueBranch, currentClass, currentMethod) && TypeChecking(ifElse.FalseBranch, currentClass, currentMethod);
+                            bool a = TypeChecking(ifElse.FalseBranch, currentClass, currentMethod); 
+                            bool b =TypeChecking(ifElse.TrueBranch, currentClass, currentMethod);
+                            return a && b;
                         }
                     }
                 case WhileBlock whileBlock:
@@ -145,7 +147,7 @@ namespace Compilerbau.TypeChecking
                             return TypeChecking(whileBlock.Statement, currentClass, currentMethod);
                         }
                     }
-                case VarAssignment varAss: // yes, Ass!
+                case VarAssignment varAss:
                     {
                         AST.Type varType = symbolTable.GetVarType(currentClass, currentMethod, varAss.Id);
                         if(varType.GetType() != TypeOf(varAss.Expression, currentClass, currentMethod).GetType()){
@@ -190,7 +192,7 @@ namespace Compilerbau.TypeChecking
                             return true;
                         }
                     }
-                default: throw new Exception("Not thingy matched");
+                default: throw new Exception("No thingy matched");
             }
         }
 
@@ -359,7 +361,7 @@ namespace Compilerbau.TypeChecking
                     }
                 case This th:
                     {
-                        return new ObjectType(currentClass);
+                        return new ObjectType(currentClass); // TODO
                     }
                 case ArrayInstantiation arrInst:
                     {

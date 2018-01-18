@@ -25,13 +25,13 @@ namespace Compilerbau.Backend.LivenessAnalysis
                     var nodesToSpill = ColorizeGraph(interferenceGraph, registers, registers.Count, n);
                     if (nodesToSpill.Count > 0)
                     {
+                        File.WriteAllText(@"C:\Users\WhynotPanda\Documents\Compilerbau1718\risc386\Examples\randomSpill.s", prg.RenderAssembly());
                         n.Spill(nodesToSpill);
                     }
                     else
                     {
                         break;
                     }
-                    //File.WriteAllText(@"C:\Users\WhynotPanda\Documents\Compilerbau1718\risc386\Examples\randomSpill.s", prg.RenderAssembly());
                 }
             }
         }
