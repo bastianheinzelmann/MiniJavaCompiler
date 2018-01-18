@@ -62,7 +62,7 @@ namespace Compilerbau.Backend.I386
         {
             if(kind == Kind.RET)
             {
-                List<Temp> temps = new List<Temp> { I386CodeGenerator.EBX, I386CodeGenerator.EDI, I386CodeGenerator.ESI };
+                List<Temp> temps = new List<Temp> { I386CodeGenerator.EBX, I386CodeGenerator.EDI, I386CodeGenerator.ESI, I386CodeGenerator.EAX };
                 return temps.GetEnumerator();
             }
             else

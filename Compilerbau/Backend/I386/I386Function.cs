@@ -12,8 +12,8 @@ namespace Compilerbau.Backend.I386
         public Label Name { get; }
         public List<IMachineInstruction> body { get; }
 
-        //private int framePointerCounter = -4;
-        private int framePointerCounter = -16;
+        private int framePointerCounter = -4;
+        //private int framePointerCounter = -16;
 
         public I386Function(Label name, List<IMachineInstruction> body)
         {

@@ -11,9 +11,9 @@ namespace Compilerbau.Backend.I386
     class I386CodeGenerator : ICodeGenerator
     {
         // Caller save EAX, ECX, EDX
-        Temp EAX = new RegTemp("eax");
-        Temp ECX = new RegTemp("ecx");
-        Temp EDX = new RegTemp("edx");
+        public static Temp EAX = new RegTemp("eax");
+        public static Temp ECX = new RegTemp("ecx");
+        public static Temp EDX = new RegTemp("edx");
 
         // special purpose registers
         public static Temp ESP = new RegTemp("esp");
@@ -56,18 +56,18 @@ namespace Compilerbau.Backend.I386
             currentParamCount = function.NumberOfParameters - 1;
             Emit(new InstrUnary(InstrUnary.Kind.PUSH, new Operand.Reg(EBP)));
             Emit(new InstrBinary(InstrBinary.Kind.MOV, new Operand.Reg(EBP), new Operand.Reg(ESP)));
-            //Emit(new InstrBinary(InstrBinary.Kind.SUB, new Operand.Reg(ESP), new Operand.Imm(0)));
-            Emit(new InstrBinary(InstrBinary.Kind.SUB, new Operand.Reg(ESP), new Operand.Imm(12)));
+            Emit(new InstrBinary(InstrBinary.Kind.SUB, new Operand.Reg(ESP), new Operand.Imm(0)));
+            //Emit(new InstrBinary(InstrBinary.Kind.SUB, new Operand.Reg(ESP), new Operand.Imm(12)));
 
             Temp ebxTemp = new Temp(), esiTemp = new Temp(), ediTemp = new Temp();
 
-            //Emit(new InstrBinary(InstrBinary.Kind.MOV, new Operand.Reg(ebxTemp), new Operand.Reg(EBX)));
-            //Emit(new InstrBinary(InstrBinary.Kind.MOV, new Operand.Reg(esiTemp), new Operand.Reg(ESI)));
-            //Emit(new InstrBinary(InstrBinary.Kind.MOV, new Operand.Reg(ediTemp), new Operand.Reg(EDI)));
+            Emit(new InstrBinary(InstrBinary.Kind.MOV, new Operand.Reg(ebxTemp), new Operand.Reg(EBX)));
+            Emit(new InstrBinary(InstrBinary.Kind.MOV, new Operand.Reg(esiTemp), new Operand.Reg(ESI)));
+            Emit(new InstrBinary(InstrBinary.Kind.MOV, new Operand.Reg(ediTemp), new Operand.Reg(EDI)));
 
-            Emit(new InstrBinary(InstrBinary.Kind.MOV, new Operand.Mem(EBP, -4), new Operand.Reg(EBX)));
-            Emit(new InstrBinary(InstrBinary.Kind.MOV, new Operand.Mem(EBP, -8), new Operand.Reg(ESI)));
-            Emit(new InstrBinary(InstrBinary.Kind.MOV, new Operand.Mem(EBP, -12), new Operand.Reg(EDI)));
+            //Emit(new InstrBinary(InstrBinary.Kind.MOV, new Operand.Mem(EBP, -4), new Operand.Reg(EBX)));
+            //Emit(new InstrBinary(InstrBinary.Kind.MOV, new Operand.Mem(EBP, -8), new Operand.Reg(ESI)));
+            //Emit(new InstrBinary(InstrBinary.Kind.MOV, new Operand.Mem(EBP, -12), new Operand.Reg(EDI)));
 
             foreach (var stm in function.Body)
             {
@@ -77,13 +77,13 @@ namespace Compilerbau.Backend.I386
 
             Emit(new InstrBinary(InstrBinary.Kind.MOV, new Operand.Reg(EAX), new Operand.Reg(function.ReturnTemp)));
 
-            //Emit(new InstrBinary(InstrBinary.Kind.MOV, new Operand.Reg(EBX), new Operand.Reg(ebxTemp)));
-            //Emit(new InstrBinary(InstrBinary.Kind.MOV, new Operand.Reg(ESI), new Operand.Reg(esiTemp)));
-            //Emit(new InstrBinary(InstrBinary.Kind.MOV, new Operand.Reg(EDI), new Operand.Reg(ediTemp)));
+            Emit(new InstrBinary(InstrBinary.Kind.MOV, new Operand.Reg(EBX), new Operand.Reg(ebxTemp)));
+            Emit(new InstrBinary(InstrBinary.Kind.MOV, new Operand.Reg(ESI), new Operand.Reg(esiTemp)));
+            Emit(new InstrBinary(InstrBinary.Kind.MOV, new Operand.Reg(EDI), new Operand.Reg(ediTemp)));
 
-            Emit(new InstrBinary(InstrBinary.Kind.MOV, new Operand.Reg(EBX), new Operand.Mem(EBP, -4)));
-            Emit(new InstrBinary(InstrBinary.Kind.MOV, new Operand.Reg(ESI), new Operand.Mem(EBP, -8)));
-            Emit(new InstrBinary(InstrBinary.Kind.MOV, new Operand.Reg(EDI), new Operand.Mem(EBP, -12)));
+            //Emit(new InstrBinary(InstrBinary.Kind.MOV, new Operand.Reg(EBX), new Operand.Mem(EBP, -4)));
+            //Emit(new InstrBinary(InstrBinary.Kind.MOV, new Operand.Reg(ESI), new Operand.Mem(EBP, -8)));
+            //Emit(new InstrBinary(InstrBinary.Kind.MOV, new Operand.Reg(EDI), new Operand.Mem(EBP, -12)));
 
             Emit(new InstrBinary(InstrBinary.Kind.MOV, new Operand.Reg(ESP), new Operand.Reg(EBP)));
             Emit(new InstrUnary(InstrUnary.Kind.POP, new Operand.Reg(EBP)));
