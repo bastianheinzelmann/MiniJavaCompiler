@@ -38,10 +38,10 @@ namespace Compilerbau.Backend.I386
 
             foreach (var t in toSpill)
             {
-                newTemp = null;
-
                 for (int i = 0; i < body.Count; i++)
                 {
+                    newTemp = null;
+
                     var usedEnumerator = body[i].Use();
 
                     while (usedEnumerator.MoveNext())

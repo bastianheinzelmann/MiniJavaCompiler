@@ -18,7 +18,7 @@ namespace Compilerbau.Backend.LivenessAnalysis
             Dictionary<IMachineInstruction, HashSet<Temp>> outActiveOld = new Dictionary<IMachineInstruction, HashSet<Temp>>();
             Dictionary<IMachineInstruction, HashSet<Temp>> inActiveOld = new Dictionary<IMachineInstruction, HashSet<Temp>>();
 
-            // we start from the fucking last instruction
+            // we start from the last instruction
             foreach(var node in graph.Nodes.Reverse())
             {
                 outActive.Add(node, new HashSet<Temp>());
@@ -69,7 +69,7 @@ namespace Compilerbau.Backend.LivenessAnalysis
                 } 
             }
 
-            int i = 0;
+            /*int i = 0;
             string stuff = "In\n";
             foreach(var a in inActive)
             {
@@ -99,7 +99,7 @@ namespace Compilerbau.Backend.LivenessAnalysis
             }
 
             File.WriteAllText(@"C:\Users\WhynotPanda\Documents\Compilerbau1718\risc386\Examples\graph.txt", stuff);
-            
+            */
 
             return outActive;
 
