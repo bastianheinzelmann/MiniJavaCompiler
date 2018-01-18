@@ -69,7 +69,7 @@ namespace Compilerbau.Backend.LivenessAnalysis
                 } 
             }
 
-            /*int i = 0;
+            int i = 0;
             string stuff = "In\n";
             foreach(var a in inActive)
             {
@@ -96,31 +96,58 @@ namespace Compilerbau.Backend.LivenessAnalysis
 
                 stuff += "\n";
                 i++;
-            }*/
+            }
 
-            //File.WriteAllText(@"C:\Users\WhynotPanda\Documents\Compilerbau1718\risc386\Examples\graph.txt", stuff);
+            File.WriteAllText(@"C:\Users\WhynotPanda\Documents\Compilerbau1718\risc386\Examples\graph.txt", stuff);
             
 
             return outActive;
 
         }
 
-        public Dictionary<Temp, HashSet<Temp>> CalcInterferenceGraph(DirectedGraph<IMachineInstruction> graph)
+        public Dictionary<Temp, HashSet<Temp>> CalcInterferenceGraph(DirectedGraph<IMachineInstruction> graph, List<Temp> registers)
         {
             Dictionary<IMachineInstruction, HashSet<Temp>> outActive = CalcLiveness(graph);
             Dictionary<Temp, HashSet<Temp>> interferenceGraph = new Dictionary<Temp, HashSet<Temp>>();
-            foreach(var n in outActive)
+
+            // da müssen wirklich alle temps der Funktion inklusive Register rein
+            //foreach (var n in outActive)
+            //{
+            //    foreach(var t in n.Value)
+            //    {
+            //        if (!interferenceGraph.ContainsKey(t))
+            //        {
+            //            interferenceGraph.Add(t, new HashSet<Temp>());
+            //        }
+            //    }
+            //}
+
+#region initialize interference graph
+
+            HashSet<Temp> allTemps = new HashSet<Temp>();
+
+            foreach (var n in graph.Nodes)
             {
-                foreach(var t in n.Value)
+                IEnumerator<Temp> enumerator = n.Def();
+                while (enumerator.MoveNext())
                 {
-                    if (!interferenceGraph.ContainsKey(t))
-                    {
-                        interferenceGraph.Add(t, new HashSet<Temp>());
-                    }
+                    allTemps.Add(enumerator.Current);
                 }
             }
 
-            foreach(var n in graph.Nodes)
+            foreach(var t in registers)
+            {
+                allTemps.Add(t);
+            }
+
+            foreach(var t in allTemps)
+            {
+                interferenceGraph.Add(t, new HashSet<Temp>());
+            }
+
+#endregion
+
+            foreach (var n in graph.Nodes)
             {
                 if(n.IsMoveBetweenTemps() == null)
                 {

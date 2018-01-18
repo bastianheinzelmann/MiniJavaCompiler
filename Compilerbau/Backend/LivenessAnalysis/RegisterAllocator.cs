@@ -21,7 +21,7 @@ namespace Compilerbau.Backend.LivenessAnalysis
                 while (true)
                 {
                     var cfg = graphGenerator.GenGraphs(n);
-                    var interferenceGraph = livenessMachine.CalcInterferenceGraph(cfg);
+                    var interferenceGraph = livenessMachine.CalcInterferenceGraph(cfg, registers);
                     var nodesToSpill = ColorizeGraph(interferenceGraph, registers, registers.Count, n);
                     if (nodesToSpill.Count > 0)
                     {

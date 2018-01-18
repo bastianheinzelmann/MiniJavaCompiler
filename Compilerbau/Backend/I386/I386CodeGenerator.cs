@@ -56,6 +56,7 @@ namespace Compilerbau.Backend.I386
             currentParamCount = function.NumberOfParameters - 1;
             Emit(new InstrUnary(InstrUnary.Kind.PUSH, new Operand.Reg(EBP)));
             Emit(new InstrBinary(InstrBinary.Kind.MOV, new Operand.Reg(EBP), new Operand.Reg(ESP)));
+            //Emit(new InstrBinary(InstrBinary.Kind.SUB, new Operand.Reg(ESP), new Operand.Imm(0)));
             Emit(new InstrBinary(InstrBinary.Kind.SUB, new Operand.Reg(ESP), new Operand.Imm(12)));
 
             Temp ebxTemp = new Temp(), esiTemp = new Temp(), ediTemp = new Temp();
@@ -260,6 +261,7 @@ namespace Compilerbau.Backend.I386
 
                         //Emit(new InstrBinary(InstrBinary.Kind.SUB, ))
                         Emit(new InstrJump(InstrJump.Kind.CALL, name.Label, new List<RegTemp> { (RegTemp)EAX, (RegTemp)ECX, (RegTemp)EDX}));
+                        //Emit(new InstrBinary(InstrBinary.Kind.ADD, new Operand.Reg(EBP), new Operand.Imm(call.Args.Count * 4)));
                         return new Operand.Reg(EAX);
                     }
                 case ExpConst con:

@@ -68,10 +68,8 @@ namespace Compilerbau.Backend.I386
             }
             else
             {
-                return new List<Temp>().GetEnumerator();
+                return Enumerable.Empty<Temp>().GetEnumerator();
             }
-
-            return Enumerable.Empty<Temp>().GetEnumerator();
         }
 
         public bool IsFallThrough()
