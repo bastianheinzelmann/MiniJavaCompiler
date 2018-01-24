@@ -19,7 +19,7 @@ namespace Compilerbau.Backend.I386
         {
             StringBuilder s = new StringBuilder();
             s.Append("\t.intel_syntax\n");
-            s.Append("\t.global Lmain\n");
+            s.Append("\t.global _Lmain\n");
             foreach(var m in Functions)
             {
                 RenderFunction(m, s);

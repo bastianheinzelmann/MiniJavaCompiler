@@ -165,7 +165,21 @@ namespace Compilerbau.Backend.I386
                     }
                 case StmMove move:
                     {
-                        Emit(new InstrBinary(InstrBinary.Kind.MOV, MunchExp(move.Dest), MunchExp(move.Source)));
+                        Operand op1 = MunchExp(move.Dest);
+                        Operand op2 = MunchExp(move.Source);
+
+                        if(op1 is Operand.Mem && op2 is Operand.Mem)
+                        {
+                            Operand.Reg t = new Operand.Reg(new Temp());
+
+                            Emit(new InstrBinary(InstrBinary.Kind.MOV, t, op2));
+                            Emit(new InstrBinary(InstrBinary.Kind.MOV, op1, t));
+                        }
+                        else
+                        {
+                            Emit(new InstrBinary(InstrBinary.Kind.MOV, op1, op2));
+                        }
+
                         break;
                     }
                 case StmSeq seq:

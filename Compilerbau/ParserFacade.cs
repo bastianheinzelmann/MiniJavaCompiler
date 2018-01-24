@@ -60,7 +60,7 @@ namespace Compilerbau
                 I386CodeGenerator codeGenerator = new I386CodeGenerator();
                 var i386Prg = (I386Prg)codeGenerator.CodeGen(canonizedTree);
 
-                File.WriteAllText(@"C:\Users\Panda\Documents\Compilerbau1718\risc386\Examples\randomNoAllocation.s", i386Prg.RenderAssembly());
+                File.WriteAllText(@"C:\Users\WhynotPanda\Documents\Compilerbau1718\risc386\Examples\randomNoAllocation.s", i386Prg.RenderAssembly());
 
                 // Liveness analysis //
                 RegisterAllocator registerAllocator = new RegisterAllocator();
@@ -69,8 +69,8 @@ namespace Compilerbau
 
 
 
-                File.WriteAllText(@"C:\Users\Panda\Documents\Compilerbau1718\tree2c\Examples\random.tree", canonizedTree.ToString());
-                File.WriteAllText(@"C:\Users\Panda\Documents\Compilerbau1718\risc386\Examples\random.s", i386Prg.RenderAssembly());
+                File.WriteAllText(@"C:\Users\WhynotPanda\Documents\Compilerbau1718\tree2c\Examples\random.tree", canonizedTree.ToString());
+                File.WriteAllText(@"C:\Users\WhynotPanda\Documents\Compilerbau1718\tree2c\Examples\random.s", i386Prg.RenderAssembly());
 
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("You did great!");

@@ -18,15 +18,20 @@ namespace Compilerbau.Backend.LivenessAnalysis
             LivenessMachine livenessMachine = new LivenessMachine();
             foreach (var n in prg.Functions)
             {
+                Console.WriteLine("Registerallocation for " + n.ToString());
                 while (true)
                 {
                     var cfg = graphGenerator.GenGraphs(n);
+                    Console.WriteLine("Generated Graph.");
                     var interferenceGraph = livenessMachine.CalcInterferenceGraph(cfg, registers);
+                    Console.WriteLine("Generated Interference Graph");
                     var nodesToSpill = ColorizeGraph(interferenceGraph, registers, registers.Count, n);
+                    Console.WriteLine("Allocated Registers");
                     if (nodesToSpill.Count > 0)
                     {
                         //File.WriteAllText(@"C:\Users\Panda\Documents\Compilerbau1718\risc386\Examples\randomSpill.s", prg.RenderAssembly());
                         n.Spill(nodesToSpill);
+                        Console.WriteLine("Spilled.");
                     }
                     else
                     {

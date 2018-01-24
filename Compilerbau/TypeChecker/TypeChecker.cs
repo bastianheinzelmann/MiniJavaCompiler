@@ -373,6 +373,7 @@ namespace Compilerbau.TypeChecking
                     }
                 case Not not:
                     {
+                        TypeOf(not.Exp, currentClass, currentMethod);
                         return new AST.Boolean();
                     }
                 case Parent par:

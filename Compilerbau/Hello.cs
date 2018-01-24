@@ -24,7 +24,9 @@ namespace Compilerbau
             
 
             stopwatch.Stop();
-            Console.WriteLine("I took " + stopwatch.ElapsedMilliseconds + " milliseconds. I am so lame.");
+            var elapsedTime = stopwatch.ElapsedMilliseconds;
+            float time = (float)elapsedTime / 1000;
+            Console.WriteLine("I took " + time + " milliseconds. I am so lame.");
             Console.ReadKey();
         }
     }

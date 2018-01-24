@@ -128,7 +128,7 @@ namespace Compilerbau.Backend.RegisterAllocation
                     if (!FindReg(key))
                     {
                         // spill
-                        Console.WriteLine("Spill " + key);
+                        //Console.WriteLine("Spill " + key);
                         registerDict.Add(key, null);
                     }
                 }

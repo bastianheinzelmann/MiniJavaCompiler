@@ -110,18 +110,6 @@ namespace Compilerbau.Backend.LivenessAnalysis
             Dictionary<IMachineInstruction, HashSet<Temp>> outActive = CalcLiveness(graph);
             Dictionary<Temp, HashSet<Temp>> interferenceGraph = new Dictionary<Temp, HashSet<Temp>>();
 
-            // da müssen wirklich alle temps der Funktion inklusive Register rein
-            //foreach (var n in outActive)
-            //{
-            //    foreach(var t in n.Value)
-            //    {
-            //        if (!interferenceGraph.ContainsKey(t))
-            //        {
-            //            interferenceGraph.Add(t, new HashSet<Temp>());
-            //        }
-            //    }
-            //}
-
 #region initialize interference graph
 
             HashSet<Temp> allTemps = new HashSet<Temp>();
