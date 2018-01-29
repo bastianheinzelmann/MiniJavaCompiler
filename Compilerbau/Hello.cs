@@ -20,7 +20,7 @@ namespace Compilerbau
             string input = File.ReadAllText(args[0]);
 
             ParserFacade parserFacade = new ParserFacade();
-            parserFacade.Parse(input);
+            parserFacade.Parse(input, args);
             
 
             stopwatch.Stop();

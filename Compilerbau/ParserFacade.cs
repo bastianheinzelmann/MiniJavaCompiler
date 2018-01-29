@@ -19,9 +19,29 @@ namespace Compilerbau
 {
     class ParserFacade
     {
-        public void Parse(string input)
+        bool WithoutAlloc = false;
+        bool Intermediate = false;
+
+        private void ParseCompilerOptions(string[] options)
         {
-            //string input = File.ReadAllText(args[0]);
+            foreach(var option in options)
+            {
+                if(option == "no_regallocs")
+                {
+                    WithoutAlloc = true;
+                }
+                if (option == "tree")
+                {
+                    Intermediate = true;
+                }
+            }
+        }
+
+
+        public void Parse(string input, string[] compilerOptions)
+        {
+            string fileName = Path.GetFileNameWithoutExtension(compilerOptions[0]);
+            ParseCompilerOptions(compilerOptions);
 
             AntlrInputStream inputStream = new AntlrInputStream(input);
 
@@ -60,7 +80,7 @@ namespace Compilerbau
                 I386CodeGenerator codeGenerator = new I386CodeGenerator();
                 var i386Prg = (I386Prg)codeGenerator.CodeGen(canonizedTree);
 
-                File.WriteAllText(@"C:\Users\WhynotPanda\Documents\Compilerbau1718\risc386\Examples\randomNoAllocation.s", i386Prg.RenderAssembly());
+                if(WithoutAlloc) File.WriteAllText(fileName+  ".s", i386Prg.RenderAssembly());
 
                 // Liveness analysis //
                 RegisterAllocator registerAllocator = new RegisterAllocator();
@@ -69,8 +89,8 @@ namespace Compilerbau
 
 
 
-                File.WriteAllText(@"C:\Users\WhynotPanda\Documents\Compilerbau1718\tree2c\Examples\random.tree", canonizedTree.ToString());
-                File.WriteAllText(@"C:\Users\WhynotPanda\Documents\Compilerbau1718\tree2c\Examples\random.s", i386Prg.RenderAssembly());
+                if(Intermediate) File.WriteAllText(fileName + ".tree", canonizedTree.ToString());
+                File.WriteAllText(fileName + ".s", i386Prg.RenderAssembly());
 
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("You did great!");

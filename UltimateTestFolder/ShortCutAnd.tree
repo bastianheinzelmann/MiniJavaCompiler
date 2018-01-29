@@ -1,0 +1,39 @@
+_Lmain(2) {
+ MOVE(TEMP(t12), CALL(NAME(_L_halloc), CONST(0)))
+ MOVE(TEMP(t13), CALL(NAME(_LTestAnd$run), TEMP(t12), CONST(0)))
+ MOVE(TEMP(t1), CALL(NAME(_L_println_int), TEMP(t13)))
+ MOVE(TEMP(t0), CONST(0))
+ return t0
+}
+
+_LTestAnd$run(2) {
+ CJUMP(EQ, PARAM(1), CONST(1), L$$3, L$$4)
+ LABEL(L$$3)
+ MOVE(TEMP(t4), CALL(NAME(_LTestAnd$sideEffect), PARAM(0)))
+ MOVE(TEMP(t3), CONST(1))
+ JUMP(NAME(L$$5), L$$5)
+ LABEL(L$$4)
+ MOVE(TEMP(t4), CONST(0))
+ MOVE(TEMP(t3), CONST(0))
+ LABEL(L$$5)
+ CJUMP(EQ, BINOP(AND, TEMP(t3), TEMP(t4)), CONST(1), L$$1, L$$0)
+ LABEL(L$$1)
+ MOVE(TEMP(t2), CONST(1))
+ JUMP(NAME(L$$2), L$$2)
+ LABEL(L$$0)
+ MOVE(TEMP(t2), CONST(0))
+ LABEL(L$$2)
+ MOVE(TEMP(t5), TEMP(t2))
+ return t5
+}
+
+_LTestAnd$sideEffect(1) {
+ MOVE(TEMP(t6), CALL(NAME(_L_println_int), BINOP(MINUS, CONST(0), CONST(9999))))
+ MOVE(TEMP(t7), CALL(NAME(_L_println_int), BINOP(MINUS, CONST(0), CONST(9999))))
+ MOVE(TEMP(t8), CALL(NAME(_L_println_int), BINOP(MINUS, CONST(0), CONST(9999))))
+ MOVE(TEMP(t9), CALL(NAME(_L_println_int), BINOP(MINUS, CONST(0), CONST(9999))))
+ MOVE(TEMP(t10), CALL(NAME(_L_println_int), BINOP(MINUS, CONST(0), CONST(9999))))
+ MOVE(TEMP(t11), CONST(1))
+ return t11
+}
+

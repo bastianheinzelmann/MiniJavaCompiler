@@ -1,0 +1,25 @@
+_Lmain(2) {
+ MOVE(TEMP(t6), CALL(NAME(_L_halloc), CONST(0)))
+ MOVE(TEMP(t7), CALL(NAME(_LStckClass$stckme), TEMP(t6), CONST(55)))
+ MOVE(TEMP(t1), CALL(NAME(_L_println_int), TEMP(t7)))
+ MOVE(TEMP(t0), CONST(0))
+ return t0
+}
+
+_LStckClass$stckme(2) {
+ MOVE(TEMP(t2), PARAM(1))
+ MOVE(TEMP(t4), CONST(0))
+ CJUMP(LT, PARAM(1), CONST(1), L$$3, L$$4)
+ LABEL(L$$3)
+ MOVE(TEMP(t4), CONST(1))
+ LABEL(L$$4)
+ CJUMP(EQ, TEMP(t4), CONST(1), L$$1, L$$0)
+ LABEL(L$$1)
+ JUMP(NAME(L$$2), L$$2)
+ LABEL(L$$0)
+ MOVE(TEMP(t3), CALL(NAME(_LStckClass$stckme), PARAM(0), BINOP(MINUS, PARAM(1), CONST(1))))
+ LABEL(L$$2)
+ MOVE(TEMP(t5), TEMP(t2))
+ return t5
+}
+

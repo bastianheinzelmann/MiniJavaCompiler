@@ -303,7 +303,7 @@ namespace Compilerbau.TypeChecking
                     }
                 case ArrayAccess arrAcc:
                     {
-                        return new Int();
+                        return TypeOf(arrAcc.Val, currentClass, currentMethod);
                     }
                 case ArrayLength arrlength:
                     {
@@ -365,7 +365,7 @@ namespace Compilerbau.TypeChecking
                     }
                 case ArrayInstantiation arrInst:
                     {
-                        return new IntArray();
+                        return TypeOf(arrInst.Length, currentClass, currentMethod);
                     }
                 case ObjectInstantiation objInst:
                     {

@@ -1,0 +1,40 @@
+_Lmain(2) {
+ MOVE(TEMP(t10), CALL(NAME(_L_halloc), CONST(0)))
+ MOVE(TEMP(t11), CALL(NAME(_LTestEqMain$run), TEMP(t10)))
+ MOVE(TEMP(t1), CALL(NAME(_L_println_int), TEMP(t11)))
+ MOVE(TEMP(t0), CONST(0))
+ return t0
+}
+
+_LTestEqMain$run(1) {
+ MOVE(TEMP(t5), CONST(0))
+ CJUMP(LT, CONST(4), BINOP(PLUS, CONST(4), CONST(1)), L$$3, L$$4)
+ LABEL(L$$3)
+ MOVE(TEMP(t5), CONST(1))
+ LABEL(L$$4)
+ CJUMP(EQ, TEMP(t5), CONST(1), L$$0, L$$1)
+ LABEL(L$$0)
+ MOVE(TEMP(t6), CONST(0))
+ CJUMP(LT, CONST(4), BINOP(PLUS, CONST(4), CONST(1)), L$$5, L$$6)
+ LABEL(L$$5)
+ MOVE(TEMP(t6), CONST(1))
+ LABEL(L$$6)
+ MOVE(TEMP(t4), TEMP(t6))
+ MOVE(TEMP(t3), CONST(1))
+ JUMP(NAME(L$$2), L$$2)
+ LABEL(L$$1)
+ MOVE(TEMP(t4), CONST(0))
+ MOVE(TEMP(t3), CONST(0))
+ LABEL(L$$2)
+ MOVE(TEMP(t2), BINOP(AND, TEMP(t3), TEMP(t4)))
+ CJUMP(EQ, TEMP(t2), CONST(1), L$$8, L$$7)
+ LABEL(L$$8)
+ MOVE(TEMP(t7), CALL(NAME(_L_println_int), CONST(1)))
+ JUMP(NAME(L$$9), L$$9)
+ LABEL(L$$7)
+ MOVE(TEMP(t8), CALL(NAME(_L_println_int), CONST(0)))
+ LABEL(L$$9)
+ MOVE(TEMP(t9), CONST(0))
+ return t9
+}
+
