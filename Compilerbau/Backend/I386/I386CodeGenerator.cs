@@ -216,8 +216,19 @@ namespace Compilerbau.Backend.I386
                             case ExpBinOp.Op.DIV:
                                 {
                                     Emit(new InstrBinary(InstrBinary.Kind.MOV, new Operand.Reg(EAX), MunchExp(binop.Left)));
-                                    //Emit(new InstrNullary(InstrNullary.Kind.CDQ));
-                                    Emit(new InstrUnary(InstrUnary.Kind.IDIV, MunchExp(binop.Right)));
+                                    Operand op = MunchExp(binop.Right);
+                                    Operand.Reg temp = new Operand.Reg(new Temp());
+                                    if(op is Operand.Reg)
+                                    {
+                                        Emit(new InstrNullary(InstrNullary.Kind.CDQ));
+                                        Emit(new InstrUnary(InstrUnary.Kind.IDIV, op));
+                                    }
+                                    else
+                                    {
+                                        Emit(new InstrBinary(InstrBinary.Kind.MOV, temp, op));
+                                        Emit(new InstrNullary(InstrNullary.Kind.CDQ));
+                                        Emit(new InstrUnary(InstrUnary.Kind.IDIV, temp));
+                                    }
                                     return new Operand.Reg(EAX);
                                 }
                             case ExpBinOp.Op.LSHIFT:

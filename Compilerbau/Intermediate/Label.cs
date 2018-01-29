@@ -26,7 +26,8 @@ namespace Compilerbau.Intermediate
             {
                 throw new Exception("Label name " + name + " is reserved.");
             }
-            Name = "_L" + name;
+            //Name = "_L" + name;
+            Name = "L" + name;
         }
 
         public override string ToString()

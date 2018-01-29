@@ -187,7 +187,19 @@ namespace Compilerbau.Intermediate
                     }
                 case And and:
                     {
-                        return new ExpBinOp(ExpBinOp.Op.AND, BuildExpression(and.Left), BuildExpression(and.Right));
+                        Label labelT = new Label();
+                        Label labelF = new Label();
+                        Label exit = new Label();
+
+                        ExpTemp leftT = new ExpTemp(new Temp());
+                        ExpTemp rightT = new ExpTemp(new Temp());
+
+                        return new ExpESeq( new StmSeq(new List<TreeStm>() { new StmCJump(StmCJump.Relation.EQ, BuildExpression(and.Left), new ExpConst(1),
+                        labelT, labelF), new StmLabel(labelT), new StmMove(rightT, BuildExpression(and.Right)), new StmMove(leftT, new ExpConst(1)), new StmJump(new ExpName(exit), new List<Label> { exit }),
+                        new StmLabel(labelF), new StmMove(rightT, new ExpConst(0)), new StmMove(leftT, new ExpConst(0)), new StmLabel(exit) }), new ExpBinOp(ExpBinOp.Op.AND, leftT, rightT));
+
+                        //return new ExpBinOp(ExpBinOp.Op.AND, BuildExpression(and.Left), BuildExpression(and.Right)); // true branch
+                        // ExpBinOp(ExpBinOp.Op.AND, BuildExpression(and.Left), new ExpConst(0)); false branch
                     }
                 case Plus plus:
                     {
