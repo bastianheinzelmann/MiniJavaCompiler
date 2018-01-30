@@ -35,9 +35,9 @@ expression :  expression LB expression RB #arrayAccessExpression
 			| expression (TIMES | DIV) expression #multiplicativeExpression
 			| expression (PLUS | MINUS) expression #additiveExpression
 			| expression (LT | GT) expression #relationalExpression
+			| NOT expression #notExpression
 			| expression AND expression #andExpression
 			| 'new' Identifier LP RP #objectInstantiationExpression
-			| NOT expression #notExpression
 			| Identifier #identifierExpression
 			| LP expression RP #parentExpression
 			;

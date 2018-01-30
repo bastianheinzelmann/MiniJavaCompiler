@@ -1,6 +1,6 @@
 	.intel_syntax
 	.global _Lmain
-_Lmain:
+Lmain:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 0
@@ -9,15 +9,15 @@ _Lmain:
 	MOV edi, edi
 	MOV eax, 0
 	PUSH eax
-	CALL _L_halloc
+	CALL L_halloc
 	MOV eax, eax
 	MOV eax, eax
 	PUSH eax
-	CALL _LE1$run
+	CALL LE1$run
 	MOV eax, eax
 	MOV eax, eax
 	PUSH eax
-	CALL _L_println_int
+	CALL L_println_int
 	MOV eax, eax
 	MOV eax, 0
 	MOV eax, eax
@@ -27,7 +27,7 @@ _Lmain:
 	MOV esp, ebp
 	POP ebp
 	RET
-_LE1$run:
+LE1$run:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 16
@@ -49,7 +49,7 @@ _LE1$run:
 	IMUL eax, 4
 	MOV eax, eax
 	PUSH eax
-	CALL _L_halloc
+	CALL L_halloc
 	MOV ecx, eax
 	MOV ecx, ecx
 	MOV eax, ebx
@@ -173,7 +173,7 @@ L$$11:
 	PUSH eax
 	MOV eax, ebx
 	PUSH eax
-	CALL _LE1$print
+	CALL LE1$print
 	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + -16]
 	MOV eax, eax
@@ -192,7 +192,7 @@ L$$6:
 	MOV esp, ebp
 	POP ebp
 	RET
-_LE1$print:
+LE1$print:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 4
@@ -242,7 +242,7 @@ L$$22:
 	SUB ecx, eax
 	MOV eax, ecx
 	PUSH eax
-	CALL _L_write
+	CALL L_write
 	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + 8]
 	MOV eax, DWORD PTR [ebp + 8]

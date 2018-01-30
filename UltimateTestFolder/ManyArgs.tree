@@ -1,13 +1,13 @@
-_Lmain(2) {
- MOVE(TEMP(t47), CALL(NAME(_L_halloc), CONST(0)))
- MOVE(TEMP(t48), CALL(NAME(_LPrime$test_it), TEMP(t47), CONST(1), CONST(2), CONST(3), CONST(4), CONST(5), CONST(10), CONST(89)))
- MOVE(TEMP(t1), CALL(NAME(_L_println_int), TEMP(t48)))
+Lmain(2) {
+ MOVE(TEMP(t47), CALL(NAME(L_halloc), CONST(0)))
+ MOVE(TEMP(t48), CALL(NAME(LPrime$test_it), TEMP(t47), CONST(1), CONST(2), CONST(3), CONST(4), CONST(5), CONST(10), CONST(89)))
+ MOVE(TEMP(t1), CALL(NAME(L_println_int), TEMP(t48)))
  MOVE(TEMP(t0), CONST(0))
  return t0
 }
 
-_LPrime$or(3) {
- CJUMP(EQ, PARAM(1), CONST(1), L$$0, L$$1)
+LPrime$or(3) {
+ CJUMP(EQ, BINOP(MINUS, CONST(1), PARAM(1)), CONST(1), L$$0, L$$1)
  LABEL(L$$0)
  MOVE(TEMP(t4), BINOP(MINUS, CONST(1), PARAM(2)))
  MOVE(TEMP(t3), CONST(1))
@@ -16,15 +16,15 @@ _LPrime$or(3) {
  MOVE(TEMP(t4), CONST(0))
  MOVE(TEMP(t3), CONST(0))
  LABEL(L$$2)
- MOVE(TEMP(t2), BINOP(MINUS, CONST(1), BINOP(MINUS, CONST(1), BINOP(AND, TEMP(t3), TEMP(t4)))))
+ MOVE(TEMP(t2), BINOP(MINUS, CONST(1), BINOP(AND, TEMP(t3), TEMP(t4))))
  return t2
 }
 
-_LPrime$divides(3) {
+LPrime$divides(3) {
  MOVE(TEMP(t5), CONST(1))
  MOVE(TEMP(t6), CONST(0))
  LABEL(L$$3)
- CJUMP(EQ, TEMP(t6), CONST(1), L$$6, L$$7)
+ CJUMP(EQ, BINOP(MINUS, CONST(1), TEMP(t6)), CONST(1), L$$6, L$$7)
  LABEL(L$$6)
  MOVE(TEMP(t9), CONST(0))
  CJUMP(LT, TEMP(t5), PARAM(2), L$$9, L$$10)
@@ -38,7 +38,7 @@ _LPrime$divides(3) {
  MOVE(TEMP(t8), CONST(0))
  MOVE(TEMP(t7), CONST(0))
  LABEL(L$$8)
- CJUMP(EQ, BINOP(MINUS, CONST(1), BINOP(AND, TEMP(t7), TEMP(t8))), CONST(1), L$$5, L$$4)
+ CJUMP(EQ, BINOP(AND, TEMP(t7), TEMP(t8)), CONST(1), L$$5, L$$4)
  LABEL(L$$5)
  MOVE(TEMP(t10), CONST(0))
  CJUMP(LT, BINOP(MUL, TEMP(t5), PARAM(1)), PARAM(2), L$$14, L$$15)
@@ -69,7 +69,7 @@ _LPrime$divides(3) {
  return t12
 }
 
-_LPrime$isprime(2) {
+LPrime$isprime(2) {
  MOVE(TEMP(t51), PARAM(0))
  MOVE(TEMP(t17), CONST(0))
  CJUMP(LT, CONST(1), PARAM(1), L$$24, L$$25)
@@ -98,7 +98,7 @@ _LPrime$isprime(2) {
  LABEL(L$$32)
  CJUMP(EQ, TEMP(t21), CONST(1), L$$28, L$$29)
  LABEL(L$$28)
- MOVE(TEMP(t49), CALL(NAME(_LPrime$divides), PARAM(0), CONST(2), PARAM(1)))
+ MOVE(TEMP(t49), CALL(NAME(LPrime$divides), PARAM(0), CONST(2), PARAM(1)))
  MOVE(TEMP(t20), BINOP(MINUS, CONST(1), TEMP(t49)))
  MOVE(TEMP(t19), CONST(1))
  JUMP(NAME(L$$30), L$$30)
@@ -106,7 +106,7 @@ _LPrime$isprime(2) {
  MOVE(TEMP(t20), CONST(0))
  MOVE(TEMP(t19), CONST(0))
  LABEL(L$$30)
- MOVE(TEMP(t14), CALL(NAME(_LPrime$or), TEMP(t51), TEMP(t50), BINOP(AND, TEMP(t19), TEMP(t20))))
+ MOVE(TEMP(t14), CALL(NAME(LPrime$or), TEMP(t51), TEMP(t50), BINOP(AND, TEMP(t19), TEMP(t20))))
  MOVE(TEMP(t13), CONST(3))
  LABEL(L$$33)
  CJUMP(EQ, TEMP(t14), CONST(1), L$$36, L$$37)
@@ -127,7 +127,7 @@ _LPrime$isprime(2) {
  LABEL(L$$35)
  CJUMP(EQ, TEMP(t14), CONST(1), L$$41, L$$42)
  LABEL(L$$41)
- MOVE(TEMP(t52), CALL(NAME(_LPrime$divides), PARAM(0), TEMP(t13), PARAM(1)))
+ MOVE(TEMP(t52), CALL(NAME(LPrime$divides), PARAM(0), TEMP(t13), PARAM(1)))
  MOVE(TEMP(t26), BINOP(MINUS, CONST(1), TEMP(t52)))
  MOVE(TEMP(t25), CONST(1))
  JUMP(NAME(L$$43), L$$43)
@@ -143,7 +143,7 @@ _LPrime$isprime(2) {
  return t27
 }
 
-_LPrime$b2i(2) {
+LPrime$b2i(2) {
  CJUMP(EQ, PARAM(1), CONST(1), L$$45, L$$44)
  LABEL(L$$45)
  MOVE(TEMP(t28), CONST(1))
@@ -155,42 +155,42 @@ _LPrime$b2i(2) {
  return t29
 }
 
-_LPrime$test_it(8) {
+LPrime$test_it(8) {
  MOVE(TEMP(t30), PARAM(1))
- MOVE(TEMP(t32), CALL(NAME(_L_println_int), TEMP(t30)))
- MOVE(TEMP(t31), CALL(NAME(_LPrime$isprime), PARAM(0), TEMP(t30)))
- MOVE(TEMP(t53), CALL(NAME(_LPrime$b2i), PARAM(0), TEMP(t31)))
- MOVE(TEMP(t33), CALL(NAME(_L_println_int), TEMP(t53)))
+ MOVE(TEMP(t32), CALL(NAME(L_println_int), TEMP(t30)))
+ MOVE(TEMP(t31), CALL(NAME(LPrime$isprime), PARAM(0), TEMP(t30)))
+ MOVE(TEMP(t53), CALL(NAME(LPrime$b2i), PARAM(0), TEMP(t31)))
+ MOVE(TEMP(t33), CALL(NAME(L_println_int), TEMP(t53)))
  MOVE(TEMP(t30), PARAM(2))
- MOVE(TEMP(t34), CALL(NAME(_L_println_int), TEMP(t30)))
- MOVE(TEMP(t31), CALL(NAME(_LPrime$isprime), PARAM(0), TEMP(t30)))
- MOVE(TEMP(t54), CALL(NAME(_LPrime$b2i), PARAM(0), TEMP(t31)))
- MOVE(TEMP(t35), CALL(NAME(_L_println_int), TEMP(t54)))
+ MOVE(TEMP(t34), CALL(NAME(L_println_int), TEMP(t30)))
+ MOVE(TEMP(t31), CALL(NAME(LPrime$isprime), PARAM(0), TEMP(t30)))
+ MOVE(TEMP(t54), CALL(NAME(LPrime$b2i), PARAM(0), TEMP(t31)))
+ MOVE(TEMP(t35), CALL(NAME(L_println_int), TEMP(t54)))
  MOVE(TEMP(t30), PARAM(3))
- MOVE(TEMP(t36), CALL(NAME(_L_println_int), TEMP(t30)))
- MOVE(TEMP(t31), CALL(NAME(_LPrime$isprime), PARAM(0), TEMP(t30)))
- MOVE(TEMP(t55), CALL(NAME(_LPrime$b2i), PARAM(0), TEMP(t31)))
- MOVE(TEMP(t37), CALL(NAME(_L_println_int), TEMP(t55)))
+ MOVE(TEMP(t36), CALL(NAME(L_println_int), TEMP(t30)))
+ MOVE(TEMP(t31), CALL(NAME(LPrime$isprime), PARAM(0), TEMP(t30)))
+ MOVE(TEMP(t55), CALL(NAME(LPrime$b2i), PARAM(0), TEMP(t31)))
+ MOVE(TEMP(t37), CALL(NAME(L_println_int), TEMP(t55)))
  MOVE(TEMP(t30), PARAM(4))
- MOVE(TEMP(t38), CALL(NAME(_L_println_int), TEMP(t30)))
- MOVE(TEMP(t31), CALL(NAME(_LPrime$isprime), PARAM(0), TEMP(t30)))
- MOVE(TEMP(t56), CALL(NAME(_LPrime$b2i), PARAM(0), TEMP(t31)))
- MOVE(TEMP(t39), CALL(NAME(_L_println_int), TEMP(t56)))
+ MOVE(TEMP(t38), CALL(NAME(L_println_int), TEMP(t30)))
+ MOVE(TEMP(t31), CALL(NAME(LPrime$isprime), PARAM(0), TEMP(t30)))
+ MOVE(TEMP(t56), CALL(NAME(LPrime$b2i), PARAM(0), TEMP(t31)))
+ MOVE(TEMP(t39), CALL(NAME(L_println_int), TEMP(t56)))
  MOVE(TEMP(t30), PARAM(5))
- MOVE(TEMP(t40), CALL(NAME(_L_println_int), TEMP(t30)))
- MOVE(TEMP(t31), CALL(NAME(_LPrime$isprime), PARAM(0), TEMP(t30)))
- MOVE(TEMP(t57), CALL(NAME(_LPrime$b2i), PARAM(0), TEMP(t31)))
- MOVE(TEMP(t41), CALL(NAME(_L_println_int), TEMP(t57)))
+ MOVE(TEMP(t40), CALL(NAME(L_println_int), TEMP(t30)))
+ MOVE(TEMP(t31), CALL(NAME(LPrime$isprime), PARAM(0), TEMP(t30)))
+ MOVE(TEMP(t57), CALL(NAME(LPrime$b2i), PARAM(0), TEMP(t31)))
+ MOVE(TEMP(t41), CALL(NAME(L_println_int), TEMP(t57)))
  MOVE(TEMP(t30), PARAM(6))
- MOVE(TEMP(t42), CALL(NAME(_L_println_int), TEMP(t30)))
- MOVE(TEMP(t31), CALL(NAME(_LPrime$isprime), PARAM(0), TEMP(t30)))
- MOVE(TEMP(t58), CALL(NAME(_LPrime$b2i), PARAM(0), TEMP(t31)))
- MOVE(TEMP(t43), CALL(NAME(_L_println_int), TEMP(t58)))
+ MOVE(TEMP(t42), CALL(NAME(L_println_int), TEMP(t30)))
+ MOVE(TEMP(t31), CALL(NAME(LPrime$isprime), PARAM(0), TEMP(t30)))
+ MOVE(TEMP(t58), CALL(NAME(LPrime$b2i), PARAM(0), TEMP(t31)))
+ MOVE(TEMP(t43), CALL(NAME(L_println_int), TEMP(t58)))
  MOVE(TEMP(t30), PARAM(7))
- MOVE(TEMP(t44), CALL(NAME(_L_println_int), TEMP(t30)))
- MOVE(TEMP(t31), CALL(NAME(_LPrime$isprime), PARAM(0), TEMP(t30)))
- MOVE(TEMP(t59), CALL(NAME(_LPrime$b2i), PARAM(0), TEMP(t31)))
- MOVE(TEMP(t45), CALL(NAME(_L_println_int), TEMP(t59)))
+ MOVE(TEMP(t44), CALL(NAME(L_println_int), TEMP(t30)))
+ MOVE(TEMP(t31), CALL(NAME(LPrime$isprime), PARAM(0), TEMP(t30)))
+ MOVE(TEMP(t59), CALL(NAME(LPrime$b2i), PARAM(0), TEMP(t31)))
+ MOVE(TEMP(t45), CALL(NAME(L_println_int), TEMP(t59)))
  MOVE(TEMP(t46), CONST(999))
  return t46
 }

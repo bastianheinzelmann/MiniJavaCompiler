@@ -1,28 +1,28 @@
-_Lmain(2) {
- MOVE(TEMP(t31), CALL(NAME(_L_halloc), CONST(8)))
- MOVE(TEMP(t32), CALL(NAME(_LLS$Start), TEMP(t31), CONST(10)))
- MOVE(TEMP(t1), CALL(NAME(_L_println_int), TEMP(t32)))
+Lmain(2) {
+ MOVE(TEMP(t31), CALL(NAME(L_halloc), CONST(8)))
+ MOVE(TEMP(t32), CALL(NAME(LLS$Start), TEMP(t31), CONST(10)))
+ MOVE(TEMP(t1), CALL(NAME(L_println_int), TEMP(t32)))
  MOVE(TEMP(t0), CONST(0))
  return t0
 }
 
-_LLS$Start(2) {
- MOVE(TEMP(t2), CALL(NAME(_LLS$Init), PARAM(0), PARAM(1)))
- MOVE(TEMP(t3), CALL(NAME(_LLS$Print), PARAM(0)))
- MOVE(TEMP(t4), CALL(NAME(_L_println_int), CONST(9999)))
- MOVE(TEMP(t33), CALL(NAME(_LLS$Search), PARAM(0), CONST(8)))
- MOVE(TEMP(t5), CALL(NAME(_L_println_int), TEMP(t33)))
- MOVE(TEMP(t34), CALL(NAME(_LLS$Search), PARAM(0), CONST(12)))
- MOVE(TEMP(t6), CALL(NAME(_L_println_int), TEMP(t34)))
- MOVE(TEMP(t35), CALL(NAME(_LLS$Search), PARAM(0), CONST(17)))
- MOVE(TEMP(t7), CALL(NAME(_L_println_int), TEMP(t35)))
- MOVE(TEMP(t36), CALL(NAME(_LLS$Search), PARAM(0), CONST(50)))
- MOVE(TEMP(t8), CALL(NAME(_L_println_int), TEMP(t36)))
+LLS$Start(2) {
+ MOVE(TEMP(t2), CALL(NAME(LLS$Init), PARAM(0), PARAM(1)))
+ MOVE(TEMP(t3), CALL(NAME(LLS$Print), PARAM(0)))
+ MOVE(TEMP(t4), CALL(NAME(L_println_int), CONST(9999)))
+ MOVE(TEMP(t33), CALL(NAME(LLS$Search), PARAM(0), CONST(8)))
+ MOVE(TEMP(t5), CALL(NAME(L_println_int), TEMP(t33)))
+ MOVE(TEMP(t34), CALL(NAME(LLS$Search), PARAM(0), CONST(12)))
+ MOVE(TEMP(t6), CALL(NAME(L_println_int), TEMP(t34)))
+ MOVE(TEMP(t35), CALL(NAME(LLS$Search), PARAM(0), CONST(17)))
+ MOVE(TEMP(t7), CALL(NAME(L_println_int), TEMP(t35)))
+ MOVE(TEMP(t36), CALL(NAME(LLS$Search), PARAM(0), CONST(50)))
+ MOVE(TEMP(t8), CALL(NAME(L_println_int), TEMP(t36)))
  MOVE(TEMP(t9), CONST(55))
  return t9
 }
 
-_LLS$Print(1) {
+LLS$Print(1) {
  MOVE(TEMP(t10), CONST(1))
  LABEL(L$$0)
  MOVE(TEMP(t11), CONST(0))
@@ -32,7 +32,7 @@ _LLS$Print(1) {
  LABEL(L$$4)
  CJUMP(EQ, TEMP(t11), CONST(1), L$$2, L$$1)
  LABEL(L$$2)
- MOVE(TEMP(t12), CALL(NAME(_L_println_int), MEM(BINOP(PLUS, MEM(BINOP(PLUS, PARAM(0), BINOP(MUL, CONST(0), CONST(4)))), BINOP(MUL, CONST(4), BINOP(PLUS, TEMP(t10), CONST(1)))))))
+ MOVE(TEMP(t12), CALL(NAME(L_println_int), MEM(BINOP(PLUS, MEM(BINOP(PLUS, PARAM(0), BINOP(MUL, CONST(0), CONST(4)))), BINOP(MUL, CONST(4), BINOP(PLUS, TEMP(t10), CONST(1)))))))
  MOVE(TEMP(t10), BINOP(PLUS, TEMP(t10), CONST(1)))
  JUMP(NAME(L$$0), L$$0)
  LABEL(L$$1)
@@ -40,7 +40,7 @@ _LLS$Print(1) {
  return t13
 }
 
-_LLS$Search(2) {
+LLS$Search(2) {
  MOVE(TEMP(t14), CONST(1))
  MOVE(TEMP(t15), CONST(0))
  MOVE(TEMP(t16), CONST(0))
@@ -86,10 +86,10 @@ _LLS$Search(2) {
  return t23
 }
 
-_LLS$Init(2) {
+LLS$Init(2) {
  MOVE(MEM(BINOP(PLUS, PARAM(0), BINOP(MUL, CONST(1), CONST(4)))), PARAM(1))
  MOVE(TEMP(t37), BINOP(PLUS, PARAM(0), BINOP(MUL, CONST(0), CONST(4))))
- MOVE(TEMP(t28), CALL(NAME(_L_halloc), BINOP(MUL, BINOP(PLUS, PARAM(1), CONST(1)), CONST(4))))
+ MOVE(TEMP(t28), CALL(NAME(L_halloc), BINOP(MUL, BINOP(PLUS, PARAM(1), CONST(1)), CONST(4))))
  MOVE(MEM(TEMP(t28)), PARAM(1))
  MOVE(MEM(TEMP(t37)), TEMP(t28))
  MOVE(TEMP(t24), CONST(1))

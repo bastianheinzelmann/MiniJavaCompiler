@@ -365,7 +365,8 @@ namespace Compilerbau.TypeChecking
                     }
                 case ArrayInstantiation arrInst:
                     {
-                        return TypeOf(arrInst.Length, currentClass, currentMethod);
+                        TypeOf(arrInst.Length, currentClass, currentMethod);
+                        return new AST.IntArray();
                     }
                 case ObjectInstantiation objInst:
                     {
