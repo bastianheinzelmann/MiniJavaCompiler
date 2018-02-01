@@ -1,6 +1,6 @@
 	.intel_syntax
 	.global _Lmain
-Lmain:
+_Lmain:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 0
@@ -9,17 +9,17 @@ Lmain:
 	MOV edi, edi
 	MOV eax, 0
 	PUSH eax
-	CALL L_halloc
+	CALL _L_halloc
 	MOV eax, eax
 	MOV eax, eax
 	PUSH eax
 	MOV eax, 15
 	PUSH eax
-	CALL LFibAux$nfib
+	CALL _LFibAux$nfib
 	MOV eax, eax
 	MOV eax, eax
 	PUSH eax
-	CALL L_println_int
+	CALL _L_println_int
 	MOV eax, eax
 	MOV eax, 0
 	MOV eax, eax
@@ -29,7 +29,7 @@ Lmain:
 	MOV esp, ebp
 	POP ebp
 	RET
-LFibAux$nfib:
+_LFibAux$nfib:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 4
@@ -58,7 +58,7 @@ L$$0:
 	SUB eax, 1
 	MOV eax, eax
 	PUSH eax
-	CALL LFibAux$nfib
+	CALL _LFibAux$nfib
 	MOV eax, eax
 	MOV ebx, eax
 	MOV eax, DWORD PTR [ebp + 12]
@@ -69,7 +69,7 @@ L$$0:
 	SUB eax, 2
 	MOV eax, eax
 	PUSH eax
-	CALL LFibAux$nfib
+	CALL _LFibAux$nfib
 	MOV ecx, eax
 	MOV eax, ebx
 	ADD eax, ecx

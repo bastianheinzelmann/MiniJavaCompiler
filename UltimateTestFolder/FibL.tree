@@ -1,12 +1,12 @@
-Lmain(2) {
- MOVE(TEMP(t27), CALL(NAME(L_halloc), CONST(0)))
- MOVE(TEMP(t28), CALL(NAME(LFibAux$nfib_lazy), TEMP(t27), CONST(15)))
- MOVE(TEMP(t1), CALL(NAME(L_println_int), TEMP(t28)))
+_Lmain(2) {
+ MOVE(TEMP(t27), CALL(NAME(_L_halloc), CONST(0)))
+ MOVE(TEMP(t28), CALL(NAME(_LFibAux$nfib_lazy), TEMP(t27), CONST(15)))
+ MOVE(TEMP(t1), CALL(NAME(_L_println_int), TEMP(t28)))
  MOVE(TEMP(t0), CONST(0))
  return t0
 }
 
-LFibAux$nfib(2) {
+_LFibAux$nfib(2) {
  MOVE(TEMP(t3), CONST(0))
  CJUMP(LT, PARAM(1), CONST(2), L$$3, L$$4)
  LABEL(L$$3)
@@ -17,16 +17,16 @@ LFibAux$nfib(2) {
  MOVE(TEMP(t2), CONST(1))
  JUMP(NAME(L$$2), L$$2)
  LABEL(L$$0)
- MOVE(TEMP(t29), CALL(NAME(LFibAux$nfib), PARAM(0), BINOP(MINUS, PARAM(1), CONST(1))))
+ MOVE(TEMP(t29), CALL(NAME(_LFibAux$nfib), PARAM(0), BINOP(MINUS, PARAM(1), CONST(1))))
  MOVE(TEMP(t31), TEMP(t29))
- MOVE(TEMP(t30), CALL(NAME(LFibAux$nfib), PARAM(0), BINOP(MINUS, PARAM(1), CONST(2))))
+ MOVE(TEMP(t30), CALL(NAME(_LFibAux$nfib), PARAM(0), BINOP(MINUS, PARAM(1), CONST(2))))
  MOVE(TEMP(t2), BINOP(PLUS, BINOP(PLUS, TEMP(t31), TEMP(t30)), CONST(1)))
  LABEL(L$$2)
  MOVE(TEMP(t4), TEMP(t2))
  return t4
 }
 
-LFibAux$nfib_lazy(2) {
+_LFibAux$nfib_lazy(2) {
  MOVE(TEMP(t8), CONST(0))
  CJUMP(LT, PARAM(1), CONST(1), L$$8, L$$9)
  LABEL(L$$8)
@@ -39,16 +39,16 @@ LFibAux$nfib_lazy(2) {
  LABEL(L$$5)
  MOVE(TEMP(t5), CONST(0))
  LABEL(L$$7)
- MOVE(TEMP(t7), CALL(NAME(L_halloc), CONST(4)))
- MOVE(TEMP(t6), CALL(NAME(LLazyArray$init), TEMP(t7), PARAM(1)))
- MOVE(TEMP(t5), CALL(NAME(LLazyArray$nfib), TEMP(t7), PARAM(1)))
+ MOVE(TEMP(t7), CALL(NAME(_L_halloc), CONST(4)))
+ MOVE(TEMP(t6), CALL(NAME(_LLazyArray$init), TEMP(t7), PARAM(1)))
+ MOVE(TEMP(t5), CALL(NAME(_LLazyArray$nfib), TEMP(t7), PARAM(1)))
  MOVE(TEMP(t9), TEMP(t5))
  return t9
 }
 
-LLazyArray$init(2) {
+_LLazyArray$init(2) {
  MOVE(TEMP(t32), BINOP(PLUS, PARAM(0), BINOP(MUL, CONST(0), CONST(4))))
- MOVE(TEMP(t11), CALL(NAME(L_halloc), BINOP(MUL, BINOP(PLUS, PARAM(1), CONST(1)), CONST(4))))
+ MOVE(TEMP(t11), CALL(NAME(_L_halloc), BINOP(MUL, BINOP(PLUS, PARAM(1), CONST(1)), CONST(4))))
  MOVE(MEM(TEMP(t11)), PARAM(1))
  MOVE(MEM(TEMP(t32)), TEMP(t11))
  MOVE(TEMP(t10), CONST(0))
@@ -68,7 +68,7 @@ LLazyArray$init(2) {
  return t13
 }
 
-LLazyArray$defined(2) {
+_LLazyArray$defined(2) {
  MOVE(TEMP(t15), CONST(0))
  CJUMP(LT, PARAM(1), CONST(0), L$$18, L$$19)
  LABEL(L$$18)
@@ -96,7 +96,7 @@ LLazyArray$defined(2) {
  return t17
 }
 
-LLazyArray$get(2) {
+_LLazyArray$get(2) {
  MOVE(TEMP(t21), CONST(0))
  CJUMP(LT, PARAM(1), CONST(1), L$$28, L$$29)
  LABEL(L$$28)
@@ -110,13 +110,13 @@ LLazyArray$get(2) {
  MOVE(TEMP(t20), CONST(0))
  LABEL(L$$27)
  MOVE(TEMP(t18), MEM(BINOP(PLUS, MEM(BINOP(PLUS, PARAM(0), BINOP(MUL, CONST(0), CONST(4)))), BINOP(MUL, CONST(4), BINOP(PLUS, PARAM(1), CONST(1))))))
- MOVE(TEMP(t33), CALL(NAME(LLazyArray$defined), PARAM(0), TEMP(t18)))
+ MOVE(TEMP(t33), CALL(NAME(_LLazyArray$defined), PARAM(0), TEMP(t18)))
  CJUMP(EQ, TEMP(t33), CONST(1), L$$31, L$$30)
  LABEL(L$$31)
  MOVE(TEMP(t20), TEMP(t18))
  JUMP(NAME(L$$32), L$$32)
  LABEL(L$$30)
- MOVE(TEMP(t19), CALL(NAME(LLazyArray$f), PARAM(0), PARAM(1)))
+ MOVE(TEMP(t19), CALL(NAME(_LLazyArray$f), PARAM(0), PARAM(1)))
  MOVE(MEM(BINOP(PLUS, MEM(BINOP(PLUS, PARAM(0), BINOP(MUL, CONST(0), CONST(4)))), BINOP(MUL, CONST(4), BINOP(PLUS, PARAM(1), CONST(1))))), TEMP(t19))
  MOVE(TEMP(t20), TEMP(t19))
  LABEL(L$$32)
@@ -124,12 +124,12 @@ LLazyArray$get(2) {
  return t22
 }
 
-LLazyArray$f(2) {
- MOVE(TEMP(t23), CALL(NAME(LLazyArray$nfib), PARAM(0), PARAM(1)))
+_LLazyArray$f(2) {
+ MOVE(TEMP(t23), CALL(NAME(_LLazyArray$nfib), PARAM(0), PARAM(1)))
  return t23
 }
 
-LLazyArray$nfib(2) {
+_LLazyArray$nfib(2) {
  MOVE(TEMP(t25), CONST(0))
  CJUMP(LT, PARAM(1), CONST(2), L$$36, L$$37)
  LABEL(L$$36)
@@ -140,9 +140,9 @@ LLazyArray$nfib(2) {
  MOVE(TEMP(t24), CONST(1))
  JUMP(NAME(L$$35), L$$35)
  LABEL(L$$33)
- MOVE(TEMP(t34), CALL(NAME(LLazyArray$get), PARAM(0), BINOP(MINUS, PARAM(1), CONST(1))))
+ MOVE(TEMP(t34), CALL(NAME(_LLazyArray$get), PARAM(0), BINOP(MINUS, PARAM(1), CONST(1))))
  MOVE(TEMP(t36), TEMP(t34))
- MOVE(TEMP(t35), CALL(NAME(LLazyArray$get), PARAM(0), BINOP(MINUS, PARAM(1), CONST(2))))
+ MOVE(TEMP(t35), CALL(NAME(_LLazyArray$get), PARAM(0), BINOP(MINUS, PARAM(1), CONST(2))))
  MOVE(TEMP(t24), BINOP(PLUS, BINOP(PLUS, TEMP(t36), TEMP(t35)), CONST(1)))
  LABEL(L$$35)
  MOVE(TEMP(t26), TEMP(t24))

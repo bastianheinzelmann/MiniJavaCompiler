@@ -1,6 +1,6 @@
 	.intel_syntax
 	.global _Lmain
-Lmain:
+_Lmain:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 0
@@ -9,15 +9,15 @@ Lmain:
 	MOV edi, edi
 	MOV eax, 0
 	PUSH eax
-	CALL L_halloc
+	CALL _L_halloc
 	MOV eax, eax
 	MOV eax, eax
 	PUSH eax
-	CALL LLL$Start
+	CALL _LLL$Start
 	MOV eax, eax
 	MOV eax, eax
 	PUSH eax
-	CALL L_println_int
+	CALL _L_println_int
 	MOV eax, eax
 	MOV eax, 0
 	MOV eax, eax
@@ -27,7 +27,7 @@ Lmain:
 	MOV esp, ebp
 	POP ebp
 	RET
-LElement$Init:
+_LElement$Init:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 0
@@ -66,7 +66,7 @@ LElement$Init:
 	MOV esp, ebp
 	POP ebp
 	RET
-LElement$GetAge:
+_LElement$GetAge:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 0
@@ -87,7 +87,7 @@ LElement$GetAge:
 	MOV esp, ebp
 	POP ebp
 	RET
-LElement$GetSalary:
+_LElement$GetSalary:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 0
@@ -108,7 +108,7 @@ LElement$GetSalary:
 	MOV esp, ebp
 	POP ebp
 	RET
-LElement$GetMarried:
+_LElement$GetMarried:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 0
@@ -129,7 +129,7 @@ LElement$GetMarried:
 	MOV esp, ebp
 	POP ebp
 	RET
-LElement$Equal:
+_LElement$Equal:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 4
@@ -141,7 +141,7 @@ LElement$Equal:
 	MOV eax, DWORD PTR [ebp + 8]
 	MOV eax, eax
 	PUSH eax
-	CALL LElement$GetAge
+	CALL _LElement$GetAge
 	MOV eax, eax
 	MOV ecx, DWORD PTR [ebp + 12]
 	MOV ecx, ecx
@@ -156,7 +156,7 @@ LElement$Equal:
 	MOV eax, ecx
 	MOV eax, DWORD PTR [eax + 0]
 	PUSH eax
-	CALL LElement$Compare
+	CALL _LElement$Compare
 	MOV ecx, eax
 	MOV eax, 1
 	SUB eax, ecx
@@ -169,7 +169,7 @@ L$$0:
 	MOV eax, DWORD PTR [ebp + 8]
 	MOV eax, eax
 	PUSH eax
-	CALL LElement$GetSalary
+	CALL _LElement$GetSalary
 	MOV eax, eax
 	MOV ecx, DWORD PTR [ebp + 12]
 	MOV ecx, ecx
@@ -184,7 +184,7 @@ L$$0:
 	MOV eax, ecx
 	MOV eax, DWORD PTR [eax + 0]
 	PUSH eax
-	CALL LElement$Compare
+	CALL _LElement$Compare
 	MOV ecx, eax
 	MOV eax, 1
 	SUB eax, ecx
@@ -206,7 +206,7 @@ L$$7:
 	MOV eax, DWORD PTR [ebp + 8]
 	MOV eax, eax
 	PUSH eax
-	CALL LElement$GetMarried
+	CALL _LElement$GetMarried
 	MOV ecx, eax
 	MOV eax, 1
 	SUB eax, ecx
@@ -223,7 +223,7 @@ L$$6:
 	MOV eax, DWORD PTR [ebp + 8]
 	MOV eax, eax
 	PUSH eax
-	CALL LElement$GetMarried
+	CALL _LElement$GetMarried
 	MOV eax, eax
 	CMP eax, 1
 	JNE L$$12
@@ -245,7 +245,7 @@ L$$2:
 	MOV esp, ebp
 	POP ebp
 	RET
-LElement$Compare:
+_LElement$Compare:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 4
@@ -299,7 +299,7 @@ L$$17:
 	MOV esp, ebp
 	POP ebp
 	RET
-LList$Init:
+_LList$Init:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 0
@@ -321,7 +321,7 @@ LList$Init:
 	MOV esp, ebp
 	POP ebp
 	RET
-LList$InitNew:
+_LList$InitNew:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 0
@@ -360,7 +360,7 @@ LList$InitNew:
 	MOV esp, ebp
 	POP ebp
 	RET
-LList$Insert:
+_LList$Insert:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 8
@@ -373,7 +373,7 @@ LList$Insert:
 	MOV esi, eax
 	MOV eax, 12
 	PUSH eax
-	CALL L_halloc
+	CALL _L_halloc
 	MOV ebx, eax
 	MOV eax, ebx
 	PUSH eax
@@ -384,7 +384,7 @@ LList$Insert:
 	PUSH eax
 	MOV eax, 0
 	PUSH eax
-	CALL LList$InitNew
+	CALL _LList$InitNew
 	MOV eax, eax
 	MOV eax, ebx
 	MOV eax, eax
@@ -396,7 +396,7 @@ LList$Insert:
 	MOV esp, ebp
 	POP ebp
 	RET
-LList$SetNext:
+_LList$SetNext:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 0
@@ -419,7 +419,7 @@ LList$SetNext:
 	MOV esp, ebp
 	POP ebp
 	RET
-LList$Delete:
+_LList$Delete:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 28
@@ -483,7 +483,7 @@ L$$27:
 	PUSH eax
 	MOV eax, esi
 	PUSH eax
-	CALL LElement$Equal
+	CALL _LElement$Equal
 	MOV eax, eax
 	CMP eax, 1
 	JNE L$$31
@@ -503,7 +503,7 @@ L$$35:
 	MOV eax, DWORD PTR [ebp + -4]
 	MOV eax, eax
 	PUSH eax
-	CALL LList$GetNext
+	CALL _LList$GetNext
 	MOV eax, eax
 	MOV DWORD PTR [ebp + -16], eax
 	JMP L$$36
@@ -512,25 +512,25 @@ L$$34:
 	SUB eax, 555
 	MOV eax, eax
 	PUSH eax
-	CALL L_println_int
+	CALL _L_println_int
 	MOV eax, eax
 	MOV ebx, ebx
 	MOV eax, DWORD PTR [ebp + -4]
 	MOV eax, eax
 	PUSH eax
-	CALL LList$GetNext
+	CALL _LList$GetNext
 	MOV eax, eax
 	MOV ecx, ebx
 	PUSH ecx
 	MOV eax, eax
 	PUSH eax
-	CALL LList$SetNext
+	CALL _LList$SetNext
 	MOV eax, eax
 	MOV eax, 0
 	SUB eax, 555
 	MOV eax, eax
 	PUSH eax
-	CALL L_println_int
+	CALL _L_println_int
 	MOV eax, eax
 L$$36:
 	JMP L$$33
@@ -548,18 +548,18 @@ L$$40:
 	MOV eax, DWORD PTR [ebp + -4]
 	MOV eax, eax
 	PUSH eax
-	CALL LList$GetNext
+	CALL _LList$GetNext
 	MOV eax, eax
 	MOV DWORD PTR [ebp + -4], eax
 	MOV eax, DWORD PTR [ebp + -4]
 	MOV eax, eax
 	PUSH eax
-	CALL LList$GetEnd
+	CALL _LList$GetEnd
 	MOV edi, eax
 	MOV eax, DWORD PTR [ebp + -4]
 	MOV eax, eax
 	PUSH eax
-	CALL LList$GetElem
+	CALL _LList$GetElem
 	MOV esi, eax
 	MOV eax, 1
 	MOV DWORD PTR [ebp + -8], eax
@@ -581,7 +581,7 @@ L$$26:
 	MOV esp, ebp
 	POP ebp
 	RET
-LList$Search:
+_LList$Search:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 12
@@ -619,7 +619,7 @@ L$$44:
 	PUSH eax
 	MOV eax, ecx
 	PUSH eax
-	CALL LElement$Equal
+	CALL _LElement$Equal
 	MOV eax, eax
 	CMP eax, 1
 	JNE L$$45
@@ -631,15 +631,15 @@ L$$45:
 L$$47:
 	MOV eax, esi
 	PUSH eax
-	CALL LList$GetNext
+	CALL _LList$GetNext
 	MOV esi, eax
 	MOV eax, esi
 	PUSH eax
-	CALL LList$GetEnd
+	CALL _LList$GetEnd
 	MOV ebx, eax
 	MOV eax, esi
 	PUSH eax
-	CALL LList$GetElem
+	CALL _LList$GetElem
 	MOV ecx, eax
 	JMP L$$42
 L$$43:
@@ -654,7 +654,7 @@ L$$43:
 	MOV esp, ebp
 	POP ebp
 	RET
-LList$GetEnd:
+_LList$GetEnd:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 0
@@ -675,7 +675,7 @@ LList$GetEnd:
 	MOV esp, ebp
 	POP ebp
 	RET
-LList$GetElem:
+_LList$GetElem:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 0
@@ -696,7 +696,7 @@ LList$GetElem:
 	MOV esp, ebp
 	POP ebp
 	RET
-LList$GetNext:
+_LList$GetNext:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 0
@@ -717,7 +717,7 @@ LList$GetNext:
 	MOV esp, ebp
 	POP ebp
 	RET
-LList$Print:
+_LList$Print:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 8
@@ -750,23 +750,23 @@ L$$48:
 L$$50:
 	MOV eax, ecx
 	PUSH eax
-	CALL LElement$GetAge
+	CALL _LElement$GetAge
 	MOV eax, eax
 	MOV eax, eax
 	PUSH eax
-	CALL L_println_int
+	CALL _L_println_int
 	MOV eax, eax
 	MOV eax, esi
 	PUSH eax
-	CALL LList$GetNext
+	CALL _LList$GetNext
 	MOV esi, eax
 	MOV eax, esi
 	PUSH eax
-	CALL LList$GetEnd
+	CALL _LList$GetEnd
 	MOV ebx, eax
 	MOV eax, esi
 	PUSH eax
-	CALL LList$GetElem
+	CALL _LList$GetElem
 	MOV ecx, eax
 	JMP L$$48
 L$$49:
@@ -780,7 +780,7 @@ L$$49:
 	MOV esp, ebp
 	POP ebp
 	RET
-LLL$Start:
+_LLL$Start:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 12
@@ -792,24 +792,24 @@ LLL$Start:
 	MOV DWORD PTR [ebp + -4], eax
 	MOV eax, 12
 	PUSH eax
-	CALL L_halloc
+	CALL _L_halloc
 	MOV ebx, eax
 	MOV eax, ebx
 	PUSH eax
-	CALL LList$Init
+	CALL _LList$Init
 	MOV eax, eax
 	MOV ebx, ebx
 	MOV eax, ebx
 	PUSH eax
-	CALL LList$Init
+	CALL _LList$Init
 	MOV eax, eax
 	MOV eax, ebx
 	PUSH eax
-	CALL LList$Print
+	CALL _LList$Print
 	MOV eax, eax
 	MOV eax, 12
 	PUSH eax
-	CALL L_halloc
+	CALL _L_halloc
 	MOV esi, eax
 	MOV eax, esi
 	PUSH eax
@@ -819,25 +819,25 @@ LLL$Start:
 	PUSH eax
 	MOV eax, 0
 	PUSH eax
-	CALL LElement$Init
+	CALL _LElement$Init
 	MOV eax, eax
 	MOV eax, ebx
 	PUSH eax
 	MOV eax, esi
 	PUSH eax
-	CALL LList$Insert
+	CALL _LList$Insert
 	MOV ebx, eax
 	MOV eax, ebx
 	PUSH eax
-	CALL LList$Print
+	CALL _LList$Print
 	MOV eax, eax
 	MOV eax, 10000000
 	PUSH eax
-	CALL L_println_int
+	CALL _L_println_int
 	MOV eax, eax
 	MOV eax, 12
 	PUSH eax
-	CALL L_halloc
+	CALL _L_halloc
 	MOV esi, eax
 	MOV eax, esi
 	PUSH eax
@@ -847,26 +847,26 @@ LLL$Start:
 	PUSH eax
 	MOV eax, 1
 	PUSH eax
-	CALL LElement$Init
+	CALL _LElement$Init
 	MOV eax, eax
 	MOV edi, esi
 	MOV eax, ebx
 	PUSH eax
 	MOV eax, esi
 	PUSH eax
-	CALL LList$Insert
+	CALL _LList$Insert
 	MOV ebx, eax
 	MOV eax, ebx
 	PUSH eax
-	CALL LList$Print
+	CALL _LList$Print
 	MOV eax, eax
 	MOV eax, 10000000
 	PUSH eax
-	CALL L_println_int
+	CALL _L_println_int
 	MOV eax, eax
 	MOV eax, 12
 	PUSH eax
-	CALL L_halloc
+	CALL _L_halloc
 	MOV esi, eax
 	MOV eax, esi
 	PUSH eax
@@ -876,21 +876,21 @@ LLL$Start:
 	PUSH eax
 	MOV eax, 0
 	PUSH eax
-	CALL LElement$Init
+	CALL _LElement$Init
 	MOV eax, eax
 	MOV eax, ebx
 	PUSH eax
 	MOV eax, esi
 	PUSH eax
-	CALL LList$Insert
+	CALL _LList$Insert
 	MOV ebx, eax
 	MOV eax, ebx
 	PUSH eax
-	CALL LList$Print
+	CALL _LList$Print
 	MOV eax, eax
 	MOV eax, 12
 	PUSH eax
-	CALL L_halloc
+	CALL _L_halloc
 	MOV esi, eax
 	MOV eax, esi
 	PUSH eax
@@ -900,35 +900,35 @@ LLL$Start:
 	PUSH eax
 	MOV eax, 0
 	PUSH eax
-	CALL LElement$Init
+	CALL _LElement$Init
 	MOV eax, eax
 	MOV eax, ebx
 	PUSH eax
 	MOV eax, edi
 	PUSH eax
-	CALL LList$Search
+	CALL _LList$Search
 	MOV eax, eax
 	MOV eax, eax
 	PUSH eax
-	CALL L_println_int
+	CALL _L_println_int
 	MOV eax, eax
 	MOV eax, ebx
 	PUSH eax
 	MOV eax, esi
 	PUSH eax
-	CALL LList$Search
+	CALL _LList$Search
 	MOV eax, eax
 	MOV eax, eax
 	PUSH eax
-	CALL L_println_int
+	CALL _L_println_int
 	MOV eax, eax
 	MOV eax, 10000000
 	PUSH eax
-	CALL L_println_int
+	CALL _L_println_int
 	MOV eax, eax
 	MOV eax, 12
 	PUSH eax
-	CALL L_halloc
+	CALL _L_halloc
 	MOV esi, eax
 	MOV eax, esi
 	PUSH eax
@@ -938,49 +938,49 @@ LLL$Start:
 	PUSH eax
 	MOV eax, 0
 	PUSH eax
-	CALL LElement$Init
+	CALL _LElement$Init
 	MOV eax, eax
 	MOV eax, ebx
 	PUSH eax
 	MOV eax, esi
 	PUSH eax
-	CALL LList$Insert
+	CALL _LList$Insert
 	MOV ebx, eax
 	MOV eax, ebx
 	PUSH eax
-	CALL LList$Print
+	CALL _LList$Print
 	MOV eax, eax
 	MOV eax, 2220000
 	PUSH eax
-	CALL L_println_int
+	CALL _L_println_int
 	MOV eax, eax
 	MOV eax, ebx
 	PUSH eax
 	MOV eax, edi
 	PUSH eax
-	CALL LList$Delete
+	CALL _LList$Delete
 	MOV ebx, eax
 	MOV eax, ebx
 	PUSH eax
-	CALL LList$Print
+	CALL _LList$Print
 	MOV eax, eax
 	MOV eax, 33300000
 	PUSH eax
-	CALL L_println_int
+	CALL _L_println_int
 	MOV eax, eax
 	MOV eax, ebx
 	PUSH eax
 	MOV eax, esi
 	PUSH eax
-	CALL LList$Delete
+	CALL _LList$Delete
 	MOV ebx, eax
 	MOV eax, ebx
 	PUSH eax
-	CALL LList$Print
+	CALL _LList$Print
 	MOV eax, eax
 	MOV eax, 44440000
 	PUSH eax
-	CALL L_println_int
+	CALL _L_println_int
 	MOV eax, eax
 	MOV eax, 0
 	MOV eax, eax

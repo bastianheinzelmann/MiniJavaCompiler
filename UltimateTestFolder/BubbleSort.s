@@ -1,6 +1,6 @@
 	.intel_syntax
 	.global _Lmain
-Lmain:
+_Lmain:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 0
@@ -9,17 +9,17 @@ Lmain:
 	MOV edi, edi
 	MOV eax, 8
 	PUSH eax
-	CALL L_halloc
+	CALL _L_halloc
 	MOV eax, eax
 	MOV eax, eax
 	PUSH eax
 	MOV eax, 10
 	PUSH eax
-	CALL LBBS$Start
+	CALL _LBBS$Start
 	MOV eax, eax
 	MOV eax, eax
 	PUSH eax
-	CALL L_println_int
+	CALL _L_println_int
 	MOV eax, eax
 	MOV eax, 0
 	MOV eax, eax
@@ -29,7 +29,7 @@ Lmain:
 	MOV esp, ebp
 	POP ebp
 	RET
-LBBS$Start:
+_LBBS$Start:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 0
@@ -42,26 +42,26 @@ LBBS$Start:
 	MOV eax, DWORD PTR [ebp + 8]
 	MOV eax, eax
 	PUSH eax
-	CALL LBBS$Init
+	CALL _LBBS$Init
 	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + 12]
 	MOV eax, eax
 	PUSH eax
-	CALL LBBS$Print
+	CALL _LBBS$Print
 	MOV eax, eax
 	MOV eax, 99999
 	PUSH eax
-	CALL L_println_int
+	CALL _L_println_int
 	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + 12]
 	MOV eax, eax
 	PUSH eax
-	CALL LBBS$Sort
+	CALL _LBBS$Sort
 	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + 12]
 	MOV eax, eax
 	PUSH eax
-	CALL LBBS$Print
+	CALL _LBBS$Print
 	MOV eax, eax
 	MOV eax, 0
 	MOV eax, eax
@@ -71,7 +71,7 @@ LBBS$Start:
 	MOV esp, ebp
 	POP ebp
 	RET
-LBBS$Sort:
+_LBBS$Sort:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 8
@@ -241,7 +241,7 @@ L$$1:
 	MOV esp, ebp
 	POP ebp
 	RET
-LBBS$Print:
+_LBBS$Print:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 4
@@ -281,7 +281,7 @@ L$$17:
 	MOV eax, edx
 	MOV eax, DWORD PTR [eax + 0]
 	PUSH eax
-	CALL L_println_int
+	CALL _L_println_int
 	MOV eax, eax
 	MOV eax, ebx
 	ADD eax, 1
@@ -297,7 +297,7 @@ L$$16:
 	MOV esp, ebp
 	POP ebp
 	RET
-LBBS$Init:
+_LBBS$Init:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 4
@@ -326,7 +326,7 @@ LBBS$Init:
 	IMUL eax, 4
 	MOV eax, eax
 	PUSH eax
-	CALL L_halloc
+	CALL _L_halloc
 	MOV eax, eax
 	MOV eax, eax
 	MOV ecx, DWORD PTR [ebp + 8]

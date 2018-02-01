@@ -1,6 +1,6 @@
 	.intel_syntax
 	.global _Lmain
-Lmain:
+_Lmain:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 0
@@ -9,17 +9,17 @@ Lmain:
 	MOV edi, edi
 	MOV eax, 8
 	PUSH eax
-	CALL L_halloc
+	CALL _L_halloc
 	MOV eax, eax
 	MOV eax, eax
 	PUSH eax
 	MOV eax, 10
 	PUSH eax
-	CALL LQS$Start
+	CALL _LQS$Start
 	MOV eax, eax
 	MOV eax, eax
 	PUSH eax
-	CALL L_println_int
+	CALL _L_println_int
 	MOV eax, eax
 	MOV eax, 0
 	MOV eax, eax
@@ -29,7 +29,7 @@ Lmain:
 	MOV esp, ebp
 	POP ebp
 	RET
-LQS$Start:
+_LQS$Start:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 0
@@ -42,16 +42,16 @@ LQS$Start:
 	MOV eax, DWORD PTR [ebp + 8]
 	MOV eax, eax
 	PUSH eax
-	CALL LQS$Init
+	CALL _LQS$Init
 	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + 12]
 	MOV eax, eax
 	PUSH eax
-	CALL LQS$Print
+	CALL _LQS$Print
 	MOV eax, eax
 	MOV eax, 9999
 	PUSH eax
-	CALL L_println_int
+	CALL _L_println_int
 	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + 12]
 	MOV ecx, eax
@@ -69,12 +69,12 @@ LQS$Start:
 	PUSH ecx
 	MOV eax, eax
 	PUSH eax
-	CALL LQS$Sort
+	CALL _LQS$Sort
 	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + 12]
 	MOV eax, eax
 	PUSH eax
-	CALL LQS$Print
+	CALL _LQS$Print
 	MOV eax, eax
 	MOV eax, 0
 	MOV eax, eax
@@ -84,7 +84,7 @@ LQS$Start:
 	MOV esp, ebp
 	POP ebp
 	RET
-LQS$Sort:
+_LQS$Sort:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 20
@@ -382,7 +382,7 @@ L$$6:
 	SUB eax, 1
 	MOV eax, eax
 	PUSH eax
-	CALL LQS$Sort
+	CALL _LQS$Sort
 	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + 16]
 	MOV eax, eax
@@ -395,7 +395,7 @@ L$$6:
 	MOV eax, DWORD PTR [ebp + 8]
 	MOV eax, eax
 	PUSH eax
-	CALL LQS$Sort
+	CALL _LQS$Sort
 	MOV eax, eax
 	JMP L$$2
 L$$0:
@@ -412,7 +412,7 @@ L$$2:
 	MOV esp, ebp
 	POP ebp
 	RET
-LQS$Print:
+_LQS$Print:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 4
@@ -452,7 +452,7 @@ L$$31:
 	MOV eax, edx
 	MOV eax, DWORD PTR [eax + 0]
 	PUSH eax
-	CALL L_println_int
+	CALL _L_println_int
 	MOV eax, eax
 	MOV eax, ebx
 	ADD eax, 1
@@ -468,7 +468,7 @@ L$$30:
 	MOV esp, ebp
 	POP ebp
 	RET
-LQS$Init:
+_LQS$Init:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 4
@@ -497,7 +497,7 @@ LQS$Init:
 	IMUL eax, 4
 	MOV eax, eax
 	PUSH eax
-	CALL L_halloc
+	CALL _L_halloc
 	MOV eax, eax
 	MOV eax, eax
 	MOV ecx, DWORD PTR [ebp + 8]

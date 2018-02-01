@@ -48,6 +48,10 @@ _LC$value:
 	ADD esi, eax
 	MOV eax, esi
 	MOV eax, DWORD PTR [eax + 0]
+	MOV esi, 2
+	CDQ
+	IDIV esi
+	MOV eax, eax
 	MOV eax, eax
 	MOV ebx, ebx
 	MOV esi, edx

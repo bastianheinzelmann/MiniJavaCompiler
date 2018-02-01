@@ -10,7 +10,7 @@ class C {
 
   public int value() {
     v = 555;
-    return v;
+    return v / 2;
   }
 
 }

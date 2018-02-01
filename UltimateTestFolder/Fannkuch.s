@@ -1,6 +1,6 @@
 	.intel_syntax
 	.global _Lmain
-Lmain:
+_Lmain:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 0
@@ -9,15 +9,15 @@ Lmain:
 	MOV edi, edi
 	MOV eax, 40
 	PUSH eax
-	CALL L_halloc
+	CALL _L_halloc
 	MOV eax, eax
 	MOV eax, eax
 	PUSH eax
-	CALL LFannkuch1$fannkuch
+	CALL _LFannkuch1$fannkuch
 	MOV eax, eax
 	MOV eax, eax
 	PUSH eax
-	CALL L_write
+	CALL _L_write
 	MOV eax, eax
 	MOV eax, 0
 	MOV eax, eax
@@ -27,7 +27,7 @@ Lmain:
 	MOV esp, ebp
 	POP ebp
 	RET
-LFannkuch1$mod:
+_LFannkuch1$mod:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 4
@@ -55,7 +55,7 @@ LFannkuch1$mod:
 	MOV esp, ebp
 	POP ebp
 	RET
-LFannkuch1$min:
+_LFannkuch1$min:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 0
@@ -88,7 +88,7 @@ L$$2:
 	MOV esp, ebp
 	POP ebp
 	RET
-LFannkuch1$max:
+_LFannkuch1$max:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 0
@@ -121,7 +121,7 @@ L$$7:
 	MOV esp, ebp
 	POP ebp
 	RET
-LFannkuch1$arraycopy:
+_LFannkuch1$arraycopy:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 8
@@ -181,7 +181,7 @@ L$$11:
 	MOV esp, ebp
 	POP ebp
 	RET
-LFannkuch1$equals:
+_LFannkuch1$equals:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 0
@@ -228,7 +228,7 @@ L$$17:
 	MOV esp, ebp
 	POP ebp
 	RET
-LFannkuch1$firstPermutation:
+_LFannkuch1$firstPermutation:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 12
@@ -362,7 +362,7 @@ L$$29:
 	MOV eax, edx
 	MOV eax, DWORD PTR [eax + 0]
 	PUSH eax
-	CALL LFannkuch1$mod
+	CALL _LFannkuch1$mod
 	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + 12]
 	MOV eax, eax
@@ -392,7 +392,7 @@ L$$29:
 	ADD eax, 1
 	MOV eax, eax
 	PUSH eax
-	CALL LFannkuch1$arraycopy
+	CALL _LFannkuch1$arraycopy
 	MOV eax, eax
 	MOV eax, 0
 L$$32:
@@ -514,7 +514,7 @@ L$$28:
 	MOV esp, ebp
 	POP ebp
 	RET
-LFannkuch1$incAndGet:
+_LFannkuch1$incAndGet:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 4
@@ -561,7 +561,7 @@ LFannkuch1$incAndGet:
 	MOV esp, ebp
 	POP ebp
 	RET
-LFannkuch1$nextPermutation:
+_LFannkuch1$nextPermutation:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 16
@@ -648,7 +648,7 @@ L$$42:
 	MOV eax, DWORD PTR [ebp + -8]
 	MOV eax, eax
 	PUSH eax
-	CALL LFannkuch1$incAndGet
+	CALL _LFannkuch1$incAndGet
 	MOV eax, eax
 	CMP ebx, eax
 	JGE L$$46
@@ -797,7 +797,7 @@ L$$43:
 	MOV esp, ebp
 	POP ebp
 	RET
-LFannkuch1$countFlips:
+_LFannkuch1$countFlips:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 20
@@ -844,7 +844,7 @@ LFannkuch1$countFlips:
 	PUSH eax
 	MOV eax, 0
 	PUSH eax
-	CALL LFannkuch1$equals
+	CALL _LFannkuch1$equals
 	MOV ecx, eax
 	MOV eax, 1
 	SUB eax, ecx
@@ -883,7 +883,7 @@ L$$53:
 	MOV eax, DWORD PTR [eax + 0]
 	MOV eax, DWORD PTR [eax + 0]
 	PUSH eax
-	CALL LFannkuch1$arraycopy
+	CALL _LFannkuch1$arraycopy
 	MOV eax, eax
 	MOV edx, 1
 L$$55:
@@ -913,7 +913,7 @@ L$$58:
 	PUSH eax
 	MOV eax, 0
 	PUSH eax
-	CALL LFannkuch1$equals
+	CALL _LFannkuch1$equals
 	MOV edx, eax
 	MOV ecx, 1
 	MOV eax, 1
@@ -1071,7 +1071,7 @@ L$$54:
 	MOV esp, ebp
 	POP ebp
 	RET
-LFannkuch1$runTask:
+_LFannkuch1$runTask:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 28
@@ -1125,7 +1125,7 @@ LFannkuch1$runTask:
 	ADD edx, DWORD PTR [eax + 0]
 	MOV eax, edx
 	PUSH eax
-	CALL LFannkuch1$min
+	CALL _LFannkuch1$min
 	MOV eax, eax
 	MOV DWORD PTR [ebp + -16], eax
 	MOV eax, DWORD PTR [ebp + 12]
@@ -1133,7 +1133,7 @@ LFannkuch1$runTask:
 	PUSH eax
 	MOV eax, ebx
 	PUSH eax
-	CALL LFannkuch1$firstPermutation
+	CALL _LFannkuch1$firstPermutation
 	MOV eax, eax
 	MOV eax, 1
 	MOV DWORD PTR [ebp + -12], eax
@@ -1168,7 +1168,7 @@ L$$68:
 	PUSH eax
 	MOV eax, 0
 	PUSH eax
-	CALL LFannkuch1$equals
+	CALL _LFannkuch1$equals
 	MOV ecx, eax
 	MOV eax, 1
 	SUB eax, ecx
@@ -1178,7 +1178,7 @@ L$$70:
 	MOV eax, DWORD PTR [ebp + 12]
 	MOV eax, eax
 	PUSH eax
-	CALL LFannkuch1$countFlips
+	CALL _LFannkuch1$countFlips
 	MOV esi, eax
 	MOV eax, DWORD PTR [ebp + 12]
 	MOV eax, eax
@@ -1188,7 +1188,7 @@ L$$70:
 	PUSH eax
 	MOV eax, esi
 	PUSH eax
-	CALL LFannkuch1$max
+	CALL _LFannkuch1$max
 	MOV eax, eax
 	MOV DWORD PTR [ebp + -12], eax
 	MOV eax, DWORD PTR [ebp + 12]
@@ -1201,7 +1201,7 @@ L$$70:
 	PUSH eax
 	MOV eax, 2
 	PUSH eax
-	CALL LFannkuch1$mod
+	CALL _LFannkuch1$mod
 	MOV eax, eax
 	MOV ecx, ebx
 	PUSH ecx
@@ -1209,7 +1209,7 @@ L$$70:
 	PUSH eax
 	MOV eax, 0
 	PUSH eax
-	CALL LFannkuch1$equals
+	CALL _LFannkuch1$equals
 	MOV eax, eax
 	CMP eax, 1
 	JNE L$$72
@@ -1244,7 +1244,7 @@ L$$71:
 	MOV eax, DWORD PTR [ebp + -16]
 	MOV eax, eax
 	PUSH eax
-	CALL LFannkuch1$equals
+	CALL _LFannkuch1$equals
 	MOV eax, eax
 	CMP eax, 1
 	JNE L$$75
@@ -1261,7 +1261,7 @@ L$$79:
 	MOV eax, DWORD PTR [ebp + 12]
 	MOV eax, eax
 	PUSH eax
-	CALL LFannkuch1$nextPermutation
+	CALL _LFannkuch1$nextPermutation
 	MOV eax, eax
 	JMP L$$80
 L$$78:
@@ -1311,7 +1311,7 @@ L$$67:
 	MOV esp, ebp
 	POP ebp
 	RET
-LFannkuch1$printResult:
+_LFannkuch1$printResult:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 0
@@ -1321,25 +1321,25 @@ LFannkuch1$printResult:
 	MOV eax, DWORD PTR [ebp + 8]
 	MOV eax, eax
 	PUSH eax
-	CALL L_println_int
+	CALL _L_println_int
 	MOV eax, eax
 	MOV eax, 80
 	PUSH eax
-	CALL L_write
+	CALL _L_write
 	MOV eax, eax
 	MOV eax, 32
 	PUSH eax
-	CALL L_write
+	CALL _L_write
 	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + 16]
 	MOV eax, eax
 	PUSH eax
-	CALL L_println_int
+	CALL _L_println_int
 	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + 12]
 	MOV eax, eax
 	PUSH eax
-	CALL L_println_int
+	CALL _L_println_int
 	MOV eax, eax
 	MOV eax, 0
 	MOV eax, eax
@@ -1349,7 +1349,7 @@ LFannkuch1$printResult:
 	MOV esp, ebp
 	POP ebp
 	RET
-LFannkuch1$fannkuch:
+_LFannkuch1$fannkuch:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 12
@@ -1386,7 +1386,7 @@ LFannkuch1$fannkuch:
 	IMUL eax, 4
 	MOV eax, eax
 	PUSH eax
-	CALL L_halloc
+	CALL _L_halloc
 	MOV edx, eax
 	MOV edx, edx
 	MOV eax, DWORD PTR [ebp + 8]
@@ -1585,7 +1585,7 @@ L$$82:
 	IMUL eax, 4
 	MOV eax, eax
 	PUSH eax
-	CALL L_halloc
+	CALL _L_halloc
 	MOV edx, eax
 	MOV edx, edx
 	MOV eax, DWORD PTR [ebp + 8]
@@ -1616,7 +1616,7 @@ L$$82:
 	IMUL eax, 4
 	MOV eax, eax
 	PUSH eax
-	CALL L_halloc
+	CALL _L_halloc
 	MOV edx, eax
 	MOV edx, edx
 	MOV eax, DWORD PTR [ebp + 8]
@@ -1647,7 +1647,7 @@ L$$82:
 	IMUL eax, 4
 	MOV eax, eax
 	PUSH eax
-	CALL L_halloc
+	CALL _L_halloc
 	MOV edx, eax
 	MOV edx, edx
 	MOV eax, DWORD PTR [ebp + 8]
@@ -1678,7 +1678,7 @@ L$$82:
 	IMUL eax, 4
 	MOV eax, eax
 	PUSH eax
-	CALL L_halloc
+	CALL _L_halloc
 	MOV edx, eax
 	MOV edx, edx
 	MOV eax, DWORD PTR [ebp + 8]
@@ -1709,7 +1709,7 @@ L$$82:
 	IMUL eax, 4
 	MOV eax, eax
 	PUSH eax
-	CALL L_halloc
+	CALL _L_halloc
 	MOV edx, eax
 	MOV edx, edx
 	MOV eax, DWORD PTR [ebp + 8]
@@ -1744,7 +1744,7 @@ L$$88:
 	PUSH eax
 	MOV eax, ebx
 	PUSH eax
-	CALL LFannkuch1$runTask
+	CALL _LFannkuch1$runTask
 	MOV eax, eax
 	MOV eax, ebx
 	ADD eax, 1
@@ -1790,7 +1790,7 @@ L$$93:
 	MOV eax, edx
 	MOV eax, DWORD PTR [eax + 0]
 	PUSH eax
-	CALL LFannkuch1$max
+	CALL _LFannkuch1$max
 	MOV eax, eax
 	MOV ecx, ebx
 	ADD ecx, 1
@@ -1852,7 +1852,7 @@ L$$97:
 	PUSH eax
 	MOV eax, edi
 	PUSH eax
-	CALL LFannkuch1$printResult
+	CALL _LFannkuch1$printResult
 	MOV eax, eax
 	MOV eax, 10
 	MOV eax, eax

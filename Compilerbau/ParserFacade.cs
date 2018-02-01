@@ -80,7 +80,7 @@ namespace Compilerbau
                 I386CodeGenerator codeGenerator = new I386CodeGenerator();
                 var i386Prg = (I386Prg)codeGenerator.CodeGen(canonizedTree);
 
-                if(WithoutAlloc) File.WriteAllText(fileName+  ".s", i386Prg.RenderAssembly());
+                if(WithoutAlloc) File.WriteAllText(fileName+  "_noallocs.s", i386Prg.RenderAssembly());
 
                 // Liveness analysis //
                 RegisterAllocator registerAllocator = new RegisterAllocator();

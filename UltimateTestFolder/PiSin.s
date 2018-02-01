@@ -1,6 +1,6 @@
 	.intel_syntax
 	.global _Lmain
-Lmain:
+_Lmain:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 0
@@ -9,15 +9,15 @@ Lmain:
 	MOV edi, edi
 	MOV eax, 0
 	PUSH eax
-	CALL L_halloc
+	CALL _L_halloc
 	MOV eax, eax
 	MOV eax, eax
 	PUSH eax
-	CALL LPiDigits$pi
+	CALL _LPiDigits$pi
 	MOV eax, eax
 	MOV eax, eax
 	PUSH eax
-	CALL L_write
+	CALL _L_write
 	MOV eax, eax
 	MOV eax, 0
 	MOV eax, eax
@@ -27,7 +27,7 @@ Lmain:
 	MOV esp, ebp
 	POP ebp
 	RET
-LPiDigits$base:
+_LPiDigits$base:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 0
@@ -42,7 +42,7 @@ LPiDigits$base:
 	MOV esp, ebp
 	POP ebp
 	RET
-LPiDigits$places:
+_LPiDigits$places:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 0
@@ -57,7 +57,7 @@ LPiDigits$places:
 	MOV esp, ebp
 	POP ebp
 	RET
-LPiDigits$reserve:
+_LPiDigits$reserve:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 0
@@ -72,7 +72,7 @@ LPiDigits$reserve:
 	MOV esp, ebp
 	POP ebp
 	RET
-LPiDigits$equals:
+_LPiDigits$equals:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 0
@@ -119,7 +119,7 @@ L$$2:
 	MOV esp, ebp
 	POP ebp
 	RET
-LPiDigits$mod:
+_LPiDigits$mod:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 4
@@ -147,7 +147,7 @@ LPiDigits$mod:
 	MOV esp, ebp
 	POP ebp
 	RET
-LPiDigits$div:
+_LPiDigits$div:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 8
@@ -164,7 +164,7 @@ LPiDigits$div:
 	PUSH eax
 	MOV eax, 0
 	PUSH eax
-	CALL LPiDigits$equals
+	CALL _LPiDigits$equals
 	MOV eax, eax
 	CMP eax, 1
 	JNE L$$7
@@ -212,7 +212,7 @@ L$$9:
 	MOV esp, ebp
 	POP ebp
 	RET
-LPiDigits$shownum:
+_LPiDigits$shownum:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 12
@@ -229,13 +229,13 @@ L$$15:
 	MOV eax, DWORD PTR [ebp + 12]
 	MOV eax, eax
 	PUSH eax
-	CALL LPiDigits$places
+	CALL _LPiDigits$places
 	MOV eax, eax
 	MOV ebx, eax
 	MOV eax, DWORD PTR [ebp + 12]
 	MOV eax, eax
 	PUSH eax
-	CALL LPiDigits$reserve
+	CALL _LPiDigits$reserve
 	MOV eax, eax
 	MOV ecx, ebx
 	SUB ecx, eax
@@ -263,7 +263,7 @@ L$$17:
 	ADD ecx, eax
 	MOV eax, ecx
 	PUSH eax
-	CALL L_write
+	CALL _L_write
 	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + 12]
 	MOV eax, eax
@@ -284,13 +284,13 @@ L$$17:
 	PUSH eax
 	MOV eax, 10
 	PUSH eax
-	CALL LPiDigits$mod
+	CALL _LPiDigits$mod
 	MOV ecx, eax
 	MOV eax, 48
 	ADD eax, ecx
 	MOV eax, eax
 	PUSH eax
-	CALL L_write
+	CALL _L_write
 	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + 12]
 	MOV eax, eax
@@ -307,13 +307,13 @@ L$$17:
 	PUSH eax
 	MOV eax, 10
 	PUSH eax
-	CALL LPiDigits$mod
+	CALL _LPiDigits$mod
 	MOV ecx, eax
 	MOV eax, 48
 	ADD eax, ecx
 	MOV eax, eax
 	PUSH eax
-	CALL L_write
+	CALL _L_write
 	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + 12]
 	MOV eax, eax
@@ -322,20 +322,20 @@ L$$17:
 	PUSH eax
 	MOV eax, esi
 	PUSH eax
-	CALL LPiDigits$equals
+	CALL _LPiDigits$equals
 	MOV eax, eax
 	CMP eax, 1
 	JNE L$$20
 L$$21:
 	MOV eax, 46
 	PUSH eax
-	CALL L_write
+	CALL _L_write
 	MOV eax, eax
 	JMP L$$22
 L$$20:
 	MOV eax, 32
 	PUSH eax
-	CALL L_write
+	CALL _L_write
 	MOV eax, eax
 L$$22:
 	MOV eax, esi
@@ -345,11 +345,11 @@ L$$22:
 L$$16:
 	MOV eax, 10
 	PUSH eax
-	CALL L_write
+	CALL _L_write
 	MOV eax, eax
 	MOV eax, 13
 	PUSH eax
-	CALL L_write
+	CALL _L_write
 	MOV eax, eax
 	MOV eax, 0
 	MOV eax, eax
@@ -362,7 +362,7 @@ L$$16:
 	MOV esp, ebp
 	POP ebp
 	RET
-LPiDigits$overflow:
+_LPiDigits$overflow:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 12
@@ -374,7 +374,7 @@ LPiDigits$overflow:
 	MOV eax, DWORD PTR [ebp + 12]
 	MOV eax, eax
 	PUSH eax
-	CALL LPiDigits$places
+	CALL _LPiDigits$places
 	MOV eax, eax
 	MOV eax, eax
 	SUB eax, 1
@@ -397,7 +397,7 @@ L$$28:
 	MOV eax, DWORD PTR [ebp + 12]
 	MOV eax, eax
 	PUSH eax
-	CALL LPiDigits$base
+	CALL _LPiDigits$base
 	MOV esi, eax
 	MOV eax, DWORD PTR [ebp + 8]
 	MOV edx, eax
@@ -440,7 +440,7 @@ L$$30:
 	MOV eax, DWORD PTR [ebp + 12]
 	MOV eax, eax
 	PUSH eax
-	CALL LPiDigits$base
+	CALL _LPiDigits$base
 	MOV edx, eax
 	MOV ecx, esi
 	MOV eax, ebx
@@ -514,7 +514,7 @@ L$$35:
 	MOV eax, DWORD PTR [ebp + 12]
 	MOV eax, eax
 	PUSH eax
-	CALL LPiDigits$base
+	CALL _LPiDigits$base
 	MOV edx, eax
 	MOV ecx, esi
 	MOV eax, ebx
@@ -564,7 +564,7 @@ L$$24:
 	MOV esp, ebp
 	POP ebp
 	RET
-LPiDigits$add:
+_LPiDigits$add:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 12
@@ -581,7 +581,7 @@ L$$38:
 	MOV eax, DWORD PTR [ebp + 20]
 	MOV eax, eax
 	PUSH eax
-	CALL LPiDigits$places
+	CALL _LPiDigits$places
 	MOV eax, eax
 	CMP ebx, eax
 	JGE L$$42
@@ -634,7 +634,7 @@ L$$39:
 	MOV esp, ebp
 	POP ebp
 	RET
-LPiDigits$sub:
+_LPiDigits$sub:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 12
@@ -651,7 +651,7 @@ L$$43:
 	MOV eax, DWORD PTR [ebp + 20]
 	MOV eax, eax
 	PUSH eax
-	CALL LPiDigits$places
+	CALL _LPiDigits$places
 	MOV eax, eax
 	CMP ebx, eax
 	JGE L$$47
@@ -704,7 +704,7 @@ L$$44:
 	MOV esp, ebp
 	POP ebp
 	RET
-LPiDigits$neg:
+_LPiDigits$neg:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 12
@@ -721,7 +721,7 @@ L$$48:
 	MOV eax, DWORD PTR [ebp + 16]
 	MOV eax, eax
 	PUSH eax
-	CALL LPiDigits$places
+	CALL _LPiDigits$places
 	MOV eax, eax
 	CMP ebx, eax
 	JGE L$$52
@@ -766,7 +766,7 @@ L$$49:
 	MOV esp, ebp
 	POP ebp
 	RET
-LPiDigits$longdiv:
+_LPiDigits$longdiv:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 12
@@ -782,7 +782,7 @@ LPiDigits$longdiv:
 	MOV eax, DWORD PTR [ebp + 12]
 	MOV eax, eax
 	PUSH eax
-	CALL LPiDigits$overflow
+	CALL _LPiDigits$overflow
 	MOV eax, eax
 	MOV esi, 0
 	MOV eax, DWORD PTR [ebp + 16]
@@ -800,7 +800,7 @@ L$$53:
 	MOV eax, DWORD PTR [ebp + 20]
 	MOV eax, eax
 	PUSH eax
-	CALL LPiDigits$places
+	CALL _LPiDigits$places
 	MOV eax, eax
 	MOV eax, eax
 	SUB eax, 1
@@ -855,7 +855,7 @@ L$$55:
 	MOV eax, DWORD PTR [ebp + 8]
 	MOV eax, eax
 	PUSH eax
-	CALL LPiDigits$div
+	CALL _LPiDigits$div
 	MOV edi, eax
 	MOV eax, DWORD PTR [ebp + 16]
 	MOV edx, eax
@@ -894,7 +894,7 @@ L$$55:
 	MOV eax, DWORD PTR [ebp + 20]
 	MOV eax, eax
 	PUSH eax
-	CALL LPiDigits$base
+	CALL _LPiDigits$base
 	MOV ecx, eax
 	MOV eax, ebx
 	MOV edx, edi
@@ -911,7 +911,7 @@ L$$54:
 	MOV eax, DWORD PTR [ebp + 16]
 	MOV eax, eax
 	PUSH eax
-	CALL LPiDigits$overflow
+	CALL _LPiDigits$overflow
 	MOV eax, eax
 	MOV eax, 0
 	MOV eax, eax
@@ -924,7 +924,7 @@ L$$54:
 	MOV esp, ebp
 	POP ebp
 	RET
-LPiDigits$mult:
+_LPiDigits$mult:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 16
@@ -939,7 +939,7 @@ LPiDigits$mult:
 	MOV eax, DWORD PTR [ebp + 12]
 	MOV eax, eax
 	PUSH eax
-	CALL LPiDigits$overflow
+	CALL _LPiDigits$overflow
 	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + 20]
 	MOV eax, eax
@@ -947,7 +947,7 @@ LPiDigits$mult:
 	MOV eax, DWORD PTR [ebp + 8]
 	MOV eax, eax
 	PUSH eax
-	CALL LPiDigits$overflow
+	CALL _LPiDigits$overflow
 	MOV eax, eax
 	MOV ebx, 0
 L$$58:
@@ -956,7 +956,7 @@ L$$58:
 	MOV eax, DWORD PTR [ebp + 20]
 	MOV eax, eax
 	PUSH eax
-	CALL LPiDigits$places
+	CALL _LPiDigits$places
 	MOV eax, eax
 	CMP ebx, eax
 	JGE L$$62
@@ -989,7 +989,7 @@ L$$63:
 	MOV eax, DWORD PTR [ebp + 20]
 	MOV eax, eax
 	PUSH eax
-	CALL LPiDigits$places
+	CALL _LPiDigits$places
 	MOV eax, eax
 	CMP ebx, eax
 	JGE L$$67
@@ -1011,7 +1011,7 @@ L$$68:
 	MOV eax, DWORD PTR [ebp + 20]
 	MOV eax, eax
 	PUSH eax
-	CALL LPiDigits$places
+	CALL _LPiDigits$places
 	MOV eax, eax
 	CMP ebx, eax
 	JGE L$$72
@@ -1088,7 +1088,7 @@ L$$64:
 	MOV eax, DWORD PTR [ebp + 16]
 	MOV eax, eax
 	PUSH eax
-	CALL LPiDigits$overflow
+	CALL _LPiDigits$overflow
 	MOV eax, eax
 	MOV eax, 0
 	MOV eax, eax
@@ -1100,7 +1100,7 @@ L$$64:
 	MOV esp, ebp
 	POP ebp
 	RET
-LPiDigits$mv:
+_LPiDigits$mv:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 8
@@ -1116,7 +1116,7 @@ L$$73:
 	MOV eax, DWORD PTR [ebp + 16]
 	MOV eax, eax
 	PUSH eax
-	CALL LPiDigits$places
+	CALL _LPiDigits$places
 	MOV eax, eax
 	CMP esi, eax
 	JGE L$$77
@@ -1159,7 +1159,7 @@ L$$74:
 	MOV esp, ebp
 	POP ebp
 	RET
-LPiDigits$nullify:
+_LPiDigits$nullify:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 8
@@ -1175,7 +1175,7 @@ L$$78:
 	MOV eax, DWORD PTR [ebp + 12]
 	MOV eax, eax
 	PUSH eax
-	CALL LPiDigits$places
+	CALL _LPiDigits$places
 	MOV eax, eax
 	CMP ebx, eax
 	JGE L$$82
@@ -1209,7 +1209,7 @@ L$$79:
 	MOV esp, ebp
 	POP ebp
 	RET
-LPiDigits$iszero:
+_LPiDigits$iszero:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 16
@@ -1232,13 +1232,13 @@ L$$86:
 	MOV eax, DWORD PTR [ebp + 12]
 	MOV eax, eax
 	PUSH eax
-	CALL LPiDigits$places
+	CALL _LPiDigits$places
 	MOV eax, eax
 	MOV ebx, eax
 	MOV eax, DWORD PTR [ebp + 12]
 	MOV eax, eax
 	PUSH eax
-	CALL LPiDigits$reserve
+	CALL _LPiDigits$reserve
 	MOV eax, eax
 	MOV ecx, ebx
 	SUB ecx, eax
@@ -1274,7 +1274,7 @@ L$$85:
 	PUSH eax
 	MOV eax, 0
 	PUSH eax
-	CALL LPiDigits$equals
+	CALL _LPiDigits$equals
 	MOV ecx, eax
 	MOV eax, 1
 	SUB eax, ecx
@@ -1303,7 +1303,7 @@ L$$84:
 	MOV esp, ebp
 	POP ebp
 	RET
-LPiDigits$sin:
+_LPiDigits$sin:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 4
@@ -1317,7 +1317,7 @@ LPiDigits$sin:
 	MOV eax, DWORD PTR [ebp + 16]
 	MOV eax, eax
 	PUSH eax
-	CALL LPiDigits$overflow
+	CALL _LPiDigits$overflow
 	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + 24]
 	MOV eax, eax
@@ -1328,7 +1328,7 @@ LPiDigits$sin:
 	MOV eax, DWORD PTR [ebp + 16]
 	MOV eax, eax
 	PUSH eax
-	CALL LPiDigits$mv
+	CALL _LPiDigits$mv
 	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + 24]
 	MOV eax, eax
@@ -1336,7 +1336,7 @@ LPiDigits$sin:
 	MOV eax, DWORD PTR [ebp + 20]
 	MOV eax, eax
 	PUSH eax
-	CALL LPiDigits$nullify
+	CALL _LPiDigits$nullify
 	MOV eax, eax
 	MOV ebx, 1
 L$$94:
@@ -1346,7 +1346,7 @@ L$$94:
 	MOV eax, DWORD PTR [ebp + 12]
 	MOV eax, eax
 	PUSH eax
-	CALL LPiDigits$iszero
+	CALL _LPiDigits$iszero
 	MOV ecx, eax
 	MOV eax, 1
 	SUB eax, ecx
@@ -1365,7 +1365,7 @@ L$$96:
 	MOV eax, DWORD PTR [ebp + 12]
 	MOV eax, eax
 	PUSH eax
-	CALL LPiDigits$add
+	CALL _LPiDigits$add
 	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + 24]
 	MOV eax, eax
@@ -1379,7 +1379,7 @@ L$$96:
 	MOV eax, DWORD PTR [ebp + 16]
 	MOV eax, eax
 	PUSH eax
-	CALL LPiDigits$mult
+	CALL _LPiDigits$mult
 	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + 24]
 	MOV eax, eax
@@ -1394,7 +1394,7 @@ L$$96:
 	ADD eax, 1
 	MOV eax, eax
 	PUSH eax
-	CALL LPiDigits$longdiv
+	CALL _LPiDigits$longdiv
 	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + 24]
 	MOV eax, eax
@@ -1408,7 +1408,7 @@ L$$96:
 	MOV eax, DWORD PTR [ebp + 16]
 	MOV eax, eax
 	PUSH eax
-	CALL LPiDigits$mult
+	CALL _LPiDigits$mult
 	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + 24]
 	MOV eax, eax
@@ -1423,7 +1423,7 @@ L$$96:
 	ADD eax, 2
 	MOV eax, eax
 	PUSH eax
-	CALL LPiDigits$longdiv
+	CALL _LPiDigits$longdiv
 	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + 24]
 	MOV eax, eax
@@ -1437,7 +1437,7 @@ L$$96:
 	MOV eax, DWORD PTR [ebp + 12]
 	MOV eax, eax
 	PUSH eax
-	CALL LPiDigits$sub
+	CALL _LPiDigits$sub
 	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + 24]
 	MOV eax, eax
@@ -1451,7 +1451,7 @@ L$$96:
 	MOV eax, DWORD PTR [ebp + 16]
 	MOV eax, eax
 	PUSH eax
-	CALL LPiDigits$mult
+	CALL _LPiDigits$mult
 	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + 24]
 	MOV eax, eax
@@ -1466,7 +1466,7 @@ L$$96:
 	ADD eax, 3
 	MOV eax, eax
 	PUSH eax
-	CALL LPiDigits$longdiv
+	CALL _LPiDigits$longdiv
 	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + 24]
 	MOV eax, eax
@@ -1480,7 +1480,7 @@ L$$96:
 	MOV eax, DWORD PTR [ebp + 16]
 	MOV eax, eax
 	PUSH eax
-	CALL LPiDigits$mult
+	CALL _LPiDigits$mult
 	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + 24]
 	MOV eax, eax
@@ -1495,7 +1495,7 @@ L$$96:
 	ADD eax, 4
 	MOV eax, eax
 	PUSH eax
-	CALL LPiDigits$longdiv
+	CALL _LPiDigits$longdiv
 	MOV eax, eax
 	MOV eax, ebx
 	ADD eax, 4
@@ -1508,7 +1508,7 @@ L$$95:
 	MOV eax, DWORD PTR [ebp + 20]
 	MOV eax, eax
 	PUSH eax
-	CALL LPiDigits$overflow
+	CALL _LPiDigits$overflow
 	MOV eax, eax
 	MOV eax, 0
 	MOV eax, eax
@@ -1519,7 +1519,7 @@ L$$95:
 	MOV esp, ebp
 	POP ebp
 	RET
-LPiDigits$pi:
+_LPiDigits$pi:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 20
@@ -1532,7 +1532,7 @@ LPiDigits$pi:
 	MOV eax, DWORD PTR [ebp + 8]
 	MOV eax, eax
 	PUSH eax
-	CALL LPiDigits$places
+	CALL _LPiDigits$places
 	MOV eax, eax
 	MOV eax, eax
 	ADD eax, 1
@@ -1540,13 +1540,13 @@ LPiDigits$pi:
 	IMUL eax, 4
 	MOV eax, eax
 	PUSH eax
-	CALL L_halloc
+	CALL _L_halloc
 	MOV ebx, eax
 	MOV ebx, ebx
 	MOV eax, DWORD PTR [ebp + 8]
 	MOV eax, eax
 	PUSH eax
-	CALL LPiDigits$places
+	CALL _LPiDigits$places
 	MOV eax, eax
 	MOV ecx, ebx
 	MOV DWORD PTR [ecx + 0], eax
@@ -1555,7 +1555,7 @@ LPiDigits$pi:
 	MOV eax, DWORD PTR [ebp + 8]
 	MOV eax, eax
 	PUSH eax
-	CALL LPiDigits$places
+	CALL _LPiDigits$places
 	MOV eax, eax
 	MOV eax, eax
 	ADD eax, 1
@@ -1563,13 +1563,13 @@ LPiDigits$pi:
 	IMUL eax, 4
 	MOV eax, eax
 	PUSH eax
-	CALL L_halloc
+	CALL _L_halloc
 	MOV ebx, eax
 	MOV ebx, ebx
 	MOV eax, DWORD PTR [ebp + 8]
 	MOV eax, eax
 	PUSH eax
-	CALL LPiDigits$places
+	CALL _LPiDigits$places
 	MOV eax, eax
 	MOV ecx, ebx
 	MOV DWORD PTR [ecx + 0], eax
@@ -1578,7 +1578,7 @@ LPiDigits$pi:
 	MOV eax, DWORD PTR [ebp + 8]
 	MOV eax, eax
 	PUSH eax
-	CALL LPiDigits$places
+	CALL _LPiDigits$places
 	MOV eax, eax
 	MOV eax, eax
 	ADD eax, 1
@@ -1586,13 +1586,13 @@ LPiDigits$pi:
 	IMUL eax, 4
 	MOV eax, eax
 	PUSH eax
-	CALL L_halloc
+	CALL _L_halloc
 	MOV ebx, eax
 	MOV ebx, ebx
 	MOV eax, DWORD PTR [ebp + 8]
 	MOV eax, eax
 	PUSH eax
-	CALL LPiDigits$places
+	CALL _LPiDigits$places
 	MOV eax, eax
 	MOV ecx, ebx
 	MOV DWORD PTR [ecx + 0], eax
@@ -1600,7 +1600,7 @@ LPiDigits$pi:
 	MOV eax, DWORD PTR [ebp + 8]
 	MOV eax, eax
 	PUSH eax
-	CALL LPiDigits$places
+	CALL _LPiDigits$places
 	MOV eax, eax
 	MOV eax, eax
 	ADD eax, 1
@@ -1608,13 +1608,13 @@ LPiDigits$pi:
 	IMUL eax, 4
 	MOV eax, eax
 	PUSH eax
-	CALL L_halloc
+	CALL _L_halloc
 	MOV esi, eax
 	MOV esi, esi
 	MOV eax, DWORD PTR [ebp + 8]
 	MOV eax, eax
 	PUSH eax
-	CALL LPiDigits$places
+	CALL _LPiDigits$places
 	MOV eax, eax
 	MOV ecx, esi
 	MOV DWORD PTR [ecx + 0], eax
@@ -1625,7 +1625,7 @@ LPiDigits$pi:
 	MOV eax, DWORD PTR [ebp + -8]
 	MOV eax, eax
 	PUSH eax
-	CALL LPiDigits$nullify
+	CALL _LPiDigits$nullify
 	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + 8]
 	MOV eax, eax
@@ -1633,21 +1633,21 @@ LPiDigits$pi:
 	MOV eax, DWORD PTR [ebp + -4]
 	MOV eax, eax
 	PUSH eax
-	CALL LPiDigits$nullify
+	CALL _LPiDigits$nullify
 	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + 8]
 	MOV eax, eax
 	PUSH eax
 	MOV eax, ebx
 	PUSH eax
-	CALL LPiDigits$nullify
+	CALL _LPiDigits$nullify
 	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + 8]
 	MOV eax, eax
 	PUSH eax
 	MOV eax, edi
 	PUSH eax
-	CALL LPiDigits$nullify
+	CALL _LPiDigits$nullify
 	MOV eax, eax
 	MOV edx, edi
 	MOV ecx, 4
@@ -1673,14 +1673,14 @@ L$$99:
 	PUSH eax
 	MOV eax, edi
 	PUSH eax
-	CALL LPiDigits$overflow
+	CALL _LPiDigits$overflow
 	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + 8]
 	MOV eax, eax
 	PUSH eax
 	MOV eax, edi
 	PUSH eax
-	CALL LPiDigits$shownum
+	CALL _LPiDigits$shownum
 	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + 8]
 	MOV eax, eax
@@ -1695,7 +1695,7 @@ L$$99:
 	PUSH eax
 	MOV eax, ebx
 	PUSH eax
-	CALL LPiDigits$sin
+	CALL _LPiDigits$sin
 	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + 8]
 	MOV eax, eax
@@ -1707,7 +1707,7 @@ L$$99:
 	MOV eax, DWORD PTR [ebp + -8]
 	MOV eax, eax
 	PUSH eax
-	CALL LPiDigits$add
+	CALL _LPiDigits$add
 	MOV eax, eax
 	MOV eax, esi
 	ADD eax, 1

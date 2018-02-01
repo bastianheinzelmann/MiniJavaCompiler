@@ -1,6 +1,6 @@
 	.intel_syntax
 	.global _Lmain
-Lmain:
+_Lmain:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 0
@@ -9,17 +9,17 @@ Lmain:
 	MOV edi, edi
 	MOV eax, 8
 	PUSH eax
-	CALL L_halloc
+	CALL _L_halloc
 	MOV eax, eax
 	MOV eax, eax
 	PUSH eax
 	MOV eax, 10
 	PUSH eax
-	CALL LLS$Start
+	CALL _LLS$Start
 	MOV eax, eax
 	MOV eax, eax
 	PUSH eax
-	CALL L_println_int
+	CALL _L_println_int
 	MOV eax, eax
 	MOV eax, 0
 	MOV eax, eax
@@ -29,7 +29,7 @@ Lmain:
 	MOV esp, ebp
 	POP ebp
 	RET
-LLS$Start:
+_LLS$Start:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 0
@@ -42,60 +42,60 @@ LLS$Start:
 	MOV eax, DWORD PTR [ebp + 8]
 	MOV eax, eax
 	PUSH eax
-	CALL LLS$Init
+	CALL _LLS$Init
 	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + 12]
 	MOV eax, eax
 	PUSH eax
-	CALL LLS$Print
+	CALL _LLS$Print
 	MOV eax, eax
 	MOV eax, 9999
 	PUSH eax
-	CALL L_println_int
+	CALL _L_println_int
 	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + 12]
 	MOV eax, eax
 	PUSH eax
 	MOV eax, 8
 	PUSH eax
-	CALL LLS$Search
+	CALL _LLS$Search
 	MOV eax, eax
 	MOV eax, eax
 	PUSH eax
-	CALL L_println_int
+	CALL _L_println_int
 	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + 12]
 	MOV eax, eax
 	PUSH eax
 	MOV eax, 12
 	PUSH eax
-	CALL LLS$Search
+	CALL _LLS$Search
 	MOV eax, eax
 	MOV eax, eax
 	PUSH eax
-	CALL L_println_int
+	CALL _L_println_int
 	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + 12]
 	MOV eax, eax
 	PUSH eax
 	MOV eax, 17
 	PUSH eax
-	CALL LLS$Search
+	CALL _LLS$Search
 	MOV eax, eax
 	MOV eax, eax
 	PUSH eax
-	CALL L_println_int
+	CALL _L_println_int
 	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + 12]
 	MOV eax, eax
 	PUSH eax
 	MOV eax, 50
 	PUSH eax
-	CALL LLS$Search
+	CALL _LLS$Search
 	MOV eax, eax
 	MOV eax, eax
 	PUSH eax
-	CALL L_println_int
+	CALL _L_println_int
 	MOV eax, eax
 	MOV eax, 55
 	MOV eax, eax
@@ -105,7 +105,7 @@ LLS$Start:
 	MOV esp, ebp
 	POP ebp
 	RET
-LLS$Print:
+_LLS$Print:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 4
@@ -145,7 +145,7 @@ L$$2:
 	MOV eax, edx
 	MOV eax, DWORD PTR [eax + 0]
 	PUSH eax
-	CALL L_println_int
+	CALL _L_println_int
 	MOV eax, eax
 	MOV eax, ebx
 	ADD eax, 1
@@ -161,7 +161,7 @@ L$$1:
 	MOV esp, ebp
 	POP ebp
 	RET
-LLS$Search:
+_LLS$Search:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 12
@@ -262,7 +262,7 @@ L$$6:
 	MOV esp, ebp
 	POP ebp
 	RET
-LLS$Init:
+_LLS$Init:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 16
@@ -293,7 +293,7 @@ LLS$Init:
 	IMUL eax, 4
 	MOV eax, eax
 	PUSH eax
-	CALL L_halloc
+	CALL _L_halloc
 	MOV eax, eax
 	MOV eax, eax
 	MOV ecx, DWORD PTR [ebp + 8]
