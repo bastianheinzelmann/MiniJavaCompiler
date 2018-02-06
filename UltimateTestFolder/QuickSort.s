@@ -1,6 +1,6 @@
 	.intel_syntax
 	.global _Lmain
-_Lmain:
+Lmain:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 0
@@ -9,19 +9,19 @@ _Lmain:
 	MOV edi, edi
 	MOV eax, 8
 	PUSH eax
-	CALL _L_halloc
+	CALL L_halloc
 	ADD esp, 4
 	MOV eax, eax
 	MOV eax, eax
 	PUSH eax
 	MOV eax, 10
 	PUSH eax
-	CALL _LQS$Start
+	CALL LQS$Start
 	ADD esp, 8
 	MOV eax, eax
 	MOV eax, eax
 	PUSH eax
-	CALL _L_println_int
+	CALL L_println_int
 	ADD esp, 4
 	MOV eax, eax
 	MOV eax, 0
@@ -32,7 +32,7 @@ _Lmain:
 	MOV esp, ebp
 	POP ebp
 	RET
-_LQS$Start:
+LQS$Start:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 0
@@ -43,17 +43,17 @@ _LQS$Start:
 	PUSH eax
 	MOV eax, DWORD PTR [ebp + 8]
 	PUSH eax
-	CALL _LQS$Init
+	CALL LQS$Init
 	ADD esp, 8
 	MOV ecx, eax
 	MOV eax, DWORD PTR [ebp + 12]
 	PUSH eax
-	CALL _LQS$Print
+	CALL LQS$Print
 	ADD esp, 4
 	MOV ecx, eax
 	MOV eax, 9999
 	PUSH eax
-	CALL _L_println_int
+	CALL L_println_int
 	ADD esp, 4
 	MOV eax, eax
 	MOV ecx, DWORD PTR [ebp + 12]
@@ -70,12 +70,12 @@ _LQS$Start:
 	PUSH eax
 	MOV eax, ecx
 	PUSH eax
-	CALL _LQS$Sort
+	CALL LQS$Sort
 	ADD esp, 12
 	MOV ecx, eax
 	MOV eax, DWORD PTR [ebp + 12]
 	PUSH eax
-	CALL _LQS$Print
+	CALL LQS$Print
 	ADD esp, 4
 	MOV ecx, eax
 	MOV eax, 0
@@ -86,7 +86,7 @@ _LQS$Start:
 	MOV esp, ebp
 	POP ebp
 	RET
-_LQS$Sort:
+LQS$Sort:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 20
@@ -364,7 +364,7 @@ L$$6:
 	SUB eax, 1
 	MOV eax, eax
 	PUSH eax
-	CALL _LQS$Sort
+	CALL LQS$Sort
 	ADD esp, 12
 	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + 16]
@@ -376,7 +376,7 @@ L$$6:
 	PUSH eax
 	MOV eax, DWORD PTR [ebp + 8]
 	PUSH eax
-	CALL _LQS$Sort
+	CALL LQS$Sort
 	ADD esp, 12
 	MOV eax, eax
 	JMP L$$2
@@ -394,7 +394,7 @@ L$$2:
 	MOV esp, ebp
 	POP ebp
 	RET
-_LQS$Print:
+LQS$Print:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 4
@@ -432,7 +432,7 @@ L$$31:
 	MOV eax, edx
 	MOV eax, DWORD PTR [eax + 0]
 	PUSH eax
-	CALL _L_println_int
+	CALL L_println_int
 	ADD esp, 4
 	MOV eax, eax
 	MOV eax, ebx
@@ -449,7 +449,7 @@ L$$30:
 	MOV esp, ebp
 	POP ebp
 	RET
-_LQS$Init:
+LQS$Init:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 4
@@ -475,7 +475,7 @@ _LQS$Init:
 	IMUL eax, 4
 	MOV eax, eax
 	PUSH eax
-	CALL _L_halloc
+	CALL L_halloc
 	ADD esp, 4
 	MOV eax, eax
 	MOV eax, eax

@@ -123,10 +123,11 @@ L$$2:
 _LPiDigits$mod:
 	PUSH ebp
 	MOV ebp, esp
-	SUB esp, 4
+	SUB esp, 8
 	MOV eax, ebx
+	MOV DWORD PTR [ebp + -8], eax
+	MOV eax, esi
 	MOV DWORD PTR [ebp + -4], eax
-	MOV edx, esi
 	MOV ecx, edi
 	MOV edi, DWORD PTR [ebp + 12]
 	MOV esi, DWORD PTR [ebp + 8]
@@ -138,8 +139,9 @@ _LPiDigits$mod:
 	SUB edi, esi
 	MOV eax, edi
 	MOV eax, eax
-	MOV ebx, DWORD PTR [ebp + -4]
-	MOV ebx, ebx
+	MOV edx, DWORD PTR [ebp + -8]
+	MOV ebx, edx
+	MOV edx, DWORD PTR [ebp + -4]
 	MOV esi, edx
 	MOV edi, ecx
 	MOV esp, ebp
@@ -238,17 +240,17 @@ L$$19:
 	JNE L$$16
 L$$17:
 	MOV ecx, 48
-	MOV ebx, DWORD PTR [ebp + 8]
-	MOV edx, 4
+	MOV edi, DWORD PTR [ebp + 8]
+	MOV ebx, 4
 	MOV eax, esi
 	ADD eax, 1
-	IMUL edx, eax
-	ADD ebx, edx
-	MOV eax, ebx
+	IMUL ebx, eax
+	ADD edi, ebx
+	MOV eax, edi
 	MOV eax, DWORD PTR [eax + 0]
-	MOV edx, 100
+	MOV ebx, 100
 	CDQ
-	IDIV edx
+	IDIV ebx
 	ADD ecx, eax
 	MOV eax, ecx
 	PUSH eax
@@ -257,13 +259,13 @@ L$$17:
 	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + 12]
 	PUSH eax
-	MOV edx, DWORD PTR [ebp + 8]
+	MOV ebx, DWORD PTR [ebp + 8]
 	MOV ecx, 4
 	MOV eax, esi
 	ADD eax, 1
 	IMUL ecx, eax
-	ADD edx, ecx
-	MOV eax, edx
+	ADD ebx, ecx
+	MOV eax, ebx
 	MOV eax, DWORD PTR [eax + 0]
 	MOV ecx, 10
 	CDQ

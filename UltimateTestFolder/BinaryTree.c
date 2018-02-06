@@ -1,4 +1,4 @@
-﻿#include <stdint.h>
+#include <stdint.h>
 #define MEM(x) *((int32_t*)(x))
 
 int32_t L_halloc(int32_t size);

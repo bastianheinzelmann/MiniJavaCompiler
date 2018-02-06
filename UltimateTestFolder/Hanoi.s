@@ -1,6 +1,6 @@
 	.intel_syntax
 	.global _Lmain
-_Lmain:
+Lmain:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 0
@@ -9,22 +9,22 @@ _Lmain:
 	MOV edi, edi
 	MOV eax, 16
 	PUSH eax
-	CALL _L_halloc
+	CALL L_halloc
 	ADD esp, 4
 	MOV eax, eax
 	MOV eax, eax
 	PUSH eax
-	CALL _LH$init
+	CALL LH$init
 	ADD esp, 4
 	MOV eax, eax
 	MOV eax, eax
 	PUSH eax
-	CALL _LH$run
+	CALL LH$run
 	ADD esp, 4
 	MOV eax, eax
 	MOV eax, eax
 	PUSH eax
-	CALL _L_write
+	CALL L_write
 	ADD esp, 4
 	MOV eax, eax
 	MOV eax, 0
@@ -35,7 +35,7 @@ _Lmain:
 	MOV esp, ebp
 	POP ebp
 	RET
-_LH$init:
+LH$init:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 8
@@ -66,7 +66,7 @@ _LH$init:
 	IMUL eax, 4
 	MOV eax, eax
 	PUSH eax
-	CALL _L_halloc
+	CALL L_halloc
 	ADD esp, 4
 	MOV edx, eax
 	MOV edx, edx
@@ -95,7 +95,7 @@ _LH$init:
 	IMUL eax, 4
 	MOV eax, eax
 	PUSH eax
-	CALL _L_halloc
+	CALL L_halloc
 	ADD esp, 4
 	MOV edx, eax
 	MOV edx, edx
@@ -130,7 +130,7 @@ _LH$init:
 	IMUL eax, 4
 	MOV eax, eax
 	PUSH eax
-	CALL _L_halloc
+	CALL L_halloc
 	ADD esp, 4
 	MOV esi, eax
 	MOV esi, esi
@@ -199,7 +199,7 @@ L$$1:
 	MOV esp, ebp
 	POP ebp
 	RET
-_LH$run:
+LH$run:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 0
@@ -208,7 +208,7 @@ _LH$run:
 	MOV edi, edi
 	MOV eax, DWORD PTR [ebp + 8]
 	PUSH eax
-	CALL _LH$display
+	CALL LH$display
 	ADD esp, 4
 	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + 8]
@@ -241,7 +241,7 @@ _LH$run:
 	MOV eax, ecx
 	MOV eax, DWORD PTR [eax + 0]
 	PUSH eax
-	CALL _LH$move
+	CALL LH$move
 	ADD esp, 20
 	MOV eax, eax
 	MOV eax, 10
@@ -252,7 +252,7 @@ _LH$run:
 	MOV esp, ebp
 	POP ebp
 	RET
-_LH$move:
+LH$move:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 16
@@ -376,7 +376,7 @@ L$$21:
 	MOV DWORD PTR [eax + 0], 0
 	MOV eax, DWORD PTR [ebp + 24]
 	PUSH eax
-	CALL _LH$display
+	CALL LH$display
 	ADD esp, 4
 	MOV eax, eax
 	MOV DWORD PTR [ebp + -4], eax
@@ -394,7 +394,7 @@ L$$5:
 	PUSH eax
 	MOV eax, DWORD PTR [ebp + 12]
 	PUSH eax
-	CALL _LH$move
+	CALL LH$move
 	ADD esp, 20
 	MOV eax, eax
 	MOV DWORD PTR [ebp + -4], eax
@@ -408,7 +408,7 @@ L$$5:
 	PUSH eax
 	MOV eax, DWORD PTR [ebp + 8]
 	PUSH eax
-	CALL _LH$move
+	CALL LH$move
 	ADD esp, 20
 	MOV eax, eax
 	MOV DWORD PTR [ebp + -4], eax
@@ -424,7 +424,7 @@ L$$5:
 	PUSH eax
 	MOV eax, DWORD PTR [ebp + 16]
 	PUSH eax
-	CALL _LH$move
+	CALL LH$move
 	ADD esp, 20
 	MOV eax, eax
 	MOV DWORD PTR [ebp + -4], eax
@@ -440,7 +440,7 @@ L$$7:
 	MOV esp, ebp
 	POP ebp
 	RET
-_LH$display:
+LH$display:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 12
@@ -506,7 +506,7 @@ L$$27:
 	ADD eax, 2
 	MOV eax, eax
 	PUSH eax
-	CALL _LH$drawbar
+	CALL LH$drawbar
 	ADD esp, 16
 	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + 8]
@@ -549,7 +549,7 @@ L$$27:
 	ADD eax, 2
 	MOV eax, eax
 	PUSH eax
-	CALL _LH$drawbar
+	CALL LH$drawbar
 	ADD esp, 16
 	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + 8]
@@ -592,12 +592,12 @@ L$$27:
 	ADD eax, 2
 	MOV eax, eax
 	PUSH eax
-	CALL _LH$drawbar
+	CALL LH$drawbar
 	ADD esp, 16
 	MOV eax, eax
 	MOV eax, 10
 	PUSH eax
-	CALL _L_write
+	CALL L_write
 	ADD esp, 4
 	MOV eax, eax
 	MOV eax, ebx
@@ -639,22 +639,22 @@ L$$26:
 	ADD ecx, eax
 	MOV eax, ecx
 	PUSH eax
-	CALL _LH$drawbar
+	CALL LH$drawbar
 	ADD esp, 16
 	MOV eax, eax
 	MOV eax, 10
 	PUSH eax
-	CALL _L_write
+	CALL L_write
 	ADD esp, 4
 	MOV eax, eax
 	MOV eax, 10
 	PUSH eax
-	CALL _L_write
+	CALL L_write
 	ADD esp, 4
 	MOV eax, eax
 	MOV eax, 10
 	PUSH eax
-	CALL _L_write
+	CALL L_write
 	ADD esp, 4
 	MOV eax, eax
 	MOV eax, 0
@@ -668,7 +668,7 @@ L$$26:
 	MOV esp, ebp
 	POP ebp
 	RET
-_LH$drawbar:
+LH$drawbar:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 8
@@ -702,7 +702,7 @@ L$$34:
 L$$32:
 	MOV eax, 32
 	PUSH eax
-	CALL _L_write
+	CALL L_write
 	ADD esp, 4
 	MOV eax, eax
 	MOV eax, esi
@@ -723,7 +723,7 @@ L$$39:
 L$$37:
 	MOV eax, DWORD PTR [ebp + 16]
 	PUSH eax
-	CALL _L_write
+	CALL L_write
 	ADD esp, 4
 	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + 12]
@@ -744,7 +744,7 @@ L$$44:
 L$$42:
 	MOV eax, 32
 	PUSH eax
-	CALL _L_write
+	CALL L_write
 	ADD esp, 4
 	MOV eax, eax
 	MOV eax, ebx
