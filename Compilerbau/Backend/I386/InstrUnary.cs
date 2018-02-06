@@ -33,6 +33,11 @@ namespace Compilerbau.Backend.I386
                     return Enumerable.Empty<Temp>().GetEnumerator();
                 }
                 activeTemps.Add(reg.reg);
+
+                //if (!Temp.IsSpecialReg(reg.reg))
+                //{
+                //    activeTemps.Add(reg.reg);
+                //}
             }
             else if(op is Operand.Mem mem)
             {
@@ -41,6 +46,11 @@ namespace Compilerbau.Backend.I386
                     return Enumerable.Empty<Temp>().GetEnumerator();
                 }
                 activeTemps.Add(mem.bas);
+
+                //if (!Temp.IsSpecialReg(mem.bas))
+                //{
+                //    activeTemps.Add(mem.bas);
+                //}
             }
             return activeTemps.GetEnumerator();
         }

@@ -10,6 +10,7 @@ _Lmain:
 	MOV eax, 23
 	PUSH eax
 	CALL _L_println_int
+	ADD esp, 4
 	MOV eax, eax
 	MOV eax, 0
 	MOV eax, eax

@@ -10,14 +10,17 @@ _Lmain:
 	MOV eax, 0
 	PUSH eax
 	CALL _L_halloc
+	ADD esp, 4
 	MOV eax, eax
 	MOV eax, eax
 	PUSH eax
 	CALL _LTest$test
+	ADD esp, 4
 	MOV eax, eax
 	MOV eax, eax
 	PUSH eax
 	CALL _L_println_int
+	ADD esp, 4
 	MOV eax, eax
 	MOV eax, 0
 	MOV eax, eax
@@ -34,8 +37,7 @@ _LLabel$init:
 	MOV ebx, ebx
 	MOV edx, esi
 	MOV ecx, edi
-	MOV eax, DWORD PTR [ebp + 12]
-	MOV esi, eax
+	MOV esi, DWORD PTR [ebp + 12]
 	MOV eax, 0
 	IMUL eax, 4
 	ADD esi, eax
@@ -57,8 +59,7 @@ _LLabel$label:
 	MOV ebx, ebx
 	MOV edx, esi
 	MOV ecx, edi
-	MOV eax, DWORD PTR [ebp + 8]
-	MOV esi, eax
+	MOV esi, DWORD PTR [ebp + 8]
 	MOV eax, 0
 	IMUL eax, 4
 	ADD esi, eax
@@ -80,13 +81,12 @@ _LLabel$eq:
 	MOV esi, esi
 	MOV edi, edi
 	MOV eax, DWORD PTR [ebp + 8]
-	MOV eax, eax
 	PUSH eax
 	CALL _LLabel$label
+	ADD esp, 4
 	MOV ecx, eax
 	MOV eax, 0
-	MOV edx, DWORD PTR [ebp + 12]
-	MOV ebx, edx
+	MOV ebx, DWORD PTR [ebp + 12]
 	MOV edx, 0
 	IMUL edx, 4
 	ADD ebx, edx
@@ -102,8 +102,7 @@ L$$4:
 	JNE L$$1
 L$$0:
 	MOV ebx, 0
-	MOV eax, DWORD PTR [ebp + 12]
-	MOV edx, eax
+	MOV edx, DWORD PTR [ebp + 12]
 	MOV eax, 0
 	IMUL eax, 4
 	ADD edx, eax
@@ -140,8 +139,7 @@ _LLabel$print:
 	MOV ebx, ebx
 	MOV esi, esi
 	MOV edi, edi
-	MOV eax, DWORD PTR [ebp + 8]
-	MOV ecx, eax
+	MOV ecx, DWORD PTR [ebp + 8]
 	MOV eax, 0
 	IMUL eax, 4
 	ADD ecx, eax
@@ -149,6 +147,7 @@ _LLabel$print:
 	MOV eax, DWORD PTR [eax + 0]
 	PUSH eax
 	CALL _L_println_int
+	ADD esp, 4
 	MOV eax, eax
 	MOV eax, 0
 	MOV eax, eax
@@ -165,31 +164,27 @@ _LNode$init:
 	MOV ebx, ebx
 	MOV edx, esi
 	MOV ecx, edi
-	MOV eax, DWORD PTR [ebp + 12]
-	MOV esi, eax
+	MOV esi, DWORD PTR [ebp + 12]
 	MOV eax, 1
 	IMUL eax, 4
 	ADD esi, eax
 	MOV eax, esi
 	MOV DWORD PTR [eax + 0], 0
-	MOV eax, DWORD PTR [ebp + 12]
-	MOV esi, eax
+	MOV esi, DWORD PTR [ebp + 12]
 	MOV eax, 0
 	IMUL eax, 4
 	ADD esi, eax
 	MOV esi, esi
 	MOV eax, DWORD PTR [ebp + 8]
 	MOV DWORD PTR [esi + 0], eax
-	MOV eax, DWORD PTR [ebp + 12]
-	MOV esi, eax
+	MOV esi, DWORD PTR [ebp + 12]
 	MOV eax, 2
 	IMUL eax, 4
 	ADD esi, eax
 	MOV esi, esi
 	MOV eax, DWORD PTR [ebp + 12]
 	MOV DWORD PTR [esi + 0], eax
-	MOV eax, DWORD PTR [ebp + 12]
-	MOV esi, eax
+	MOV esi, DWORD PTR [ebp + 12]
 	MOV eax, 3
 	IMUL eax, 4
 	ADD esi, eax
@@ -211,8 +206,7 @@ _LNode$label:
 	MOV ebx, ebx
 	MOV edx, esi
 	MOV ecx, edi
-	MOV eax, DWORD PTR [ebp + 8]
-	MOV esi, eax
+	MOV esi, DWORD PTR [ebp + 8]
 	MOV eax, 0
 	IMUL eax, 4
 	ADD esi, eax
@@ -232,8 +226,7 @@ _LNode$setLeft:
 	MOV ebx, ebx
 	MOV edx, esi
 	MOV ecx, edi
-	MOV eax, DWORD PTR [ebp + 12]
-	MOV esi, eax
+	MOV esi, DWORD PTR [ebp + 12]
 	MOV eax, 2
 	IMUL eax, 4
 	ADD esi, eax
@@ -255,8 +248,7 @@ _LNode$setRight:
 	MOV ebx, ebx
 	MOV edx, esi
 	MOV ecx, edi
-	MOV eax, DWORD PTR [ebp + 12]
-	MOV esi, eax
+	MOV esi, DWORD PTR [ebp + 12]
 	MOV eax, 3
 	IMUL eax, 4
 	ADD esi, eax
@@ -278,8 +270,7 @@ _LNode$print:
 	MOV ebx, ebx
 	MOV esi, esi
 	MOV edi, edi
-	MOV eax, DWORD PTR [ebp + 8]
-	MOV ecx, eax
+	MOV ecx, DWORD PTR [ebp + 8]
 	MOV eax, 0
 	IMUL eax, 4
 	ADD ecx, eax
@@ -287,6 +278,7 @@ _LNode$print:
 	MOV eax, DWORD PTR [eax + 0]
 	PUSH eax
 	CALL _LLabel$print
+	ADD esp, 4
 	MOV eax, eax
 	MOV eax, 0
 	MOV eax, eax
@@ -303,12 +295,10 @@ _LNode$beq:
 	MOV ebx, ebx
 	MOV edx, esi
 	MOV ecx, edi
-	MOV eax, DWORD PTR [ebp + 12]
-	CMP eax, 1
+	CMP DWORD PTR [ebp + 12], 1
 	JNE L$$11
 L$$10:
 	MOV eax, DWORD PTR [ebp + 8]
-	MOV eax, eax
 	MOV esi, 1
 	JMP L$$12
 L$$11:
@@ -322,16 +312,14 @@ L$$12:
 	CMP edi, 1
 	JNE L$$8
 L$$7:
-	MOV esi, 1
-	MOV eax, DWORD PTR [ebp + 12]
-	SUB esi, eax
-	CMP esi, 1
+	MOV eax, 1
+	SUB eax, DWORD PTR [ebp + 12]
+	CMP eax, 1
 	JNE L$$14
 L$$13:
-	MOV esi, 1
-	MOV eax, DWORD PTR [ebp + 8]
-	SUB esi, eax
-	MOV eax, esi
+	MOV eax, 1
+	SUB eax, DWORD PTR [ebp + 8]
+	MOV eax, eax
 	MOV esi, 1
 	JMP L$$15
 L$$14:
@@ -369,10 +357,8 @@ _LNode$dfs:
 	MOV esi, esi
 	MOV edi, edi
 	MOV eax, DWORD PTR [ebp + 16]
-	MOV eax, eax
 	PUSH eax
-	MOV eax, DWORD PTR [ebp + 16]
-	MOV ecx, eax
+	MOV ecx, DWORD PTR [ebp + 16]
 	MOV eax, 1
 	IMUL eax, 4
 	ADD ecx, eax
@@ -380,9 +366,9 @@ _LNode$dfs:
 	MOV eax, DWORD PTR [eax + 0]
 	PUSH eax
 	MOV eax, DWORD PTR [ebp + 12]
-	MOV eax, eax
 	PUSH eax
 	CALL _LNode$beq
+	ADD esp, 12
 	MOV eax, eax
 	CMP eax, 1
 	JNE L$$16
@@ -390,8 +376,7 @@ L$$17:
 	MOV eax, 0
 	JMP L$$18
 L$$16:
-	MOV eax, DWORD PTR [ebp + 16]
-	MOV ecx, eax
+	MOV ecx, DWORD PTR [ebp + 16]
 	MOV eax, 0
 	IMUL eax, 4
 	ADD ecx, eax
@@ -399,9 +384,9 @@ L$$16:
 	MOV eax, DWORD PTR [eax + 0]
 	PUSH eax
 	MOV eax, DWORD PTR [ebp + 8]
-	MOV eax, eax
 	PUSH eax
 	CALL _LLabel$eq
+	ADD esp, 8
 	MOV eax, eax
 	CMP eax, 1
 	JNE L$$19
@@ -409,16 +394,14 @@ L$$20:
 	MOV eax, 1
 	JMP L$$21
 L$$19:
-	MOV eax, DWORD PTR [ebp + 16]
-	MOV ecx, eax
+	MOV ecx, DWORD PTR [ebp + 16]
 	MOV eax, 1
 	IMUL eax, 4
 	ADD ecx, eax
 	MOV ecx, ecx
 	MOV eax, DWORD PTR [ebp + 12]
 	MOV DWORD PTR [ecx + 0], eax
-	MOV eax, DWORD PTR [ebp + 16]
-	MOV ecx, eax
+	MOV ecx, DWORD PTR [ebp + 16]
 	MOV eax, 2
 	IMUL eax, 4
 	ADD ecx, eax
@@ -426,12 +409,11 @@ L$$19:
 	MOV eax, DWORD PTR [eax + 0]
 	PUSH eax
 	MOV eax, DWORD PTR [ebp + 12]
-	MOV eax, eax
 	PUSH eax
 	MOV eax, DWORD PTR [ebp + 8]
-	MOV eax, eax
 	PUSH eax
 	CALL _LNode$dfs
+	ADD esp, 12
 	MOV eax, eax
 	CMP eax, 1
 	JNE L$$22
@@ -439,8 +421,7 @@ L$$23:
 	MOV eax, 1
 	JMP L$$24
 L$$22:
-	MOV eax, DWORD PTR [ebp + 16]
-	MOV ecx, eax
+	MOV ecx, DWORD PTR [ebp + 16]
 	MOV eax, 3
 	IMUL eax, 4
 	ADD ecx, eax
@@ -448,12 +429,11 @@ L$$22:
 	MOV eax, DWORD PTR [eax + 0]
 	PUSH eax
 	MOV eax, DWORD PTR [ebp + 12]
-	MOV eax, eax
 	PUSH eax
 	MOV eax, DWORD PTR [ebp + 8]
-	MOV eax, eax
 	PUSH eax
 	CALL _LNode$dfs
+	ADD esp, 12
 	MOV eax, eax
 	CMP eax, 1
 	JNE L$$25
@@ -485,13 +465,14 @@ _LTest$newLabel:
 	MOV eax, 4
 	PUSH eax
 	CALL _L_halloc
+	ADD esp, 4
 	MOV ebx, eax
 	MOV eax, ebx
 	PUSH eax
 	MOV eax, DWORD PTR [ebp + 8]
-	MOV eax, eax
 	PUSH eax
 	CALL _LLabel$init
+	ADD esp, 8
 	MOV eax, eax
 	MOV eax, ebx
 	MOV eax, eax
@@ -513,13 +494,14 @@ _LTest$newNode:
 	MOV eax, 16
 	PUSH eax
 	CALL _L_halloc
+	ADD esp, 4
 	MOV ebx, eax
 	MOV eax, ebx
 	PUSH eax
 	MOV eax, DWORD PTR [ebp + 8]
-	MOV eax, eax
 	PUSH eax
 	CALL _LNode$init
+	ADD esp, 8
 	MOV eax, eax
 	MOV eax, ebx
 	MOV eax, eax
@@ -540,21 +522,20 @@ _LTest$findPath:
 	MOV DWORD PTR [ebp + -4], eax
 	MOV edi, edi
 	MOV eax, DWORD PTR [ebp + 12]
-	MOV eax, eax
 	PUSH eax
 	CALL _LNode$print
+	ADD esp, 4
 	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + 8]
-	MOV eax, eax
 	PUSH eax
 	CALL _LNode$print
+	ADD esp, 4
 	MOV eax, eax
-	MOV eax, DWORD PTR [ebp + 12]
-	MOV ebx, eax
+	MOV ebx, DWORD PTR [ebp + 12]
 	MOV eax, DWORD PTR [ebp + 8]
-	MOV eax, eax
 	PUSH eax
 	CALL _LNode$label
+	ADD esp, 4
 	MOV eax, eax
 	MOV ecx, ebx
 	PUSH ecx
@@ -563,13 +544,13 @@ _LTest$findPath:
 	MOV eax, eax
 	PUSH eax
 	CALL _LNode$dfs
+	ADD esp, 12
 	MOV esi, eax
-	MOV eax, DWORD PTR [ebp + 12]
-	MOV ebx, eax
+	MOV ebx, DWORD PTR [ebp + 12]
 	MOV eax, DWORD PTR [ebp + 8]
-	MOV eax, eax
 	PUSH eax
 	CALL _LNode$label
+	ADD esp, 4
 	MOV eax, eax
 	MOV ecx, ebx
 	PUSH ecx
@@ -578,6 +559,7 @@ _LTest$findPath:
 	MOV eax, eax
 	PUSH eax
 	CALL _LNode$dfs
+	ADD esp, 12
 	MOV eax, eax
 	CMP esi, 1
 	JNE L$$28
@@ -585,6 +567,7 @@ L$$29:
 	MOV eax, 999
 	PUSH eax
 	CALL _L_println_int
+	ADD esp, 4
 	MOV eax, eax
 	JMP L$$30
 L$$28:
@@ -593,6 +576,7 @@ L$$28:
 	MOV eax, eax
 	PUSH eax
 	CALL _L_println_int
+	ADD esp, 4
 	MOV eax, eax
 L$$30:
 	MOV eax, 0
@@ -616,76 +600,76 @@ _LTest$test:
 	MOV eax, edi
 	MOV DWORD PTR [ebp + -12], eax
 	MOV eax, DWORD PTR [ebp + 8]
-	MOV eax, eax
 	PUSH eax
 	MOV eax, 1
 	PUSH eax
 	CALL _LTest$newLabel
+	ADD esp, 8
 	MOV ecx, eax
 	MOV eax, DWORD PTR [ebp + 8]
-	MOV eax, eax
 	PUSH eax
 	MOV eax, ecx
 	PUSH eax
 	CALL _LTest$newNode
+	ADD esp, 8
 	MOV eax, eax
 	MOV DWORD PTR [ebp + -8], eax
 	MOV eax, DWORD PTR [ebp + 8]
-	MOV eax, eax
 	PUSH eax
 	MOV eax, 2
 	PUSH eax
 	CALL _LTest$newLabel
-	MOV eax, eax
-	MOV ecx, DWORD PTR [ebp + 8]
-	MOV ecx, ecx
-	PUSH ecx
-	MOV eax, eax
+	ADD esp, 8
+	MOV ecx, eax
+	MOV eax, DWORD PTR [ebp + 8]
+	PUSH eax
+	MOV eax, ecx
 	PUSH eax
 	CALL _LTest$newNode
+	ADD esp, 8
 	MOV eax, eax
 	MOV DWORD PTR [ebp + -4], eax
 	MOV eax, DWORD PTR [ebp + 8]
-	MOV eax, eax
 	PUSH eax
 	MOV eax, 3
 	PUSH eax
 	CALL _LTest$newLabel
-	MOV eax, eax
-	MOV ecx, DWORD PTR [ebp + 8]
-	MOV ecx, ecx
-	PUSH ecx
-	MOV eax, eax
+	ADD esp, 8
+	MOV ecx, eax
+	MOV eax, DWORD PTR [ebp + 8]
+	PUSH eax
+	MOV eax, ecx
 	PUSH eax
 	CALL _LTest$newNode
+	ADD esp, 8
 	MOV edi, eax
 	MOV eax, DWORD PTR [ebp + 8]
-	MOV eax, eax
 	PUSH eax
 	MOV eax, 4
 	PUSH eax
 	CALL _LTest$newLabel
-	MOV eax, eax
-	MOV ecx, DWORD PTR [ebp + 8]
-	MOV ecx, ecx
-	PUSH ecx
-	MOV eax, eax
+	ADD esp, 8
+	MOV ecx, eax
+	MOV eax, DWORD PTR [ebp + 8]
+	PUSH eax
+	MOV eax, ecx
 	PUSH eax
 	CALL _LTest$newNode
+	ADD esp, 8
 	MOV esi, eax
 	MOV eax, DWORD PTR [ebp + 8]
-	MOV eax, eax
 	PUSH eax
 	MOV eax, 5
 	PUSH eax
 	CALL _LTest$newLabel
-	MOV eax, eax
-	MOV ecx, DWORD PTR [ebp + 8]
-	MOV ecx, ecx
-	PUSH ecx
-	MOV eax, eax
+	ADD esp, 8
+	MOV ecx, eax
+	MOV eax, DWORD PTR [ebp + 8]
+	PUSH eax
+	MOV eax, ecx
 	PUSH eax
 	CALL _LTest$newNode
+	ADD esp, 8
 	MOV ebx, eax
 	MOV eax, DWORD PTR [ebp + -8]
 	MOV eax, eax
@@ -694,6 +678,7 @@ _LTest$test:
 	MOV eax, eax
 	PUSH eax
 	CALL _LNode$setLeft
+	ADD esp, 8
 	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + -8]
 	MOV eax, eax
@@ -701,6 +686,7 @@ _LTest$test:
 	MOV eax, esi
 	PUSH eax
 	CALL _LNode$setRight
+	ADD esp, 8
 	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + -4]
 	MOV eax, eax
@@ -708,6 +694,7 @@ _LTest$test:
 	MOV eax, edi
 	PUSH eax
 	CALL _LNode$setLeft
+	ADD esp, 8
 	MOV eax, eax
 	MOV eax, edi
 	PUSH eax
@@ -715,15 +702,16 @@ _LTest$test:
 	MOV eax, eax
 	PUSH eax
 	CALL _LNode$setLeft
+	ADD esp, 8
 	MOV eax, eax
 	MOV eax, edi
 	PUSH eax
 	MOV eax, esi
 	PUSH eax
 	CALL _LNode$setRight
+	ADD esp, 8
 	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + 8]
-	MOV eax, eax
 	PUSH eax
 	MOV eax, DWORD PTR [ebp + -8]
 	MOV eax, eax
@@ -731,9 +719,9 @@ _LTest$test:
 	MOV eax, esi
 	PUSH eax
 	CALL _LTest$findPath
+	ADD esp, 12
 	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + 8]
-	MOV eax, eax
 	PUSH eax
 	MOV eax, esi
 	PUSH eax
@@ -741,9 +729,9 @@ _LTest$test:
 	MOV eax, eax
 	PUSH eax
 	CALL _LTest$findPath
+	ADD esp, 12
 	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + 8]
-	MOV eax, eax
 	PUSH eax
 	MOV eax, edi
 	PUSH eax
@@ -751,9 +739,9 @@ _LTest$test:
 	MOV eax, eax
 	PUSH eax
 	CALL _LTest$findPath
+	ADD esp, 12
 	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + 8]
-	MOV eax, eax
 	PUSH eax
 	MOV eax, esi
 	PUSH eax
@@ -761,9 +749,9 @@ _LTest$test:
 	MOV eax, eax
 	PUSH eax
 	CALL _LTest$findPath
+	ADD esp, 12
 	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + 8]
-	MOV eax, eax
 	PUSH eax
 	MOV eax, edi
 	PUSH eax
@@ -771,33 +759,34 @@ _LTest$test:
 	MOV eax, eax
 	PUSH eax
 	CALL _LTest$findPath
+	ADD esp, 12
 	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + 8]
-	MOV eax, eax
 	PUSH eax
 	MOV eax, esi
 	PUSH eax
 	MOV eax, edi
 	PUSH eax
 	CALL _LTest$findPath
+	ADD esp, 12
 	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + 8]
-	MOV eax, eax
 	PUSH eax
 	MOV eax, ebx
 	PUSH eax
 	MOV eax, ebx
 	PUSH eax
 	CALL _LTest$findPath
+	ADD esp, 12
 	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + 8]
-	MOV eax, eax
 	PUSH eax
 	MOV eax, ebx
 	PUSH eax
 	MOV eax, esi
 	PUSH eax
 	CALL _LTest$findPath
+	ADD esp, 12
 	MOV eax, eax
 	MOV eax, 0
 	MOV eax, eax

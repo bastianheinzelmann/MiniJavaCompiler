@@ -10,14 +10,17 @@ _Lmain:
 	MOV eax, 4
 	PUSH eax
 	CALL _L_halloc
+	ADD esp, 4
 	MOV eax, eax
 	MOV eax, eax
 	PUSH eax
 	CALL _LC$value
+	ADD esp, 4
 	MOV eax, eax
 	MOV eax, eax
 	PUSH eax
 	CALL _L_println_int
+	ADD esp, 4
 	MOV eax, eax
 	MOV eax, 0
 	MOV eax, eax
@@ -34,15 +37,13 @@ _LC$value:
 	MOV ebx, ebx
 	MOV edx, esi
 	MOV ecx, edi
-	MOV eax, DWORD PTR [ebp + 8]
-	MOV esi, eax
+	MOV esi, DWORD PTR [ebp + 8]
 	MOV eax, 0
 	IMUL eax, 4
 	ADD esi, eax
 	MOV eax, esi
 	MOV DWORD PTR [eax + 0], 555
-	MOV eax, DWORD PTR [ebp + 8]
-	MOV esi, eax
+	MOV esi, DWORD PTR [ebp + 8]
 	MOV eax, 0
 	IMUL eax, 4
 	ADD esi, eax

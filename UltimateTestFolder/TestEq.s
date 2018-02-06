@@ -10,14 +10,17 @@ _Lmain:
 	MOV eax, 0
 	PUSH eax
 	CALL _L_halloc
+	ADD esp, 4
 	MOV eax, eax
 	MOV eax, eax
 	PUSH eax
 	CALL _LTestEqMain$run
+	ADD esp, 4
 	MOV eax, eax
 	MOV eax, eax
 	PUSH eax
 	CALL _L_println_int
+	ADD esp, 4
 	MOV eax, eax
 	MOV eax, 0
 	MOV eax, eax
@@ -71,12 +74,14 @@ L$$8:
 	MOV eax, 1
 	PUSH eax
 	CALL _L_println_int
+	ADD esp, 4
 	MOV eax, eax
 	JMP L$$9
 L$$7:
 	MOV eax, 0
 	PUSH eax
 	CALL _L_println_int
+	ADD esp, 4
 	MOV eax, eax
 L$$9:
 	MOV eax, 0

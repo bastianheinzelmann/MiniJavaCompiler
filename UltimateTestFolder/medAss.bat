@@ -2,7 +2,7 @@ Compilerbau.exe Testfiles\Medium\BinarySearch.java tree
 Compilerbau.exe Testfiles\Medium\BinaryTree.java tree
 Compilerbau.exe Testfiles\Medium\BubbleSort.java tree
 Compilerbau.exe Testfiles\Medium\Euler.java tree
-Compilerbau.exe Testfiles\Medium\Fannkuch.java tree
+::Compilerbau.exe Testfiles\Medium\Fannkuch.java tree
 Compilerbau.exe Testfiles\Medium\Fib.java tree
 Compilerbau.exe Testfiles\Medium\FibL.java tree
 Compilerbau.exe Testfiles\Medium\Graph.java tree

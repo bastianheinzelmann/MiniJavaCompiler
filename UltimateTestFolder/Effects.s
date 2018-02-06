@@ -10,14 +10,17 @@ _Lmain:
 	MOV eax, 0
 	PUSH eax
 	CALL _L_halloc
+	ADD esp, 4
 	MOV eax, eax
 	MOV eax, eax
 	PUSH eax
 	CALL _LEffectsClass$run
+	ADD esp, 4
 	MOV eax, eax
 	MOV eax, eax
 	PUSH eax
 	CALL _L_println_int
+	ADD esp, 4
 	MOV eax, eax
 	MOV eax, 0
 	MOV eax, eax
@@ -40,12 +43,14 @@ _LEffectsClass$run:
 	MOV eax, 4
 	PUSH eax
 	CALL _L_halloc
+	ADD esp, 4
 	MOV edi, eax
 	MOV eax, edi
 	PUSH eax
 	MOV eax, 1
 	PUSH eax
 	CALL _LBit$set
+	ADD esp, 8
 	MOV eax, eax
 	MOV eax, eax
 	SUB eax, 1
@@ -55,11 +60,13 @@ _LEffectsClass$run:
 	MOV eax, 0
 	PUSH eax
 	CALL _LBit$set
+	ADD esp, 8
 	MOV eax, eax
 	MOV ebx, eax
 	MOV eax, edi
 	PUSH eax
 	CALL _LBit$value
+	ADD esp, 4
 	MOV ecx, eax
 	MOV eax, esi
 	MOV ebx, ebx
@@ -85,8 +92,7 @@ _LBit$set:
 	MOV ebx, ebx
 	MOV edx, esi
 	MOV ecx, edi
-	MOV eax, DWORD PTR [ebp + 12]
-	MOV esi, eax
+	MOV esi, DWORD PTR [ebp + 12]
 	MOV eax, 0
 	IMUL eax, 4
 	ADD esi, eax
@@ -94,7 +100,6 @@ _LBit$set:
 	MOV eax, DWORD PTR [ebp + 8]
 	MOV DWORD PTR [esi + 0], eax
 	MOV eax, DWORD PTR [ebp + 8]
-	MOV eax, eax
 	MOV eax, eax
 	MOV ebx, ebx
 	MOV esi, edx
@@ -109,8 +114,7 @@ _LBit$value:
 	MOV ebx, ebx
 	MOV edx, esi
 	MOV ecx, edi
-	MOV eax, DWORD PTR [ebp + 8]
-	MOV esi, eax
+	MOV esi, DWORD PTR [ebp + 8]
 	MOV eax, 0
 	IMUL eax, 4
 	ADD esi, eax

@@ -10,16 +10,19 @@ _Lmain:
 	MOV eax, 8
 	PUSH eax
 	CALL _L_halloc
+	ADD esp, 4
 	MOV eax, eax
 	MOV eax, eax
 	PUSH eax
 	MOV eax, 10
 	PUSH eax
 	CALL _LArr$do_it
+	ADD esp, 8
 	MOV eax, eax
 	MOV eax, eax
 	PUSH eax
 	CALL _L_println_int
+	ADD esp, 4
 	MOV eax, eax
 	MOV eax, 0
 	MOV eax, eax
@@ -37,8 +40,7 @@ _LArr$init:
 	MOV DWORD PTR [ebp + -4], eax
 	MOV esi, esi
 	MOV ecx, edi
-	MOV eax, DWORD PTR [ebp + 12]
-	MOV edx, eax
+	MOV edx, DWORD PTR [ebp + 12]
 	MOV eax, 1
 	IMUL eax, 4
 	ADD edx, eax
@@ -48,8 +50,7 @@ _LArr$init:
 	MOV ebx, 1
 L$$0:
 	MOV edi, 0
-	MOV eax, DWORD PTR [ebp + 12]
-	MOV edx, eax
+	MOV edx, DWORD PTR [ebp + 12]
 	MOV eax, 1
 	IMUL eax, 4
 	ADD edx, eax
@@ -64,8 +65,7 @@ L$$4:
 	CMP edi, 1
 	JNE L$$1
 L$$2:
-	MOV eax, DWORD PTR [ebp + 12]
-	MOV edx, eax
+	MOV edx, DWORD PTR [ebp + 12]
 	MOV eax, 0
 	IMUL eax, 4
 	ADD edx, eax
@@ -107,8 +107,7 @@ _LArr$sum:
 	MOV esi, 0
 L$$5:
 	MOV edx, 0
-	MOV eax, DWORD PTR [ebp + 8]
-	MOV ecx, eax
+	MOV ecx, DWORD PTR [ebp + 8]
 	MOV eax, 1
 	IMUL eax, 4
 	ADD ecx, eax
@@ -124,8 +123,7 @@ L$$9:
 	JNE L$$6
 L$$7:
 	MOV edx, esi
-	MOV eax, DWORD PTR [ebp + 8]
-	MOV ecx, eax
+	MOV ecx, DWORD PTR [ebp + 8]
 	MOV eax, 0
 	IMUL eax, 4
 	ADD ecx, eax
@@ -164,20 +162,19 @@ _LArr$do_it:
 	MOV DWORD PTR [ebp + -4], eax
 	MOV esi, esi
 	MOV edi, edi
-	MOV eax, DWORD PTR [ebp + 12]
-	MOV ecx, eax
+	MOV ecx, DWORD PTR [ebp + 12]
 	MOV eax, 0
 	IMUL eax, 4
 	ADD ecx, eax
 	MOV ebx, ecx
 	MOV eax, DWORD PTR [ebp + 8]
-	MOV eax, eax
 	ADD eax, 1
 	MOV eax, eax
 	IMUL eax, 4
 	MOV eax, eax
 	PUSH eax
 	CALL _L_halloc
+	ADD esp, 4
 	MOV eax, eax
 	MOV eax, eax
 	MOV ecx, DWORD PTR [ebp + 8]
@@ -185,17 +182,16 @@ _LArr$do_it:
 	MOV ecx, ebx
 	MOV DWORD PTR [ecx + 0], eax
 	MOV eax, DWORD PTR [ebp + 12]
-	MOV eax, eax
 	PUSH eax
 	MOV eax, DWORD PTR [ebp + 8]
-	MOV eax, eax
 	PUSH eax
 	CALL _LArr$init
+	ADD esp, 8
 	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + 12]
-	MOV eax, eax
 	PUSH eax
 	CALL _LArr$sum
+	ADD esp, 4
 	MOV eax, eax
 	MOV eax, eax
 	MOV ecx, DWORD PTR [ebp + -4]

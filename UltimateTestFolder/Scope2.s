@@ -10,6 +10,7 @@ _Lmain:
 	MOV eax, 4
 	PUSH eax
 	CALL _L_halloc
+	ADD esp, 4
 	MOV eax, eax
 	MOV eax, eax
 	PUSH eax
@@ -18,10 +19,12 @@ _Lmain:
 	MOV eax, 10
 	PUSH eax
 	CALL _LS$run
+	ADD esp, 12
 	MOV eax, eax
 	MOV eax, eax
 	PUSH eax
 	CALL _L_println_int
+	ADD esp, 4
 	MOV eax, eax
 	MOV eax, 0
 	MOV eax, eax
@@ -38,8 +41,7 @@ _LS$Init:
 	MOV ebx, ebx
 	MOV edx, esi
 	MOV ecx, edi
-	MOV eax, DWORD PTR [ebp + 12]
-	MOV esi, eax
+	MOV esi, DWORD PTR [ebp + 12]
 	MOV eax, 0
 	IMUL eax, 4
 	ADD esi, eax
@@ -62,15 +64,13 @@ _LS$run:
 	MOV esi, esi
 	MOV edi, edi
 	MOV eax, DWORD PTR [ebp + 16]
-	MOV eax, eax
 	PUSH eax
 	MOV eax, DWORD PTR [ebp + 8]
-	MOV eax, eax
 	PUSH eax
 	CALL _LS$Init
+	ADD esp, 8
 	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + 12]
-	MOV eax, eax
 	MOV eax, eax
 	MOV ebx, ebx
 	MOV esi, esi

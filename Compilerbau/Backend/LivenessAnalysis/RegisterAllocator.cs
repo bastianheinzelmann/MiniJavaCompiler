@@ -18,7 +18,7 @@ namespace Compilerbau.Backend.LivenessAnalysis
             LivenessMachine livenessMachine = new LivenessMachine();
             foreach (var n in prg.Functions)
             {
-                Console.WriteLine("Registerallocation for " + n.ToString());
+                Console.WriteLine("Registerallocation for " + n.Name);
                 while (true)
                 {
                     var cfg = graphGenerator.GenGraphs(n);

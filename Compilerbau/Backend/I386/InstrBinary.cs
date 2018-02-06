@@ -124,22 +124,34 @@ namespace Compilerbau.Backend.I386
             }
             if (src is Operand.Mem mem)
             {
-                if (Temp.IsSpecialReg(mem.bas))
+                //if (Temp.IsSpecialReg(mem.bas))
+                //{
+                //    return Enumerable.Empty<Temp>().GetEnumerator();
+                //}
+                //activeTemps.Add(mem.bas);
+
+                if (!Temp.IsSpecialReg(mem.bas))
                 {
-                    return Enumerable.Empty<Temp>().GetEnumerator();
+                    activeTemps.Add(mem.bas);
                 }
-                activeTemps.Add(mem.bas);
+
             }
             if (dst is Operand.Mem mem2)
             {
-                if (Temp.IsSpecialReg(mem2.bas))
+                //if (!Temp.IsSpecialReg(mem2.bas))
+                //{
+                //    return Enumerable.Empty<Temp>().GetEnumerator();
+                //}
+                //activeTemps.Add(mem2.bas);
+
+                if (!Temp.IsSpecialReg(mem2.bas))
                 {
-                    return Enumerable.Empty<Temp>().GetEnumerator();
+                    activeTemps.Add(mem2.bas);
                 }
-                activeTemps.Add(mem2.bas);
             }
 
-            return activeTemps.GetEnumerator();
+            IEnumerator<Temp> e = activeTemps.GetEnumerator();
+            return e;
         }
 
         public override string ToString()

@@ -102,7 +102,20 @@ namespace Compilerbau.Backend.I386
                         }
                         else
                         {
-                            Emit(new InstrBinary(InstrBinary.Kind.CMP, MunchExp(cjump.Left), MunchExp(cjump.Right)));
+                            Operand op1 = MunchExp(cjump.Left);
+                            Operand op2 = MunchExp(cjump.Right);
+
+                            if (op1 is Operand.Mem && op2 is Operand.Mem)
+                            {
+                                Operand.Reg memTemp = new Operand.Reg(new Temp());
+                                Emit(new InstrBinary(InstrBinary.Kind.MOV, memTemp, op1));
+                                Emit(new InstrBinary(InstrBinary.Kind.CMP, memTemp, op2));
+                            }
+                            else
+                            {
+                                Emit(new InstrBinary(InstrBinary.Kind.CMP, op1, op2));
+                            }
+                            //Emit(new InstrBinary(InstrBinary.Kind.CMP, MunchExp(cjump.Left), MunchExp(cjump.Right)));
                         }
 
                         InstrJump.Cond cond;
@@ -277,7 +290,7 @@ namespace Compilerbau.Backend.I386
 
                         //Emit(new InstrBinary(InstrBinary.Kind.SUB, ))
                         Emit(new InstrJump(InstrJump.Kind.CALL, name.Label, new List<RegTemp> { (RegTemp)EAX, (RegTemp)ECX, (RegTemp)EDX}));
-                        //Emit(new InstrBinary(InstrBinary.Kind.ADD, new Operand.Reg(EBP), new Operand.Imm(call.Args.Count * 4)));
+                        Emit(new InstrBinary(InstrBinary.Kind.ADD, new Operand.Reg(ESP), new Operand.Imm(call.Args.Count * 4)));
                         return new Operand.Reg(EAX);
                     }
                 case ExpConst con:
@@ -299,9 +312,10 @@ namespace Compilerbau.Backend.I386
                     }
                 case ExpParam param:
                     {
-                        Temp parTemp = new Temp();
-                        Emit(new InstrBinary(InstrBinary.Kind.MOV, new Operand.Reg(parTemp), new Operand.Mem(EBP, 0, null, (currentParamCount - param.Number) * 4 + 8)));
-                        return new Operand.Reg(parTemp);
+                        //Temp parTemp = new Temp();
+                        //Emit(new InstrBinary(InstrBinary.Kind.MOV, new Operand.Reg(parTemp), new Operand.Mem(EBP, 0, null, (currentParamCount - param.Number) * 4 + 8)));
+                        //return new Operand.Reg(parTemp);
+                        return new Operand.Mem(EBP, 0, null, (currentParamCount - param.Number) * 4 + 8);
                     }
                 case ExpTemp temp:
                     {

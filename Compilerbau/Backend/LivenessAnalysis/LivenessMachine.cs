@@ -29,11 +29,14 @@ namespace Compilerbau.Backend.LivenessAnalysis
 
             while (!weAreDone)
             {
+                outActiveOld = new Dictionary<IMachineInstruction, HashSet<Temp>>(outActive);
+                inActiveOld = new Dictionary<IMachineInstruction, HashSet<Temp>>(inActive);
+
                 foreach (var n in graph.Nodes.Reverse())
                 {
                     // save old state
-                    outActiveOld = new Dictionary<IMachineInstruction, HashSet<Temp>>(outActive);
-                    inActiveOld = new Dictionary<IMachineInstruction, HashSet<Temp>>(inActive);
+                    //outActiveOld = new Dictionary<IMachineInstruction, HashSet<Temp>>(outActive);
+                    //inActiveOld = new Dictionary<IMachineInstruction, HashSet<Temp>>(inActive);
 
                     // out stuff
                     foreach (var s in graph.Successors[n])
