@@ -19,10 +19,8 @@ namespace Compilerbau.Backend.LivenessAnalysis
             foreach (var n in prg.Functions)
             {
                 Console.WriteLine("Registerallocation for " + n.Name);
-                int i = 0;
                 while (true)
                 {
-                    i++;
                     var cfg = graphGenerator.GenGraphs(n);
                     Console.WriteLine("Generated Graph.");
                     var interferenceGraph = livenessMachine.CalcInterferenceGraph(cfg, registers);
@@ -31,8 +29,9 @@ namespace Compilerbau.Backend.LivenessAnalysis
                     Console.WriteLine("Allocated Registers");
                     if (nodesToSpill.Count > 0)
                     {
-                        File.WriteAllText(@"randomSpill" + i + ".s", prg.RenderAssembly());
+                        File.WriteAllText(@"BeforeSpill.s", prg.RenderAssembly());
                         n.Spill(nodesToSpill);
+                        File.WriteAllText(@"AfterSpill.s", prg.RenderAssembly());
                         Console.WriteLine("Spilled.");
                     }
                     else
@@ -82,10 +81,9 @@ namespace Compilerbau.Backend.LivenessAnalysis
             {
                 spillCandidates.Clear();
                 Simplify(currentGraph);
-                // spill shit
+                // spill 
                 if (spillCandidates.Count > 0)
                 {
-                    // remove some shit like spilling candidate with highest stuff
                     Temp spillCandidate = spillCandidates[0];
                     foreach (var n in spillCandidates)
                     {
@@ -115,38 +113,45 @@ namespace Compilerbau.Backend.LivenessAnalysis
             // simplify
             void Simplify(Dictionary<Temp, HashSet<Temp>> currentGraphCopy)
             {
-                foreach (var n in currentGraphCopy)
+                bool changed = true;
+                while (changed)
                 {
-                    if (registerDict.ContainsKey(n.Key))
+                    changed = false;
+                    CopyGraph(currentGraph, interferenceGraph);
+                    foreach (var n in currentGraphCopy)
                     {
-                        // dann isser schon gefärbt
-                        continue;
-                    }
-                    else if (n.Key is RegTemp r)
-                    {
-                        registerDict.Add(r, r);
-                    }
-                    else if (interferenceGraph[n.Key].Count < colours)
-                    {
-                        tempStack.Push(n.Key);
-                        foreach (var o in interferenceGraph)
+                        if (registerDict.ContainsKey(n.Key))
                         {
-                            if (o.Value.Contains(n.Key))
-                            {
-                                o.Value.Remove(n.Key);
-                            }
+                            // dann isser schon gefärbt
+                            continue;
                         }
-                        interferenceGraph.Remove(n.Key);
+                        else if (n.Key is RegTemp r)
+                        {
+                            registerDict.Add(r, r);
+                        }
+                        else if (interferenceGraph[n.Key].Count < colours)
+                        {
+                            tempStack.Push(n.Key);
+                            foreach (var o in interferenceGraph)
+                            {
+                                if (o.Value.Contains(n.Key))
+                                {
+                                    o.Value.Remove(n.Key);
+                                }
+                            }
+                            interferenceGraph.Remove(n.Key);
+                            changed = true;
+                        }
                     }
-                    else
+                }
+                foreach(var n in interferenceGraph)
+                {
+                    if(!(n.Key is RegTemp))
                     {
                         spillCandidates.Add(n.Key);
                     }
                 }
             }
-
-
-
             // simplify end
 
             // backwards
@@ -204,7 +209,7 @@ namespace Compilerbau.Backend.LivenessAnalysis
                 return false;
             }
 
-            RenameTemps(function ,registerDict);
+            RenameTemps(function, registerDict);
             return spillNodes;
         }
     }
