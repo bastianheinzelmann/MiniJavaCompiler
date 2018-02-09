@@ -26,11 +26,11 @@ namespace Compilerbau.Backend.I386
         public IEnumerator<Temp> Use()
         {
             List<Temp> activeTemps = new List<Temp>();
-            //if(kind == Kind.IDIV)
-            //{
-            //    activeTemps.Add(I386CodeGenerator.EDX);
-            //}
-            if(op is Operand.Reg reg)
+            if (kind == Kind.IDIV)
+            {
+                activeTemps.Add(I386CodeGenerator.EDX);
+            }
+            if (op is Operand.Reg reg)
             {
                 //if (Temp.IsSpecialReg(reg.reg))
                 //{
