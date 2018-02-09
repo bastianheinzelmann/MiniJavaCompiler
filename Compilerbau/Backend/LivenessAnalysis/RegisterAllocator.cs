@@ -29,9 +29,8 @@ namespace Compilerbau.Backend.LivenessAnalysis
                     Console.WriteLine("Allocated Registers");
                     if (nodesToSpill.Count > 0)
                     {
-                        File.WriteAllText(@"BeforeSpill.s", prg.RenderAssembly());
+                        //File.WriteAllText(@"C:\Users\Panda\Documents\Compilerbau1718\risc386\Examples\randomSpill.s", prg.RenderAssembly());
                         n.Spill(nodesToSpill);
-                        File.WriteAllText(@"AfterSpill.s", prg.RenderAssembly());
                         Console.WriteLine("Spilled.");
                     }
                     else
@@ -81,9 +80,10 @@ namespace Compilerbau.Backend.LivenessAnalysis
             {
                 spillCandidates.Clear();
                 Simplify(currentGraph);
-                // spill 
+                // spill shit
                 if (spillCandidates.Count > 0)
                 {
+                    // remove some shit like spilling candidate with highest stuff
                     Temp spillCandidate = spillCandidates[0];
                     foreach (var n in spillCandidates)
                     {
@@ -113,45 +113,38 @@ namespace Compilerbau.Backend.LivenessAnalysis
             // simplify
             void Simplify(Dictionary<Temp, HashSet<Temp>> currentGraphCopy)
             {
-                bool changed = true;
-                while (changed)
+                foreach (var n in currentGraphCopy)
                 {
-                    changed = false;
-                    CopyGraph(currentGraph, interferenceGraph);
-                    foreach (var n in currentGraphCopy)
+                    if (registerDict.ContainsKey(n.Key))
                     {
-                        if (registerDict.ContainsKey(n.Key))
-                        {
-                            // dann isser schon gefärbt
-                            continue;
-                        }
-                        else if (n.Key is RegTemp r)
-                        {
-                            registerDict.Add(r, r);
-                        }
-                        else if (interferenceGraph[n.Key].Count < colours)
-                        {
-                            tempStack.Push(n.Key);
-                            foreach (var o in interferenceGraph)
-                            {
-                                if (o.Value.Contains(n.Key))
-                                {
-                                    o.Value.Remove(n.Key);
-                                }
-                            }
-                            interferenceGraph.Remove(n.Key);
-                            changed = true;
-                        }
+                        // dann isser schon gefärbt
+                        continue;
                     }
-                }
-                foreach(var n in interferenceGraph)
-                {
-                    if(!(n.Key is RegTemp))
+                    else if (n.Key is RegTemp r)
+                    {
+                        registerDict.Add(r, r);
+                    }
+                    else if (interferenceGraph[n.Key].Count < colours)
+                    {
+                        tempStack.Push(n.Key);
+                        foreach (var o in interferenceGraph)
+                        {
+                            if (o.Value.Contains(n.Key))
+                            {
+                                o.Value.Remove(n.Key);
+                            }
+                        }
+                        interferenceGraph.Remove(n.Key);
+                    }
+                    else
                     {
                         spillCandidates.Add(n.Key);
                     }
                 }
             }
+
+
+
             // simplify end
 
             // backwards
@@ -209,7 +202,7 @@ namespace Compilerbau.Backend.LivenessAnalysis
                 return false;
             }
 
-            RenameTemps(function, registerDict);
+            RenameTemps(function ,registerDict);
             return spillNodes;
         }
     }
