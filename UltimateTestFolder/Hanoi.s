@@ -113,19 +113,19 @@ _LH$init:
 	MOV eax, 3
 	IMUL eax, 4
 	ADD ecx, eax
-	MOV edi, ecx
+	MOV ebx, ecx
 	MOV ecx, DWORD PTR [ebp + 8]
 	MOV eax, 0
 	IMUL eax, 4
 	ADD ecx, eax
 	MOV eax, ecx
-	MOV ebx, DWORD PTR [eax + 0]
+	MOV esi, DWORD PTR [eax + 0]
 	MOV eax, 1
 	MOV ecx, 2
 	CDQ
 	IDIV ecx
-	ADD ebx, eax
-	MOV eax, ebx
+	ADD esi, eax
+	MOV eax, esi
 	ADD eax, 1
 	MOV eax, eax
 	IMUL eax, 4
@@ -133,22 +133,22 @@ _LH$init:
 	PUSH eax
 	CALL _L_halloc
 	ADD esp, 4
-	MOV esi, eax
-	MOV esi, esi
+	MOV edi, eax
+	MOV edi, edi
 	MOV ecx, DWORD PTR [ebp + 8]
 	MOV eax, 0
 	IMUL eax, 4
 	ADD ecx, eax
 	MOV eax, ecx
-	MOV ebx, DWORD PTR [eax + 0]
+	MOV esi, DWORD PTR [eax + 0]
 	MOV eax, 1
 	MOV ecx, 2
 	CDQ
 	IDIV ecx
-	ADD ebx, eax
-	MOV DWORD PTR [esi + 0], ebx
-	MOV eax, edi
-	MOV DWORD PTR [eax + 0], esi
+	ADD esi, eax
+	MOV DWORD PTR [edi + 0], esi
+	MOV eax, ebx
+	MOV DWORD PTR [eax + 0], edi
 	MOV eax, 0
 L$$0:
 	MOV ebx, 0

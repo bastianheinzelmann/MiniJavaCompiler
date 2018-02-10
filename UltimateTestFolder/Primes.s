@@ -1,6 +1,6 @@
 	.intel_syntax
 	.global _Lmain
-Lmain:
+_Lmain:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 0
@@ -9,19 +9,19 @@ Lmain:
 	MOV edi, edi
 	MOV eax, 8
 	PUSH eax
-	CALL L_halloc
+	CALL _L_halloc
 	ADD esp, 4
 	MOV eax, eax
 	MOV eax, eax
 	PUSH eax
 	MOV eax, 22
 	PUSH eax
-	CALL LPrimesClass$test_it
+	CALL _LPrimesClass$test_it
 	ADD esp, 8
 	MOV eax, eax
 	MOV eax, eax
 	PUSH eax
-	CALL L_println_int
+	CALL _L_println_int
 	ADD esp, 4
 	MOV eax, eax
 	MOV eax, 0
@@ -32,7 +32,7 @@ Lmain:
 	MOV esp, ebp
 	POP ebp
 	RET
-LPrimesClass$eq:
+_LPrimesClass$eq:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 0
@@ -77,7 +77,7 @@ L$$2:
 	MOV esp, ebp
 	POP ebp
 	RET
-LPrimesClass$div:
+_LPrimesClass$div:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 0
@@ -103,7 +103,7 @@ L$$7:
 	PUSH eax
 	MOV eax, 1
 	PUSH eax
-	CALL LPrimesClass$eq
+	CALL _LPrimesClass$eq
 	ADD esp, 12
 	MOV eax, eax
 	CMP eax, 1
@@ -120,7 +120,7 @@ L$$12:
 	PUSH eax
 	MOV eax, DWORD PTR [ebp + 8]
 	PUSH eax
-	CALL LPrimesClass$div
+	CALL _LPrimesClass$div
 	ADD esp, 12
 	MOV ecx, eax
 	MOV eax, 1
@@ -136,7 +136,7 @@ L$$9:
 	MOV esp, ebp
 	POP ebp
 	RET
-LPrimesClass$rem:
+_LPrimesClass$rem:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 8
@@ -153,14 +153,14 @@ LPrimesClass$rem:
 	PUSH eax
 	MOV eax, DWORD PTR [ebp + 12]
 	PUSH eax
-	CALL LPrimesClass$div
+	CALL _LPrimesClass$div
 	ADD esp, 12
-	MOV ecx, eax
-	MOV eax, esi
-	MOV edx, ebx
-	IMUL edx, ecx
-	SUB eax, edx
 	MOV eax, eax
+	MOV ecx, esi
+	MOV edx, ebx
+	IMUL edx, eax
+	SUB ecx, edx
+	MOV eax, ecx
 	MOV eax, eax
 	MOV ecx, DWORD PTR [ebp + -8]
 	MOV ebx, ecx
@@ -170,7 +170,7 @@ LPrimesClass$rem:
 	MOV esp, ebp
 	POP ebp
 	RET
-LPrimesClass$dividess:
+_LPrimesClass$dividess:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 12
@@ -189,7 +189,7 @@ LPrimesClass$dividess:
 	PUSH eax
 	MOV eax, DWORD PTR [ebp + 12]
 	PUSH eax
-	CALL LPrimesClass$div
+	CALL _LPrimesClass$div
 	ADD esp, 12
 	MOV eax, eax
 	MOV ecx, edi
@@ -200,7 +200,7 @@ LPrimesClass$dividess:
 	IMUL ecx, eax
 	MOV eax, ecx
 	PUSH eax
-	CALL LPrimesClass$eq
+	CALL _LPrimesClass$eq
 	ADD esp, 12
 	MOV eax, eax
 	MOV eax, eax
@@ -213,24 +213,24 @@ LPrimesClass$dividess:
 	MOV esp, ebp
 	POP ebp
 	RET
-LPrimesClass$divides:
+_LPrimesClass$divides:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 4
 	MOV eax, ebx
 	MOV DWORD PTR [ebp + -4], eax
-	MOV esi, esi
+	MOV edx, esi
 	MOV ecx, edi
-	MOV ebx, 1
-	MOV edx, 0
+	MOV esi, 1
+	MOV ebx, 0
 L$$15:
 	MOV eax, 1
-	SUB eax, edx
+	SUB eax, ebx
 	CMP eax, 1
 	JNE L$$19
 L$$18:
 	MOV eax, 0
-	CMP ebx, DWORD PTR [ebp + 8]
+	CMP esi, DWORD PTR [ebp + 8]
 	JGE L$$22
 L$$21:
 	MOV eax, 1
@@ -248,7 +248,7 @@ L$$20:
 	JNE L$$16
 L$$17:
 	MOV edi, 0
-	MOV eax, ebx
+	MOV eax, esi
 	IMUL eax, DWORD PTR [ebp + 12]
 	CMP eax, DWORD PTR [ebp + 8]
 	JGE L$$27
@@ -258,13 +258,13 @@ L$$27:
 	CMP edi, 1
 	JNE L$$23
 L$$24:
-	MOV eax, ebx
+	MOV eax, esi
 	ADD eax, 1
-	MOV ebx, eax
+	MOV esi, eax
 	JMP L$$25
 L$$23:
 	MOV edi, 0
-	MOV eax, ebx
+	MOV eax, esi
 	IMUL eax, DWORD PTR [ebp + 12]
 	CMP DWORD PTR [ebp + 8], eax
 	JGE L$$32
@@ -274,24 +274,24 @@ L$$32:
 	CMP edi, 1
 	JNE L$$28
 L$$29:
-	MOV ebx, DWORD PTR [ebp + 8]
+	MOV esi, DWORD PTR [ebp + 8]
 	JMP L$$30
 L$$28:
-	MOV edx, 1
+	MOV ebx, 1
 L$$30:
 L$$25:
 	JMP L$$15
 L$$16:
-	MOV eax, edx
+	MOV eax, ebx
 	MOV eax, eax
-	MOV edx, DWORD PTR [ebp + -4]
-	MOV ebx, edx
-	MOV esi, esi
+	MOV ebx, DWORD PTR [ebp + -4]
+	MOV ebx, ebx
+	MOV esi, edx
 	MOV edi, ecx
 	MOV esp, ebp
 	POP ebp
 	RET
-LPrimesClass$hcf:
+_LPrimesClass$hcf:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 0
@@ -314,7 +314,7 @@ L$$34:
 	PUSH eax
 	MOV eax, DWORD PTR [ebp + 12]
 	PUSH eax
-	CALL LPrimesClass$hcf
+	CALL _LPrimesClass$hcf
 	ADD esp, 12
 	MOV eax, eax
 	JMP L$$35
@@ -339,7 +339,7 @@ L$$38:
 	SUB eax, DWORD PTR [ebp + 8]
 	MOV eax, eax
 	PUSH eax
-	CALL LPrimesClass$hcf
+	CALL _LPrimesClass$hcf
 	ADD esp, 12
 	MOV eax, eax
 L$$40:
@@ -352,7 +352,7 @@ L$$35:
 	MOV esp, ebp
 	POP ebp
 	RET
-LPrimesClass$isprime:
+_LPrimesClass$isprime:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 8
@@ -361,54 +361,54 @@ LPrimesClass$isprime:
 	MOV eax, esi
 	MOV DWORD PTR [ebp + -4], eax
 	MOV edi, edi
-	MOV eax, 1
+	MOV esi, 1
 	MOV ebx, 0
 L$$43:
-	CMP eax, 1
+	CMP esi, 1
 	JNE L$$50
 L$$49:
-	MOV esi, 0
-	MOV edx, DWORD PTR [ebp + 12]
-	MOV ecx, 1
-	IMUL ecx, 4
-	ADD edx, ecx
-	MOV ecx, edx
-	CMP ebx, DWORD PTR [ecx + 0]
+	MOV edx, 0
+	MOV ecx, DWORD PTR [ebp + 12]
+	MOV eax, 1
+	IMUL eax, 4
+	ADD ecx, eax
+	MOV eax, ecx
+	CMP ebx, DWORD PTR [eax + 0]
 	JGE L$$53
 L$$52:
-	MOV esi, 1
-L$$53:
-	MOV ecx, esi
 	MOV edx, 1
+L$$53:
+	MOV eax, edx
+	MOV ecx, 1
 	JMP L$$51
 L$$50:
+	MOV eax, 0
 	MOV ecx, 0
-	MOV edx, 0
 L$$51:
-	MOV edx, edx
-	AND edx, ecx
-	CMP edx, 1
+	MOV ecx, ecx
+	AND ecx, eax
+	CMP ecx, 1
 	JNE L$$47
 L$$46:
-	MOV ecx, 0
+	MOV eax, 0
 	CMP ebx, DWORD PTR [ebp + 8]
 	JGE L$$55
 L$$54:
-	MOV ecx, 1
+	MOV eax, 1
 L$$55:
-	MOV ecx, ecx
-	MOV edx, 1
+	MOV eax, eax
+	MOV ecx, 1
 	JMP L$$48
 L$$47:
+	MOV eax, 0
 	MOV ecx, 0
-	MOV edx, 0
 L$$48:
-	MOV edx, edx
-	AND edx, ecx
-	CMP edx, 1
+	MOV ecx, ecx
+	AND ecx, eax
+	CMP ecx, 1
 	JNE L$$44
 L$$45:
-	CMP eax, 1
+	CMP esi, 1
 	JNE L$$57
 L$$56:
 	MOV eax, DWORD PTR [ebp + 12]
@@ -429,7 +429,7 @@ L$$56:
 	PUSH eax
 	MOV eax, DWORD PTR [ebp + 8]
 	PUSH eax
-	CALL LPrimesClass$divides
+	CALL _LPrimesClass$divides
 	ADD esp, 12
 	MOV ecx, eax
 	MOV eax, 1
@@ -443,13 +443,13 @@ L$$57:
 L$$58:
 	MOV ecx, ecx
 	AND ecx, eax
-	MOV eax, ecx
-	MOV ecx, ebx
-	ADD ecx, 1
-	MOV ebx, ecx
+	MOV esi, ecx
+	MOV eax, ebx
+	ADD eax, 1
+	MOV ebx, eax
 	JMP L$$43
 L$$44:
-	MOV eax, eax
+	MOV eax, esi
 	MOV eax, eax
 	MOV ecx, DWORD PTR [ebp + -8]
 	MOV ebx, ecx
@@ -459,7 +459,7 @@ L$$44:
 	MOV esp, ebp
 	POP ebp
 	RET
-LPrimesClass$primes:
+_LPrimesClass$primes:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 12
@@ -485,7 +485,7 @@ L$$61:
 	PUSH eax
 	MOV eax, ebx
 	PUSH eax
-	CALL LPrimesClass$isprime
+	CALL _LPrimesClass$isprime
 	ADD esp, 8
 	MOV eax, eax
 	CMP eax, 1
@@ -524,7 +524,7 @@ L$$65:
 	MOV DWORD PTR [edx + 0], eax
 	MOV eax, ebx
 	PUSH eax
-	CALL L_println_int
+	CALL _L_println_int
 	ADD esp, 4
 	MOV eax, eax
 	MOV eax, ebx
@@ -552,7 +552,7 @@ L$$60:
 	MOV esp, ebp
 	POP ebp
 	RET
-LPrimesClass$test_it:
+_LPrimesClass$test_it:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 4
@@ -571,7 +571,7 @@ LPrimesClass$test_it:
 	IMUL eax, 4
 	MOV eax, eax
 	PUSH eax
-	CALL L_halloc
+	CALL _L_halloc
 	ADD esp, 4
 	MOV eax, eax
 	MOV eax, eax
@@ -589,12 +589,12 @@ LPrimesClass$test_it:
 	PUSH eax
 	MOV eax, DWORD PTR [ebp + 8]
 	PUSH eax
-	CALL LPrimesClass$primes
+	CALL _LPrimesClass$primes
 	ADD esp, 8
 	MOV ebx, eax
 	MOV eax, 999
 	PUSH eax
-	CALL L_println_int
+	CALL _L_println_int
 	ADD esp, 4
 	MOV eax, eax
 	MOV eax, ebx

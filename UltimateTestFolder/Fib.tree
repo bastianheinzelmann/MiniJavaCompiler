@@ -1,12 +1,12 @@
-Lmain(2) {
- MOVE(TEMP(t5), CALL(NAME(L_halloc), CONST(0)))
- MOVE(TEMP(t6), CALL(NAME(LFibAux$nfib), TEMP(t5), CONST(15)))
- MOVE(TEMP(t1), CALL(NAME(L_println_int), TEMP(t6)))
+_Lmain(2) {
+ MOVE(TEMP(t5), CALL(NAME(_L_halloc), CONST(0)))
+ MOVE(TEMP(t6), CALL(NAME(_LFibAux$nfib), TEMP(t5), CONST(15)))
+ MOVE(TEMP(t1), CALL(NAME(_L_println_int), TEMP(t6)))
  MOVE(TEMP(t0), CONST(0))
  return t0
 }
 
-LFibAux$nfib(2) {
+_LFibAux$nfib(2) {
  MOVE(TEMP(t3), CONST(0))
  CJUMP(LT, PARAM(1), CONST(2), L$$3, L$$4)
  LABEL(L$$3)
@@ -17,9 +17,9 @@ LFibAux$nfib(2) {
  MOVE(TEMP(t2), CONST(1))
  JUMP(NAME(L$$2), L$$2)
  LABEL(L$$0)
- MOVE(TEMP(t7), CALL(NAME(LFibAux$nfib), PARAM(0), BINOP(MINUS, PARAM(1), CONST(1))))
+ MOVE(TEMP(t7), CALL(NAME(_LFibAux$nfib), PARAM(0), BINOP(MINUS, PARAM(1), CONST(1))))
  MOVE(TEMP(t9), TEMP(t7))
- MOVE(TEMP(t8), CALL(NAME(LFibAux$nfib), PARAM(0), BINOP(MINUS, PARAM(1), CONST(2))))
+ MOVE(TEMP(t8), CALL(NAME(_LFibAux$nfib), PARAM(0), BINOP(MINUS, PARAM(1), CONST(2))))
  MOVE(TEMP(t2), BINOP(PLUS, BINOP(PLUS, TEMP(t9), TEMP(t8)), CONST(1)))
  LABEL(L$$2)
  MOVE(TEMP(t4), TEMP(t2))

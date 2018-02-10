@@ -80,7 +80,6 @@ namespace Compilerbau.Backend.LivenessAnalysis
             {
                 spillCandidates.Clear();
                 Simplify(currentGraph);
-                // spill shit
                 if (spillCandidates.Count > 0)
                 {
                     // remove some shit like spilling candidate with highest stuff
@@ -113,30 +112,40 @@ namespace Compilerbau.Backend.LivenessAnalysis
             // simplify
             void Simplify(Dictionary<Temp, HashSet<Temp>> currentGraphCopy)
             {
-                foreach (var n in currentGraphCopy)
+                bool changed = true;
+                while (changed)
                 {
-                    if (registerDict.ContainsKey(n.Key))
+                    changed = false;
+                    CopyGraph(currentGraph, interferenceGraph);
+                    foreach (var n in currentGraphCopy)
                     {
-                        // dann isser schon gefärbt
-                        continue;
-                    }
-                    else if (n.Key is RegTemp r)
-                    {
-                        registerDict.Add(r, r);
-                    }
-                    else if (interferenceGraph[n.Key].Count < colours)
-                    {
-                        tempStack.Push(n.Key);
-                        foreach (var o in interferenceGraph)
+                        if (registerDict.ContainsKey(n.Key))
                         {
-                            if (o.Value.Contains(n.Key))
-                            {
-                                o.Value.Remove(n.Key);
-                            }
+                            // dann isser schon gefärbt
+                            continue;
                         }
-                        interferenceGraph.Remove(n.Key);
+                        else if (n.Key is RegTemp r)
+                        {
+                            registerDict.Add(r, r);
+                        }
+                        else if (interferenceGraph[n.Key].Count < colours)
+                        {
+                            tempStack.Push(n.Key);
+                            foreach (var o in interferenceGraph)
+                            {
+                                if (o.Value.Contains(n.Key))
+                                {
+                                    o.Value.Remove(n.Key);
+                                }
+                            }
+                            interferenceGraph.Remove(n.Key);
+                            changed = true;
+                        }
                     }
-                    else
+                }
+                foreach (var n in interferenceGraph)
+                {
+                    if (!(n.Key is RegTemp))
                     {
                         spillCandidates.Add(n.Key);
                     }

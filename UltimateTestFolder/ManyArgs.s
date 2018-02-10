@@ -1,6 +1,6 @@
 	.intel_syntax
 	.global _Lmain
-Lmain:
+_Lmain:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 0
@@ -9,7 +9,7 @@ Lmain:
 	MOV edi, edi
 	MOV eax, 0
 	PUSH eax
-	CALL L_halloc
+	CALL _L_halloc
 	ADD esp, 4
 	MOV eax, eax
 	MOV eax, eax
@@ -28,12 +28,12 @@ Lmain:
 	PUSH eax
 	MOV eax, 89
 	PUSH eax
-	CALL LPrime$test_it
+	CALL _LPrime$test_it
 	ADD esp, 32
 	MOV eax, eax
 	MOV eax, eax
 	PUSH eax
-	CALL L_println_int
+	CALL _L_println_int
 	ADD esp, 4
 	MOV eax, eax
 	MOV eax, 0
@@ -44,7 +44,7 @@ Lmain:
 	MOV esp, ebp
 	POP ebp
 	RET
-LPrime$or:
+_LPrime$or:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 0
@@ -77,24 +77,24 @@ L$$2:
 	MOV esp, ebp
 	POP ebp
 	RET
-LPrime$divides:
+_LPrime$divides:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 4
 	MOV eax, ebx
 	MOV DWORD PTR [ebp + -4], eax
-	MOV esi, esi
+	MOV edx, esi
 	MOV ecx, edi
-	MOV ebx, 1
-	MOV edx, 0
+	MOV esi, 1
+	MOV ebx, 0
 L$$3:
 	MOV eax, 1
-	SUB eax, edx
+	SUB eax, ebx
 	CMP eax, 1
 	JNE L$$7
 L$$6:
 	MOV eax, 0
-	CMP ebx, DWORD PTR [ebp + 8]
+	CMP esi, DWORD PTR [ebp + 8]
 	JGE L$$10
 L$$9:
 	MOV eax, 1
@@ -112,7 +112,7 @@ L$$8:
 	JNE L$$4
 L$$5:
 	MOV edi, 0
-	MOV eax, ebx
+	MOV eax, esi
 	IMUL eax, DWORD PTR [ebp + 12]
 	CMP eax, DWORD PTR [ebp + 8]
 	JGE L$$15
@@ -122,13 +122,13 @@ L$$15:
 	CMP edi, 1
 	JNE L$$11
 L$$12:
-	MOV eax, ebx
+	MOV eax, esi
 	ADD eax, 1
-	MOV ebx, eax
+	MOV esi, eax
 	JMP L$$13
 L$$11:
 	MOV edi, 0
-	MOV eax, ebx
+	MOV eax, esi
 	IMUL eax, DWORD PTR [ebp + 12]
 	CMP DWORD PTR [ebp + 8], eax
 	JGE L$$20
@@ -138,24 +138,24 @@ L$$20:
 	CMP edi, 1
 	JNE L$$16
 L$$17:
-	MOV ebx, DWORD PTR [ebp + 8]
+	MOV esi, DWORD PTR [ebp + 8]
 	JMP L$$18
 L$$16:
-	MOV edx, 1
+	MOV ebx, 1
 L$$18:
 L$$13:
 	JMP L$$3
 L$$4:
-	MOV eax, edx
+	MOV eax, ebx
 	MOV eax, eax
-	MOV edx, DWORD PTR [ebp + -4]
-	MOV ebx, edx
-	MOV esi, esi
+	MOV ebx, DWORD PTR [ebp + -4]
+	MOV ebx, ebx
+	MOV esi, edx
 	MOV edi, ecx
 	MOV esp, ebp
 	POP ebp
 	RET
-LPrime$isprime:
+_LPrime$isprime:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 8
@@ -207,7 +207,7 @@ L$$28:
 	PUSH eax
 	MOV eax, DWORD PTR [ebp + 8]
 	PUSH eax
-	CALL LPrime$divides
+	CALL _LPrime$divides
 	ADD esp, 12
 	MOV ecx, eax
 	MOV eax, 1
@@ -227,7 +227,7 @@ L$$30:
 	AND eax, ecx
 	MOV eax, eax
 	PUSH eax
-	CALL LPrime$or
+	CALL _LPrime$or
 	ADD esp, 12
 	MOV ecx, eax
 	MOV ebx, 3
@@ -262,7 +262,7 @@ L$$41:
 	PUSH eax
 	MOV eax, DWORD PTR [ebp + 8]
 	PUSH eax
-	CALL LPrime$divides
+	CALL _LPrime$divides
 	ADD esp, 12
 	MOV ecx, eax
 	MOV eax, 1
@@ -292,7 +292,7 @@ L$$34:
 	MOV esp, ebp
 	POP ebp
 	RET
-LPrime$b2i:
+_LPrime$b2i:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 0
@@ -315,7 +315,7 @@ L$$46:
 	MOV esp, ebp
 	POP ebp
 	RET
-LPrime$test_it:
+_LPrime$test_it:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 4
@@ -326,176 +326,176 @@ LPrime$test_it:
 	MOV ebx, DWORD PTR [ebp + 32]
 	MOV eax, ebx
 	PUSH eax
-	CALL L_println_int
+	CALL _L_println_int
 	ADD esp, 4
 	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + 36]
 	PUSH eax
 	MOV eax, ebx
 	PUSH eax
-	CALL LPrime$isprime
+	CALL _LPrime$isprime
 	ADD esp, 8
 	MOV eax, eax
 	MOV ecx, DWORD PTR [ebp + 36]
 	PUSH ecx
 	MOV eax, eax
 	PUSH eax
-	CALL LPrime$b2i
+	CALL _LPrime$b2i
 	ADD esp, 8
 	MOV eax, eax
 	MOV eax, eax
 	PUSH eax
-	CALL L_println_int
+	CALL _L_println_int
 	ADD esp, 4
 	MOV eax, eax
 	MOV ebx, DWORD PTR [ebp + 28]
 	MOV eax, ebx
 	PUSH eax
-	CALL L_println_int
+	CALL _L_println_int
 	ADD esp, 4
 	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + 36]
 	PUSH eax
 	MOV eax, ebx
 	PUSH eax
-	CALL LPrime$isprime
+	CALL _LPrime$isprime
 	ADD esp, 8
 	MOV eax, eax
 	MOV ecx, DWORD PTR [ebp + 36]
 	PUSH ecx
 	MOV eax, eax
 	PUSH eax
-	CALL LPrime$b2i
+	CALL _LPrime$b2i
 	ADD esp, 8
 	MOV eax, eax
 	MOV eax, eax
 	PUSH eax
-	CALL L_println_int
+	CALL _L_println_int
 	ADD esp, 4
 	MOV eax, eax
 	MOV ebx, DWORD PTR [ebp + 24]
 	MOV eax, ebx
 	PUSH eax
-	CALL L_println_int
+	CALL _L_println_int
 	ADD esp, 4
 	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + 36]
 	PUSH eax
 	MOV eax, ebx
 	PUSH eax
-	CALL LPrime$isprime
+	CALL _LPrime$isprime
 	ADD esp, 8
 	MOV eax, eax
 	MOV ecx, DWORD PTR [ebp + 36]
 	PUSH ecx
 	MOV eax, eax
 	PUSH eax
-	CALL LPrime$b2i
+	CALL _LPrime$b2i
 	ADD esp, 8
 	MOV eax, eax
 	MOV eax, eax
 	PUSH eax
-	CALL L_println_int
+	CALL _L_println_int
 	ADD esp, 4
 	MOV eax, eax
 	MOV ebx, DWORD PTR [ebp + 20]
 	MOV eax, ebx
 	PUSH eax
-	CALL L_println_int
+	CALL _L_println_int
 	ADD esp, 4
 	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + 36]
 	PUSH eax
 	MOV eax, ebx
 	PUSH eax
-	CALL LPrime$isprime
+	CALL _LPrime$isprime
 	ADD esp, 8
 	MOV eax, eax
 	MOV ecx, DWORD PTR [ebp + 36]
 	PUSH ecx
 	MOV eax, eax
 	PUSH eax
-	CALL LPrime$b2i
+	CALL _LPrime$b2i
 	ADD esp, 8
 	MOV eax, eax
 	MOV eax, eax
 	PUSH eax
-	CALL L_println_int
+	CALL _L_println_int
 	ADD esp, 4
 	MOV eax, eax
 	MOV ebx, DWORD PTR [ebp + 16]
 	MOV eax, ebx
 	PUSH eax
-	CALL L_println_int
+	CALL _L_println_int
 	ADD esp, 4
 	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + 36]
 	PUSH eax
 	MOV eax, ebx
 	PUSH eax
-	CALL LPrime$isprime
+	CALL _LPrime$isprime
 	ADD esp, 8
 	MOV eax, eax
 	MOV ecx, DWORD PTR [ebp + 36]
 	PUSH ecx
 	MOV eax, eax
 	PUSH eax
-	CALL LPrime$b2i
+	CALL _LPrime$b2i
 	ADD esp, 8
 	MOV eax, eax
 	MOV eax, eax
 	PUSH eax
-	CALL L_println_int
+	CALL _L_println_int
 	ADD esp, 4
 	MOV eax, eax
 	MOV ebx, DWORD PTR [ebp + 12]
 	MOV eax, ebx
 	PUSH eax
-	CALL L_println_int
+	CALL _L_println_int
 	ADD esp, 4
 	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + 36]
 	PUSH eax
 	MOV eax, ebx
 	PUSH eax
-	CALL LPrime$isprime
+	CALL _LPrime$isprime
 	ADD esp, 8
 	MOV eax, eax
 	MOV ecx, DWORD PTR [ebp + 36]
 	PUSH ecx
 	MOV eax, eax
 	PUSH eax
-	CALL LPrime$b2i
+	CALL _LPrime$b2i
 	ADD esp, 8
 	MOV eax, eax
 	MOV eax, eax
 	PUSH eax
-	CALL L_println_int
+	CALL _L_println_int
 	ADD esp, 4
 	MOV eax, eax
 	MOV ebx, DWORD PTR [ebp + 8]
 	MOV eax, ebx
 	PUSH eax
-	CALL L_println_int
+	CALL _L_println_int
 	ADD esp, 4
 	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + 36]
 	PUSH eax
 	MOV eax, ebx
 	PUSH eax
-	CALL LPrime$isprime
+	CALL _LPrime$isprime
 	ADD esp, 8
 	MOV eax, eax
 	MOV ecx, DWORD PTR [ebp + 36]
 	PUSH ecx
 	MOV eax, eax
 	PUSH eax
-	CALL LPrime$b2i
+	CALL _LPrime$b2i
 	ADD esp, 8
 	MOV eax, eax
 	MOV eax, eax
 	PUSH eax
-	CALL L_println_int
+	CALL _L_println_int
 	ADD esp, 4
 	MOV eax, eax
 	MOV eax, 999
