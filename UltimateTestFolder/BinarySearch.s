@@ -266,9 +266,9 @@ _LBS$Search:
 	SUB eax, 1
 	MOV esi, eax
 	MOV ebx, 0
-	MOV eax, 1
+	MOV ecx, 1
 L$$24:
-	CMP eax, 1
+	CMP ecx, 1
 	JNE L$$25
 L$$26:
 	MOV eax, ebx
@@ -324,24 +324,24 @@ L$$29:
 	CMP eax, 1
 	JNE L$$32
 L$$33:
-	MOV eax, 0
+	MOV ecx, 0
 	JMP L$$34
 L$$32:
-	MOV eax, 1
+	MOV ecx, 1
 L$$34:
-	MOV ecx, 0
+	MOV eax, 0
 	CMP esi, ebx
 	JGE L$$39
 L$$38:
-	MOV ecx, 1
+	MOV eax, 1
 L$$39:
-	CMP ecx, 1
+	CMP eax, 1
 	JNE L$$35
 L$$36:
-	MOV eax, 0
+	MOV ecx, 0
 	JMP L$$37
 L$$35:
-	MOV ecx, 0
+	MOV eax, 0
 L$$37:
 	JMP L$$24
 L$$25:
@@ -381,30 +381,30 @@ _LBS$Div:
 	MOV DWORD PTR [ebp + -4], eax
 	MOV edx, esi
 	MOV ecx, edi
-	MOV edi, 0
 	MOV esi, 0
+	MOV ebx, 0
 	MOV eax, DWORD PTR [ebp + 8]
 	SUB eax, 1
-	MOV ebx, eax
+	MOV eax, eax
 L$$43:
-	MOV eax, 0
-	CMP esi, ebx
+	MOV edi, 0
+	CMP ebx, eax
 	JGE L$$47
 L$$46:
-	MOV eax, 1
+	MOV edi, 1
 L$$47:
-	CMP eax, 1
+	CMP edi, 1
 	JNE L$$44
 L$$45:
-	MOV eax, edi
-	ADD eax, 1
-	MOV edi, eax
-	MOV eax, esi
-	ADD eax, 2
-	MOV esi, eax
+	MOV esi, esi
+	ADD esi, 1
+	MOV esi, esi
+	MOV ebx, ebx
+	ADD ebx, 2
+	MOV ebx, ebx
 	JMP L$$43
 L$$44:
-	MOV eax, edi
+	MOV eax, esi
 	MOV eax, eax
 	MOV ebx, DWORD PTR [ebp + -4]
 	MOV ebx, ebx
@@ -472,18 +472,18 @@ _LBS$Print:
 	MOV edi, edi
 	MOV ebx, 1
 L$$58:
-	MOV edx, 0
-	MOV ecx, DWORD PTR [ebp + 8]
-	MOV eax, 1
-	IMUL eax, 4
-	ADD ecx, eax
-	MOV eax, ecx
-	CMP ebx, DWORD PTR [eax + 0]
+	MOV eax, 0
+	MOV edx, DWORD PTR [ebp + 8]
+	MOV ecx, 1
+	IMUL ecx, 4
+	ADD edx, ecx
+	MOV ecx, edx
+	CMP ebx, DWORD PTR [ecx + 0]
 	JGE L$$62
 L$$61:
-	MOV edx, 1
+	MOV eax, 1
 L$$62:
-	CMP edx, 1
+	CMP eax, 1
 	JNE L$$59
 L$$60:
 	MOV ecx, DWORD PTR [ebp + 8]
@@ -552,12 +552,12 @@ _LBS$Init:
 	PUSH eax
 	CALL _L_halloc
 	ADD esp, 4
-	MOV eax, eax
-	MOV eax, eax
-	MOV ecx, DWORD PTR [ebp + 8]
-	MOV DWORD PTR [eax + 0], ecx
-	MOV ecx, ebx
+	MOV ecx, eax
+	MOV ecx, ecx
+	MOV eax, DWORD PTR [ebp + 8]
 	MOV DWORD PTR [ecx + 0], eax
+	MOV eax, ebx
+	MOV DWORD PTR [eax + 0], ecx
 	MOV eax, 1
 	MOV DWORD PTR [ebp + -4], eax
 	MOV ecx, DWORD PTR [ebp + 12]
@@ -567,16 +567,16 @@ _LBS$Init:
 	MOV eax, ecx
 	MOV eax, DWORD PTR [eax + 0]
 	ADD eax, 1
-	MOV edi, eax
+	MOV esi, eax
 L$$63:
 	MOV edx, 0
 	MOV ecx, DWORD PTR [ebp + 12]
 	MOV eax, 1
 	IMUL eax, 4
 	ADD ecx, eax
-	MOV eax, ecx
-	MOV ecx, DWORD PTR [ebp + -4]
-	CMP ecx, DWORD PTR [eax + 0]
+	MOV ecx, ecx
+	MOV eax, DWORD PTR [ebp + -4]
+	CMP eax, DWORD PTR [ecx + 0]
 	JGE L$$67
 L$$66:
 	MOV edx, 1
@@ -584,37 +584,37 @@ L$$67:
 	CMP edx, 1
 	JNE L$$64
 L$$65:
-	MOV eax, 2
-	MOV ecx, DWORD PTR [ebp + -4]
-	IMUL eax, ecx
-	MOV esi, eax
-	MOV eax, edi
+	MOV ecx, 2
+	MOV eax, DWORD PTR [ebp + -4]
+	IMUL ecx, eax
+	MOV ebx, ecx
+	MOV eax, esi
 	SUB eax, 3
-	MOV ebx, eax
+	MOV edx, eax
 	MOV ecx, DWORD PTR [ebp + 12]
 	MOV eax, 0
 	IMUL eax, 4
 	ADD ecx, eax
 	MOV eax, ecx
-	MOV edx, DWORD PTR [eax + 0]
-	MOV ecx, 4
-	MOV eax, DWORD PTR [ebp + -4]
-	MOV eax, eax
-	ADD eax, 1
-	IMUL ecx, eax
-	ADD edx, ecx
-	MOV eax, edx
-	MOV ecx, esi
-	ADD ecx, ebx
-	MOV DWORD PTR [eax + 0], ecx
+	MOV ecx, DWORD PTR [eax + 0]
+	MOV eax, 4
+	MOV edi, DWORD PTR [ebp + -4]
+	MOV edi, edi
+	ADD edi, 1
+	IMUL eax, edi
+	ADD ecx, eax
+	MOV ecx, ecx
+	MOV eax, ebx
+	ADD eax, edx
+	MOV DWORD PTR [ecx + 0], eax
 	MOV eax, DWORD PTR [ebp + -4]
 	MOV eax, eax
 	ADD eax, 1
 	MOV eax, eax
 	MOV DWORD PTR [ebp + -4], eax
-	MOV eax, edi
+	MOV eax, esi
 	SUB eax, 1
-	MOV edi, eax
+	MOV esi, eax
 	JMP L$$63
 L$$64:
 	MOV eax, 0

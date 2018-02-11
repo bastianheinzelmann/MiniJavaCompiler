@@ -181,16 +181,16 @@ L$$21:
 L$$26:
 	MOV eax, 1
 L$$27:
-	MOV eax, eax
-	MOV ecx, 1
+	MOV ecx, eax
+	MOV eax, 1
 	JMP L$$23
 L$$22:
-	MOV eax, 0
 	MOV ecx, 0
+	MOV eax, 0
 L$$23:
-	MOV ecx, ecx
-	AND ecx, eax
-	MOV ebx, ecx
+	MOV eax, eax
+	AND eax, ecx
+	MOV ebx, eax
 	MOV ecx, 0
 	MOV eax, 2
 	CMP eax, DWORD PTR [ebp + 8]
@@ -229,31 +229,31 @@ L$$30:
 	PUSH eax
 	CALL _LPrime$or
 	ADD esp, 12
-	MOV ecx, eax
+	MOV eax, eax
 	MOV ebx, 3
 L$$33:
-	CMP ecx, 1
+	CMP eax, 1
 	JNE L$$37
 L$$36:
-	MOV eax, 0
+	MOV ecx, 0
 	CMP ebx, DWORD PTR [ebp + 8]
 	JGE L$$40
 L$$39:
-	MOV eax, 1
+	MOV ecx, 1
 L$$40:
-	MOV eax, eax
-	MOV edx, 1
+	MOV edx, ecx
+	MOV ecx, 1
 	JMP L$$38
 L$$37:
-	MOV eax, 0
 	MOV edx, 0
+	MOV ecx, 0
 L$$38:
-	MOV edx, edx
-	AND edx, eax
-	CMP edx, 1
+	MOV ecx, ecx
+	AND ecx, edx
+	CMP ecx, 1
 	JNE L$$34
 L$$35:
-	CMP ecx, 1
+	CMP eax, 1
 	JNE L$$42
 L$$41:
 	MOV eax, DWORD PTR [ebp + 12]
@@ -267,22 +267,22 @@ L$$41:
 	MOV ecx, eax
 	MOV eax, 1
 	SUB eax, ecx
-	MOV eax, eax
-	MOV ecx, 1
+	MOV ecx, eax
+	MOV eax, 1
 	JMP L$$43
 L$$42:
-	MOV eax, 0
 	MOV ecx, 0
+	MOV eax, 0
 L$$43:
-	MOV ecx, ecx
-	AND ecx, eax
-	MOV ecx, ecx
-	MOV eax, ebx
-	ADD eax, 2
-	MOV ebx, eax
+	MOV eax, eax
+	AND eax, ecx
+	MOV eax, eax
+	MOV ecx, ebx
+	ADD ecx, 2
+	MOV ebx, ecx
 	JMP L$$33
 L$$34:
-	MOV eax, ecx
+	MOV eax, eax
 	MOV eax, eax
 	MOV ecx, DWORD PTR [ebp + -8]
 	MOV ebx, ecx

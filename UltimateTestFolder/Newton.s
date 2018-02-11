@@ -241,11 +241,11 @@ _LIntegral$rem:
 	PUSH eax
 	CALL _LIntegral$div
 	ADD esp, 12
-	MOV eax, eax
+	MOV edx, eax
 	MOV ecx, esi
-	MOV edx, ebx
-	IMUL edx, eax
-	SUB ecx, edx
+	MOV eax, ebx
+	IMUL eax, edx
+	SUB ecx, eax
 	MOV eax, ecx
 	MOV eax, eax
 	MOV ecx, DWORD PTR [ebp + -8]
@@ -308,12 +308,12 @@ L$$17:
 	PUSH eax
 	CALL _LIntegral$rem
 	ADD esp, 12
-	MOV eax, eax
-	MOV ecx, esi
-	PUSH ecx
-	MOV ecx, ebx
-	PUSH ecx
-	MOV eax, eax
+	MOV ecx, eax
+	MOV eax, esi
+	PUSH eax
+	MOV eax, ebx
+	PUSH eax
+	MOV eax, ecx
 	PUSH eax
 	CALL _LIntegral$gcd_rec
 	ADD esp, 12
@@ -431,12 +431,12 @@ _LIntegral$lcm:
 	PUSH eax
 	CALL _LIntegral$gcd
 	ADD esp, 12
-	MOV eax, eax
-	MOV ecx, esi
-	PUSH ecx
-	MOV ecx, ebx
-	PUSH ecx
-	MOV eax, eax
+	MOV ecx, eax
+	MOV eax, esi
+	PUSH eax
+	MOV eax, ebx
+	PUSH eax
+	MOV eax, ecx
 	PUSH eax
 	CALL _LIntegral$div
 	ADD esp, 12
@@ -542,12 +542,12 @@ _LFracOps$plus:
 	PUSH eax
 	CALL _LFrac$den
 	ADD esp, 4
-	MOV eax, eax
-	MOV ecx, esi
-	PUSH ecx
-	MOV ecx, ebx
-	PUSH ecx
-	MOV eax, eax
+	MOV ecx, eax
+	MOV eax, esi
+	PUSH eax
+	MOV eax, ebx
+	PUSH eax
+	MOV eax, ecx
 	PUSH eax
 	CALL _LIntegral$lcm
 	ADD esp, 12
@@ -578,10 +578,10 @@ _LFracOps$plus:
 	PUSH eax
 	CALL _LIntegral$div
 	ADD esp, 12
+	MOV ecx, eax
+	MOV eax, edi
+	IMUL eax, ecx
 	MOV eax, eax
-	MOV ecx, edi
-	IMUL ecx, eax
-	MOV eax, ecx
 	MOV DWORD PTR [ebp + -4], eax
 	MOV eax, DWORD PTR [ebp + 8]
 	PUSH eax
@@ -609,19 +609,19 @@ _LFracOps$plus:
 	PUSH eax
 	CALL _LIntegral$div
 	ADD esp, 12
-	MOV eax, eax
-	MOV ecx, DWORD PTR [ebp + -4]
-	MOV ecx, ecx
-	MOV edx, edi
-	IMUL edx, eax
-	ADD ecx, edx
-	MOV ecx, ecx
-	MOV eax, ebx
-	MOV edx, DWORD PTR [ebp + 16]
-	PUSH edx
-	MOV ecx, ecx
-	PUSH ecx
-	MOV eax, eax
+	MOV edx, eax
+	MOV eax, DWORD PTR [ebp + -4]
+	MOV ecx, eax
+	MOV eax, edi
+	IMUL eax, edx
+	ADD ecx, eax
+	MOV edx, ecx
+	MOV ecx, ebx
+	MOV eax, DWORD PTR [ebp + 16]
+	PUSH eax
+	MOV eax, edx
+	PUSH eax
+	MOV eax, ecx
 	PUSH eax
 	CALL _LFracOps$mkFrac
 	ADD esp, 12
@@ -663,12 +663,12 @@ _LFracOps$times:
 	PUSH eax
 	CALL _LFrac$num
 	ADD esp, 4
-	MOV eax, eax
-	MOV ecx, esi
-	PUSH ecx
-	MOV ecx, ebx
-	PUSH ecx
-	MOV eax, eax
+	MOV ecx, eax
+	MOV eax, esi
+	PUSH eax
+	MOV eax, ebx
+	PUSH eax
+	MOV eax, ecx
 	PUSH eax
 	CALL _LIntegral$gcd
 	ADD esp, 12
@@ -689,12 +689,12 @@ _LFracOps$times:
 	PUSH eax
 	CALL _LFrac$den
 	ADD esp, 4
-	MOV eax, eax
-	MOV ecx, edi
-	PUSH ecx
-	MOV ecx, ebx
-	PUSH ecx
-	MOV eax, eax
+	MOV ecx, eax
+	MOV eax, edi
+	PUSH eax
+	MOV eax, ebx
+	PUSH eax
+	MOV eax, ecx
 	PUSH eax
 	CALL _LIntegral$gcd
 	ADD esp, 12
@@ -710,10 +710,10 @@ _LFracOps$times:
 	PUSH eax
 	CALL _LFrac$num
 	ADD esp, 4
-	MOV eax, eax
-	MOV ecx, ebx
-	PUSH ecx
-	MOV eax, eax
+	MOV ecx, eax
+	MOV eax, ebx
+	PUSH eax
+	MOV eax, ecx
 	PUSH eax
 	MOV eax, DWORD PTR [ebp + -4]
 	MOV eax, eax
@@ -732,19 +732,19 @@ _LFracOps$times:
 	PUSH eax
 	CALL _LFrac$num
 	ADD esp, 4
-	MOV eax, eax
-	MOV ecx, ebx
-	PUSH ecx
-	MOV eax, eax
+	MOV ecx, eax
+	MOV eax, ebx
+	PUSH eax
+	MOV eax, ecx
 	PUSH eax
 	MOV eax, esi
 	PUSH eax
 	CALL _LIntegral$div
 	ADD esp, 12
-	MOV eax, eax
-	MOV ecx, edi
-	IMUL ecx, eax
-	MOV ebx, ecx
+	MOV ecx, eax
+	MOV eax, edi
+	IMUL eax, ecx
+	MOV ebx, eax
 	MOV ecx, DWORD PTR [ebp + 16]
 	MOV eax, 0
 	IMUL eax, 4
@@ -755,10 +755,10 @@ _LFracOps$times:
 	PUSH eax
 	CALL _LFrac$den
 	ADD esp, 4
-	MOV eax, eax
-	MOV ecx, edi
-	PUSH ecx
-	MOV eax, eax
+	MOV ecx, eax
+	MOV eax, edi
+	PUSH eax
+	MOV eax, ecx
 	PUSH eax
 	MOV eax, esi
 	PUSH eax
@@ -776,25 +776,25 @@ _LFracOps$times:
 	PUSH eax
 	CALL _LFrac$den
 	ADD esp, 4
-	MOV eax, eax
-	MOV ecx, esi
-	PUSH ecx
-	MOV eax, eax
+	MOV ecx, eax
+	MOV eax, esi
+	PUSH eax
+	MOV eax, ecx
 	PUSH eax
 	MOV eax, DWORD PTR [ebp + -4]
 	MOV eax, eax
 	PUSH eax
 	CALL _LIntegral$div
 	ADD esp, 12
-	MOV eax, eax
-	MOV ecx, edi
-	IMUL ecx, eax
+	MOV ecx, eax
+	MOV eax, edi
+	IMUL eax, ecx
+	MOV ecx, eax
+	MOV eax, DWORD PTR [ebp + 16]
+	PUSH eax
+	MOV eax, ebx
+	PUSH eax
 	MOV eax, ecx
-	MOV ecx, DWORD PTR [ebp + 16]
-	PUSH ecx
-	MOV ecx, ebx
-	PUSH ecx
-	MOV eax, eax
 	PUSH eax
 	CALL _LFracOps$mkFrac
 	ADD esp, 12
@@ -830,12 +830,12 @@ _LFracOps$recip:
 	PUSH eax
 	CALL _LFrac$num
 	ADD esp, 4
-	MOV eax, eax
-	MOV ecx, esi
-	PUSH ecx
-	MOV ecx, ebx
-	PUSH ecx
-	MOV eax, eax
+	MOV ecx, eax
+	MOV eax, esi
+	PUSH eax
+	MOV eax, ebx
+	PUSH eax
+	MOV eax, ecx
 	PUSH eax
 	CALL _LFracOps$mkFrac
 	ADD esp, 12
@@ -898,20 +898,20 @@ _LFracOps$neg:
 	PUSH eax
 	CALL _LFrac$num
 	ADD esp, 4
-	MOV eax, eax
-	MOV ecx, esi
-	IMUL ecx, eax
-	MOV esi, ecx
+	MOV ecx, eax
+	MOV eax, esi
+	IMUL eax, ecx
+	MOV esi, eax
 	MOV eax, DWORD PTR [ebp + 8]
 	PUSH eax
 	CALL _LFrac$den
 	ADD esp, 4
-	MOV eax, eax
-	MOV ecx, ebx
-	PUSH ecx
-	MOV ecx, esi
-	PUSH ecx
-	MOV eax, eax
+	MOV ecx, eax
+	MOV eax, ebx
+	PUSH eax
+	MOV eax, esi
+	PUSH eax
+	MOV eax, ecx
 	PUSH eax
 	CALL _LFracOps$mkFrac
 	ADD esp, 12
@@ -955,12 +955,12 @@ L$$33:
 	PUSH eax
 	CALL _LFracOps$neg
 	ADD esp, 8
-	MOV eax, eax
-	MOV ecx, esi
-	PUSH ecx
-	MOV ecx, ebx
-	PUSH ecx
-	MOV eax, eax
+	MOV ecx, eax
+	MOV eax, esi
+	PUSH eax
+	MOV eax, ebx
+	PUSH eax
+	MOV eax, ecx
 	PUSH eax
 	CALL _LFracOps$plus
 	ADD esp, 12
@@ -975,12 +975,12 @@ L$$32:
 	PUSH eax
 	CALL _LFracOps$neg
 	ADD esp, 8
-	MOV eax, eax
-	MOV ecx, esi
-	PUSH ecx
-	MOV ecx, ebx
-	PUSH ecx
-	MOV eax, eax
+	MOV ecx, eax
+	MOV eax, esi
+	PUSH eax
+	MOV eax, ebx
+	PUSH eax
+	MOV eax, ecx
 	PUSH eax
 	CALL _LFracOps$plus
 	ADD esp, 12
@@ -1022,85 +1022,85 @@ _LFracOps$lt:
 	PUSH eax
 	CALL _LFrac$den
 	ADD esp, 4
-	MOV eax, eax
-	MOV ecx, esi
-	PUSH ecx
-	MOV ecx, ebx
-	PUSH ecx
-	MOV eax, eax
+	MOV ecx, eax
+	MOV eax, esi
+	PUSH eax
+	MOV eax, ebx
+	PUSH eax
+	MOV eax, ecx
 	PUSH eax
 	CALL _LIntegral$lcm
 	ADD esp, 12
-	MOV ebx, eax
+	MOV edi, eax
 	MOV eax, DWORD PTR [ebp + 12]
 	PUSH eax
 	CALL _LFrac$num
 	ADD esp, 4
 	MOV eax, eax
-	MOV edi, eax
+	MOV esi, eax
 	MOV ecx, DWORD PTR [ebp + 16]
 	MOV eax, 0
 	IMUL eax, 4
 	ADD ecx, eax
 	MOV eax, ecx
-	MOV esi, DWORD PTR [eax + 0]
-	MOV ebx, ebx
+	MOV ebx, DWORD PTR [eax + 0]
+	MOV edi, edi
 	MOV eax, DWORD PTR [ebp + 12]
 	PUSH eax
 	CALL _LFrac$den
 	ADD esp, 4
 	MOV eax, eax
-	MOV ecx, esi
-	PUSH ecx
 	MOV ecx, ebx
+	PUSH ecx
+	MOV ecx, edi
 	PUSH ecx
 	MOV eax, eax
 	PUSH eax
 	CALL _LIntegral$div
 	ADD esp, 12
+	MOV ecx, eax
+	MOV eax, esi
+	IMUL eax, ecx
 	MOV eax, eax
-	MOV ecx, edi
-	IMUL ecx, eax
-	MOV eax, ecx
 	MOV DWORD PTR [ebp + -4], eax
 	MOV eax, DWORD PTR [ebp + 8]
 	PUSH eax
 	CALL _LFrac$num
 	ADD esp, 4
 	MOV eax, eax
-	MOV edi, eax
+	MOV esi, eax
 	MOV ecx, DWORD PTR [ebp + 16]
 	MOV eax, 0
 	IMUL eax, 4
 	ADD ecx, eax
 	MOV eax, ecx
-	MOV esi, DWORD PTR [eax + 0]
-	MOV ebx, ebx
+	MOV ebx, DWORD PTR [eax + 0]
+	MOV edi, edi
 	MOV eax, DWORD PTR [ebp + 8]
 	PUSH eax
 	CALL _LFrac$den
 	ADD esp, 4
-	MOV eax, eax
-	MOV ecx, esi
-	PUSH ecx
-	MOV ecx, ebx
-	PUSH ecx
-	MOV eax, eax
+	MOV ecx, eax
+	MOV eax, ebx
+	PUSH eax
+	MOV eax, edi
+	PUSH eax
+	MOV eax, ecx
 	PUSH eax
 	CALL _LIntegral$div
 	ADD esp, 12
-	MOV eax, eax
-	MOV ecx, edi
-	IMUL ecx, eax
-	MOV ecx, ecx
-	MOV eax, 0
-	MOV edx, DWORD PTR [ebp + -4]
-	CMP edx, ecx
+	MOV ecx, eax
+	MOV eax, esi
+	IMUL eax, ecx
+	MOV edx, eax
+	MOV ecx, 0
+	MOV eax, DWORD PTR [ebp + -4]
+	CMP eax, edx
 	JGE L$$36
 L$$35:
-	MOV eax, 1
+	MOV ecx, 1
 L$$36:
-	MOV eax, eax
+	MOV eax, ecx
 	MOV eax, eax
 	MOV eax, eax
 	MOV ecx, DWORD PTR [ebp + -16]
@@ -1162,32 +1162,32 @@ _LNewtonClass$newton_step:
 	PUSH eax
 	CALL _LFracOps$mkFrac
 	ADD esp, 12
-	MOV eax, eax
-	MOV ecx, ebx
-	PUSH ecx
-	MOV eax, eax
+	MOV ecx, eax
+	MOV eax, ebx
+	PUSH eax
+	MOV eax, ecx
 	PUSH eax
 	MOV eax, DWORD PTR [ebp + 12]
 	PUSH eax
 	CALL _LFracOps$divide
 	ADD esp, 12
-	MOV eax, eax
-	MOV ecx, edi
-	PUSH ecx
-	MOV ecx, esi
-	PUSH ecx
-	MOV eax, eax
+	MOV ecx, eax
+	MOV eax, edi
+	PUSH eax
+	MOV eax, esi
+	PUSH eax
+	MOV eax, ecx
 	PUSH eax
 	CALL _LFracOps$plus
 	ADD esp, 12
+	MOV ecx, eax
+	MOV eax, DWORD PTR [ebp + -8]
 	MOV eax, eax
-	MOV ecx, DWORD PTR [ebp + -8]
-	MOV ecx, ecx
-	PUSH ecx
-	MOV ecx, DWORD PTR [ebp + -4]
-	MOV ecx, ecx
-	PUSH ecx
+	PUSH eax
+	MOV eax, DWORD PTR [ebp + -4]
 	MOV eax, eax
+	PUSH eax
+	MOV eax, ecx
 	PUSH eax
 	CALL _LFracOps$times
 	ADD esp, 12
@@ -1246,7 +1246,7 @@ _LNewtonClass$newton:
 	PUSH eax
 	CALL _LFracOps$mkFrac
 	ADD esp, 12
-	MOV edi, eax
+	MOV esi, eax
 	MOV ecx, DWORD PTR [ebp + 12]
 	MOV eax, 1
 	IMUL eax, 4
@@ -1260,19 +1260,19 @@ _LNewtonClass$newton:
 	PUSH eax
 	CALL _LFracOps$mkFrac
 	ADD esp, 12
-	MOV esi, eax
-	MOV edx, esi
+	MOV ebx, eax
+	MOV eax, ebx
 L$$37:
-	MOV ecx, DWORD PTR [ebp + 12]
-	MOV eax, 1
-	IMUL eax, 4
-	ADD ecx, eax
-	MOV eax, ecx
-	MOV eax, DWORD PTR [eax + 0]
-	PUSH eax
-	MOV eax, edi
-	PUSH eax
-	MOV eax, edx
+	MOV edx, DWORD PTR [ebp + 12]
+	MOV ecx, 1
+	IMUL ecx, 4
+	ADD edx, ecx
+	MOV ecx, edx
+	MOV ecx, DWORD PTR [ecx + 0]
+	PUSH ecx
+	MOV ecx, esi
+	PUSH ecx
+	MOV eax, eax
 	PUSH eax
 	CALL _LFracOps$lt
 	ADD esp, 12
@@ -1280,16 +1280,16 @@ L$$37:
 	CMP eax, 1
 	JNE L$$38
 L$$39:
-	MOV ebx, esi
+	MOV edi, ebx
 	MOV eax, DWORD PTR [ebp + 12]
 	PUSH eax
-	MOV eax, esi
+	MOV eax, ebx
 	PUSH eax
 	MOV eax, DWORD PTR [ebp + 8]
 	PUSH eax
 	CALL _LNewtonClass$newton_step
 	ADD esp, 12
-	MOV esi, eax
+	MOV ebx, eax
 	MOV ecx, DWORD PTR [ebp + 12]
 	MOV eax, 1
 	IMUL eax, 4
@@ -1297,16 +1297,16 @@ L$$39:
 	MOV eax, ecx
 	MOV eax, DWORD PTR [eax + 0]
 	PUSH eax
-	MOV eax, esi
-	PUSH eax
 	MOV eax, ebx
+	PUSH eax
+	MOV eax, edi
 	PUSH eax
 	CALL _LFracOps$abs_minus
 	ADD esp, 12
-	MOV edx, eax
+	MOV eax, eax
 	JMP L$$37
 L$$38:
-	MOV eax, esi
+	MOV eax, ebx
 	MOV eax, eax
 	MOV ecx, DWORD PTR [ebp + -12]
 	MOV ebx, ecx

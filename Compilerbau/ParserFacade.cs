@@ -1,7 +1,6 @@
 ﻿using Antlr4.Runtime;
 using Compilerbau.Backend.I386;
 using Compilerbau.Backend.LivenessAnalysis;
-using Compilerbau.Backend.RegisterAllocation;
 using Compilerbau.GeneratedParser;
 using Compilerbau.Intermediate;
 using Compilerbau.Intermediate.Canon;
@@ -9,11 +8,7 @@ using Compilerbau.Intermediate.Tree;
 using Compilerbau.TypeChecking;
 using CustomExtensions;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Compilerbau
 {
@@ -86,6 +81,8 @@ namespace Compilerbau
                 RegisterAllocator registerAllocator = new RegisterAllocator();
                 registerAllocator.AllocateRegisters(i386Prg, codeGenerator.GetGeneralPurposeRegisters());
 
+                Afterburner afterburner = new Afterburner();
+                afterburner.RemoveRedundancies(i386Prg);
 
 
 
@@ -94,6 +91,7 @@ namespace Compilerbau
 
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("You did great!");
+                Console.ForegroundColor = ConsoleColor.White;
             }
         }
     }

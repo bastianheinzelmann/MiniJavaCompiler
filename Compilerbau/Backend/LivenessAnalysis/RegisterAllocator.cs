@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Compilerbau.Backend.I386;
-using Compilerbau.Backend.RegisterAllocation;
 using Compilerbau.Intermediate;
 using System.IO;
 
@@ -12,15 +11,20 @@ namespace Compilerbau.Backend.LivenessAnalysis
 {
     class RegisterAllocator
     {
+        Dictionary<Temp, RegTemp> registerDict = new Dictionary<Temp, RegTemp>();
+
         public void AllocateRegisters(I386Prg prg, List<Temp> registers)
         {
             GraphGenerator graphGenerator = new GraphGenerator();
             LivenessMachine livenessMachine = new LivenessMachine();
+
             foreach (var n in prg.Functions)
             {
                 Console.WriteLine("Registerallocation for " + n.Name);
                 while (true)
                 {
+                    registerDict.Clear();
+
                     var cfg = graphGenerator.GenGraphs(n);
                     Console.WriteLine("Generated Graph.");
                     var interferenceGraph = livenessMachine.CalcInterferenceGraph(cfg, registers);
@@ -29,12 +33,12 @@ namespace Compilerbau.Backend.LivenessAnalysis
                     Console.WriteLine("Allocated Registers");
                     if (nodesToSpill.Count > 0)
                     {
-                        //File.WriteAllText(@"C:\Users\Panda\Documents\Compilerbau1718\risc386\Examples\randomSpill.s", prg.RenderAssembly());
                         n.Spill(nodesToSpill);
                         Console.WriteLine("Spilled.");
                     }
                     else
                     {
+                        RenameTemps(n, registerDict);
                         break;
                     }
                 }
@@ -56,10 +60,8 @@ namespace Compilerbau.Backend.LivenessAnalysis
         public List<Temp> ColorizeGraph(Dictionary<Temp, HashSet<Temp>> interferenceGraph, List<Temp> registers, int colours, I386Function function)
         {
             Dictionary<Temp, HashSet<Temp>> graphCopy = new Dictionary<Temp, HashSet<Temp>>();
-            Dictionary<Temp, RegTemp> registerDict = new Dictionary<Temp, RegTemp>();
             Stack<Temp> tempStack = new Stack<Temp>();
             List<Temp> spillCandidates = new List<Temp>();
-            List<Temp> spillNode = new List<Temp>();
             List<Temp> spillNodes = new List<Temp>();
 
             void CopyGraph(Dictionary<Temp, HashSet<Temp>> to, Dictionary<Temp, HashSet<Temp>> from)
@@ -211,7 +213,7 @@ namespace Compilerbau.Backend.LivenessAnalysis
                 return false;
             }
 
-            RenameTemps(function ,registerDict);
+            //RenameTemps(function ,registerDict);
             return spillNodes;
         }
     }

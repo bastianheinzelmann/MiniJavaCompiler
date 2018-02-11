@@ -442,19 +442,19 @@ L$$25:
 	CMP eax, 1
 	JNE L$$29
 L$$28:
-	MOV eax, 1
-	MOV ecx, DWORD PTR [ebp + -12]
-	SUB eax, ecx
-	MOV eax, eax
 	MOV ecx, 1
+	MOV eax, DWORD PTR [ebp + -12]
+	SUB ecx, eax
+	MOV ecx, ecx
+	MOV eax, 1
 	JMP L$$30
 L$$29:
-	MOV eax, 0
 	MOV ecx, 0
+	MOV eax, 0
 L$$30:
-	MOV ecx, ecx
-	AND ecx, eax
-	CMP ecx, 1
+	MOV eax, eax
+	AND eax, ecx
+	CMP eax, 1
 	JNE L$$26
 L$$27:
 	MOV eax, DWORD PTR [ebp + 8]
@@ -469,14 +469,14 @@ L$$27:
 L$$32:
 	MOV eax, 1
 	MOV DWORD PTR [ebp + -12], eax
-	MOV eax, 0
-	MOV ecx, DWORD PTR [ebp + -8]
-	CMP ecx, 0
+	MOV ecx, 0
+	MOV eax, DWORD PTR [ebp + -8]
+	CMP eax, 0
 	JGE L$$38
 L$$37:
-	MOV eax, 1
+	MOV ecx, 1
 L$$38:
-	CMP eax, 1
+	CMP ecx, 1
 	JNE L$$34
 L$$35:
 	MOV eax, DWORD PTR [ebp + -4]
@@ -501,10 +501,10 @@ L$$34:
 	PUSH eax
 	CALL _LList$GetNext
 	ADD esp, 4
-	MOV eax, eax
-	MOV ecx, ebx
-	PUSH ecx
-	MOV eax, eax
+	MOV ecx, eax
+	MOV eax, ebx
+	PUSH eax
+	MOV eax, ecx
 	PUSH eax
 	CALL _LList$SetNext
 	ADD esp, 8
@@ -521,10 +521,10 @@ L$$36:
 L$$31:
 	MOV eax, 0
 L$$33:
-	MOV eax, 1
-	MOV ecx, DWORD PTR [ebp + -12]
-	SUB eax, ecx
-	CMP eax, 1
+	MOV ecx, 1
+	MOV eax, DWORD PTR [ebp + -12]
+	SUB ecx, eax
+	CMP ecx, 1
 	JNE L$$39
 L$$40:
 	MOV eax, DWORD PTR [ebp + -4]

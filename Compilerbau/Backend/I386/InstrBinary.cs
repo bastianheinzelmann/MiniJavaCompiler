@@ -14,9 +14,9 @@ namespace Compilerbau.Backend.I386
             MOV, ADD, SUB, SHL, SHR, SAL, SAR, AND, OR, XOR, TEST, CMP, LEA, IMUL
         }
 
-        private Operand src;
-        private Operand dst;
-        private Kind kind;
+        public Operand src { get; }
+        public Operand dst { get; }
+        public Kind kind { get; }
 
         public InstrBinary(Kind kind, Operand dst, Operand src)
         {

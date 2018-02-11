@@ -101,20 +101,20 @@ L$$4:
 	CMP eax, 1
 	JNE L$$1
 L$$0:
-	MOV ebx, 0
-	MOV edx, DWORD PTR [ebp + 12]
 	MOV eax, 0
-	IMUL eax, 4
-	ADD edx, eax
-	MOV eax, edx
-	MOV eax, DWORD PTR [eax + 0]
-	ADD eax, 1
-	CMP ecx, eax
+	MOV ebx, DWORD PTR [ebp + 12]
+	MOV edx, 0
+	IMUL edx, 4
+	ADD ebx, edx
+	MOV edx, ebx
+	MOV edx, DWORD PTR [edx + 0]
+	ADD edx, 1
+	CMP ecx, edx
 	JGE L$$6
 L$$5:
-	MOV ebx, 1
+	MOV eax, 1
 L$$6:
-	MOV ecx, ebx
+	MOV ecx, eax
 	MOV eax, 1
 	JMP L$$2
 L$$1:
@@ -536,12 +536,12 @@ _LTest$findPath:
 	PUSH eax
 	CALL _LNode$label
 	ADD esp, 4
-	MOV eax, eax
-	MOV ecx, ebx
-	PUSH ecx
-	MOV ecx, 1
-	PUSH ecx
-	MOV eax, eax
+	MOV ecx, eax
+	MOV eax, ebx
+	PUSH eax
+	MOV eax, 1
+	PUSH eax
+	MOV eax, ecx
 	PUSH eax
 	CALL _LNode$dfs
 	ADD esp, 12
@@ -551,12 +551,12 @@ _LTest$findPath:
 	PUSH eax
 	CALL _LNode$label
 	ADD esp, 4
-	MOV eax, eax
-	MOV ecx, ebx
-	PUSH ecx
-	MOV ecx, 0
-	PUSH ecx
-	MOV eax, eax
+	MOV ecx, eax
+	MOV eax, ebx
+	PUSH eax
+	MOV eax, 0
+	PUSH eax
+	MOV eax, ecx
 	PUSH eax
 	CALL _LNode$dfs
 	ADD esp, 12

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Compilerbau.Intermediate
 {
@@ -31,7 +27,7 @@ namespace Compilerbau.Intermediate
         {
             Temp other = (Temp)obj;
 
-            if(this.Id == other.Id)
+            if(Id == other.Id)
             {
                 return true;
             }
