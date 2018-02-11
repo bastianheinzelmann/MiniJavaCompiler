@@ -1,61 +1,43 @@
 	.intel_syntax
 	.global _Lmain
-_Lmain:
+Lmain:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 0
-	MOV ebx, ebx
-	MOV esi, esi
-	MOV edi, edi
 	MOV eax, 4
 	PUSH eax
-	CALL _L_halloc
+	CALL L_halloc
 	ADD esp, 4
-	MOV eax, eax
-	MOV eax, eax
 	PUSH eax
-	CALL _LC$value
+	CALL LC$value
 	ADD esp, 4
-	MOV eax, eax
-	MOV eax, eax
 	PUSH eax
-	CALL _L_println_int
+	CALL L_println_int
 	ADD esp, 4
-	MOV eax, eax
 	MOV eax, 0
-	MOV eax, eax
-	MOV ebx, ebx
-	MOV esi, esi
-	MOV edi, edi
 	MOV esp, ebp
 	POP ebp
 	RET
-_LC$value:
+LC$value:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 0
-	MOV ebx, ebx
-	MOV edx, esi
 	MOV ecx, edi
-	MOV esi, DWORD PTR [ebp + 8]
+	MOV edi, DWORD PTR [ebp + 8]
 	MOV eax, 0
 	IMUL eax, 4
-	ADD esi, eax
-	MOV eax, esi
+	ADD edi, eax
+	MOV eax, edi
 	MOV DWORD PTR [eax + 0], 555
-	MOV esi, DWORD PTR [ebp + 8]
+	MOV edi, DWORD PTR [ebp + 8]
 	MOV eax, 0
 	IMUL eax, 4
-	ADD esi, eax
-	MOV eax, esi
+	ADD edi, eax
+	MOV eax, edi
 	MOV eax, DWORD PTR [eax + 0]
-	MOV esi, 2
+	MOV edi, 2
 	CDQ
-	IDIV esi
-	MOV eax, eax
-	MOV eax, eax
-	MOV ebx, ebx
-	MOV esi, edx
+	IDIV edi
 	MOV edi, ecx
 	MOV esp, ebp
 	POP ebp

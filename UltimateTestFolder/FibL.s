@@ -4,31 +4,19 @@ _Lmain:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 0
-	MOV ebx, ebx
-	MOV esi, esi
-	MOV edi, edi
 	MOV eax, 0
 	PUSH eax
 	CALL _L_halloc
 	ADD esp, 4
-	MOV eax, eax
-	MOV eax, eax
 	PUSH eax
 	MOV eax, 15
 	PUSH eax
 	CALL _LFibAux$nfib_lazy
 	ADD esp, 8
-	MOV eax, eax
-	MOV eax, eax
 	PUSH eax
 	CALL _L_println_int
 	ADD esp, 4
-	MOV eax, eax
 	MOV eax, 0
-	MOV eax, eax
-	MOV ebx, ebx
-	MOV esi, esi
-	MOV edi, edi
 	MOV esp, ebp
 	POP ebp
 	RET
@@ -38,8 +26,6 @@ _LFibAux$nfib:
 	SUB esp, 4
 	MOV eax, ebx
 	MOV DWORD PTR [ebp + -4], eax
-	MOV esi, esi
-	MOV edi, edi
 	MOV eax, 0
 	CMP DWORD PTR [ebp + 8], 2
 	JGE L$$4
@@ -56,33 +42,24 @@ L$$0:
 	PUSH eax
 	MOV eax, DWORD PTR [ebp + 8]
 	SUB eax, 1
-	MOV eax, eax
 	PUSH eax
 	CALL _LFibAux$nfib
 	ADD esp, 8
-	MOV eax, eax
 	MOV ebx, eax
 	MOV eax, DWORD PTR [ebp + 12]
 	PUSH eax
 	MOV eax, DWORD PTR [ebp + 8]
 	SUB eax, 2
-	MOV eax, eax
 	PUSH eax
 	CALL _LFibAux$nfib
 	ADD esp, 8
 	MOV ecx, eax
 	MOV eax, ebx
 	ADD eax, ecx
-	MOV eax, eax
 	ADD eax, 1
-	MOV eax, eax
 L$$2:
-	MOV eax, eax
-	MOV eax, eax
 	MOV ecx, DWORD PTR [ebp + -4]
 	MOV ebx, ecx
-	MOV esi, esi
-	MOV edi, edi
 	MOV esp, ebp
 	POP ebp
 	RET
@@ -92,8 +69,6 @@ _LFibAux$nfib_lazy:
 	SUB esp, 4
 	MOV eax, ebx
 	MOV DWORD PTR [ebp + -4], eax
-	MOV esi, esi
-	MOV edi, edi
 	MOV eax, 0
 	CMP DWORD PTR [ebp + 8], 1
 	JGE L$$9
@@ -119,20 +94,14 @@ L$$7:
 	PUSH eax
 	CALL _LLazyArray$init
 	ADD esp, 8
-	MOV eax, eax
 	MOV eax, ebx
 	PUSH eax
 	MOV eax, DWORD PTR [ebp + 8]
 	PUSH eax
 	CALL _LLazyArray$nfib
 	ADD esp, 8
-	MOV eax, eax
-	MOV eax, eax
-	MOV eax, eax
 	MOV ecx, DWORD PTR [ebp + -4]
 	MOV ebx, ecx
-	MOV esi, esi
-	MOV edi, edi
 	MOV esp, ebp
 	POP ebp
 	RET
@@ -142,8 +111,6 @@ _LLazyArray$init:
 	SUB esp, 4
 	MOV eax, ebx
 	MOV DWORD PTR [ebp + -4], eax
-	MOV esi, esi
-	MOV edi, edi
 	MOV ecx, DWORD PTR [ebp + 12]
 	MOV eax, 0
 	IMUL eax, 4
@@ -151,14 +118,11 @@ _LLazyArray$init:
 	MOV ebx, ecx
 	MOV eax, DWORD PTR [ebp + 8]
 	ADD eax, 1
-	MOV eax, eax
 	IMUL eax, 4
-	MOV eax, eax
 	PUSH eax
 	CALL _L_halloc
 	ADD esp, 4
 	MOV ecx, eax
-	MOV ecx, ecx
 	MOV eax, DWORD PTR [ebp + 8]
 	MOV DWORD PTR [ecx + 0], eax
 	MOV eax, ebx
@@ -187,17 +151,12 @@ L$$12:
 	ADD ebx, edx
 	MOV ecx, ebx
 	MOV DWORD PTR [ecx + 0], 0
-	MOV eax, eax
 	ADD eax, 1
-	MOV eax, eax
 	JMP L$$10
 L$$11:
 	MOV eax, 1
-	MOV eax, eax
 	MOV ecx, DWORD PTR [ebp + -4]
 	MOV ebx, ecx
-	MOV esi, esi
-	MOV edi, edi
 	MOV esp, ebp
 	POP ebp
 	RET
@@ -205,7 +164,6 @@ _LLazyArray$defined:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 0
-	MOV ebx, ebx
 	MOV edx, esi
 	MOV ecx, edi
 	MOV eax, 0
@@ -236,9 +194,6 @@ L$$20:
 	MOV eax, 0
 L$$22:
 L$$17:
-	MOV eax, eax
-	MOV eax, eax
-	MOV ebx, ebx
 	MOV esi, edx
 	MOV edi, ecx
 	MOV esp, ebp
@@ -250,8 +205,6 @@ _LLazyArray$get:
 	SUB esp, 4
 	MOV eax, ebx
 	MOV DWORD PTR [ebp + -4], eax
-	MOV esi, esi
-	MOV edi, edi
 	MOV eax, 0
 	CMP DWORD PTR [ebp + 8], 1
 	JGE L$$29
@@ -271,6 +224,33 @@ L$$27:
 	IMUL eax, 4
 	ADD ecx, eax
 	MOV eax, ecx
+	MOV ecx, DWORD PTR [eax + 0]
+	MOV eax, DWORD PTR [ebp + 8]
+	CMP eax, DWORD PTR [ecx + 0]
+	JGE L$$31
+L$$30:
+	MOV eax, 1
+	JMP L$$32
+L$$31:
+	MOV eax, 0
+L$$32:
+	CMP DWORD PTR [ebp + 8], 0
+	JL L$$34
+L$$33:
+	MOV ecx, 1
+	JMP L$$35
+L$$34:
+	MOV ecx, 0
+L$$35:
+	AND eax, ecx
+	CMP eax, 1
+	JNE L$$37
+L$$36:
+	MOV ecx, DWORD PTR [ebp + 12]
+	MOV eax, 0
+	IMUL eax, 4
+	ADD ecx, eax
+	MOV eax, ecx
 	MOV edx, DWORD PTR [eax + 0]
 	MOV ecx, 4
 	MOV eax, DWORD PTR [ebp + 8]
@@ -278,27 +258,33 @@ L$$27:
 	IMUL ecx, eax
 	ADD edx, ecx
 	MOV eax, edx
-	MOV ebx, DWORD PTR [eax + 0]
+	MOV eax, DWORD PTR [eax + 0]
+	JMP L$$38
+L$$37:
+	MOV eax, 1
+	PUSH eax
+	CALL _L_raise
+	ADD esp, 4
+L$$38:
+	MOV ebx, eax
 	MOV eax, DWORD PTR [ebp + 12]
 	PUSH eax
 	MOV eax, ebx
 	PUSH eax
 	CALL _LLazyArray$defined
 	ADD esp, 8
-	MOV eax, eax
 	CMP eax, 1
-	JNE L$$30
-L$$31:
+	JNE L$$39
+L$$40:
 	MOV eax, ebx
-	JMP L$$32
-L$$30:
+	JMP L$$41
+L$$39:
 	MOV eax, DWORD PTR [ebp + 12]
 	PUSH eax
 	MOV eax, DWORD PTR [ebp + 8]
 	PUSH eax
 	CALL _LLazyArray$f
 	ADD esp, 8
-	MOV eax, eax
 	MOV edx, DWORD PTR [ebp + 12]
 	MOV ecx, 0
 	IMUL ecx, 4
@@ -312,14 +298,9 @@ L$$30:
 	ADD ebx, edx
 	MOV ecx, ebx
 	MOV DWORD PTR [ecx + 0], eax
-	MOV eax, eax
-L$$32:
-	MOV eax, eax
-	MOV eax, eax
+L$$41:
 	MOV ecx, DWORD PTR [ebp + -4]
 	MOV ebx, ecx
-	MOV esi, esi
-	MOV edi, edi
 	MOV esp, ebp
 	POP ebp
 	RET
@@ -327,20 +308,12 @@ _LLazyArray$f:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 0
-	MOV ebx, ebx
-	MOV esi, esi
-	MOV edi, edi
 	MOV eax, DWORD PTR [ebp + 12]
 	PUSH eax
 	MOV eax, DWORD PTR [ebp + 8]
 	PUSH eax
 	CALL _LLazyArray$nfib
 	ADD esp, 8
-	MOV eax, eax
-	MOV eax, eax
-	MOV ebx, ebx
-	MOV esi, esi
-	MOV edi, edi
 	MOV esp, ebp
 	POP ebp
 	RET
@@ -350,51 +323,40 @@ _LLazyArray$nfib:
 	SUB esp, 4
 	MOV eax, ebx
 	MOV DWORD PTR [ebp + -4], eax
-	MOV esi, esi
-	MOV edi, edi
 	MOV eax, 0
 	CMP DWORD PTR [ebp + 8], 2
-	JGE L$$37
-L$$36:
+	JGE L$$46
+L$$45:
 	MOV eax, 1
-L$$37:
+L$$46:
 	CMP eax, 1
-	JNE L$$33
-L$$34:
+	JNE L$$42
+L$$43:
 	MOV eax, 1
-	JMP L$$35
-L$$33:
+	JMP L$$44
+L$$42:
 	MOV eax, DWORD PTR [ebp + 12]
 	PUSH eax
 	MOV eax, DWORD PTR [ebp + 8]
 	SUB eax, 1
-	MOV eax, eax
 	PUSH eax
 	CALL _LLazyArray$get
 	ADD esp, 8
-	MOV eax, eax
 	MOV ebx, eax
 	MOV eax, DWORD PTR [ebp + 12]
 	PUSH eax
 	MOV eax, DWORD PTR [ebp + 8]
 	SUB eax, 2
-	MOV eax, eax
 	PUSH eax
 	CALL _LLazyArray$get
 	ADD esp, 8
 	MOV ecx, eax
 	MOV eax, ebx
 	ADD eax, ecx
-	MOV eax, eax
 	ADD eax, 1
-	MOV eax, eax
-L$$35:
-	MOV eax, eax
-	MOV eax, eax
+L$$44:
 	MOV ecx, DWORD PTR [ebp + -4]
 	MOV ebx, ecx
-	MOV esi, esi
-	MOV edi, edi
 	MOV esp, ebp
 	POP ebp
 	RET

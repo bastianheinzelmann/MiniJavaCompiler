@@ -1,36 +1,24 @@
 	.intel_syntax
 	.global _Lmain
-_Lmain:
+Lmain:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 0
-	MOV ebx, ebx
-	MOV esi, esi
-	MOV edi, edi
 	MOV eax, 0
 	PUSH eax
-	CALL _L_halloc
+	CALL L_halloc
 	ADD esp, 4
-	MOV eax, eax
-	MOV eax, eax
 	PUSH eax
-	CALL _LEffectsClass$run
+	CALL LEffectsClass$run
 	ADD esp, 4
-	MOV eax, eax
-	MOV eax, eax
 	PUSH eax
-	CALL _L_println_int
+	CALL L_println_int
 	ADD esp, 4
-	MOV eax, eax
 	MOV eax, 0
-	MOV eax, eax
-	MOV ebx, ebx
-	MOV esi, esi
-	MOV edi, edi
 	MOV esp, ebp
 	POP ebp
 	RET
-_LEffectsClass$run:
+LEffectsClass$run:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 12
@@ -42,40 +30,36 @@ _LEffectsClass$run:
 	MOV DWORD PTR [ebp + -4], eax
 	MOV eax, 4
 	PUSH eax
-	CALL _L_halloc
+	CALL L_halloc
 	ADD esp, 4
 	MOV edi, eax
 	MOV eax, edi
 	PUSH eax
 	MOV eax, 1
 	PUSH eax
-	CALL _LBit$set
+	CALL LBit$set
 	ADD esp, 8
-	MOV eax, eax
-	MOV eax, eax
 	SUB eax, 1
 	MOV esi, eax
 	MOV eax, edi
 	PUSH eax
 	MOV eax, 0
 	PUSH eax
-	CALL _LBit$set
+	CALL LBit$set
 	ADD esp, 8
-	MOV eax, eax
 	MOV ebx, eax
 	MOV eax, edi
 	PUSH eax
-	CALL _LBit$value
+	CALL LBit$value
 	ADD esp, 4
-	MOV ecx, eax
-	MOV eax, esi
-	MOV ebx, ebx
-	MOV edx, 0
+	MOV edi, eax
+	MOV edx, esi
+	MOV ecx, ebx
+	MOV eax, 0
+	SUB eax, edi
+	SUB ecx, eax
 	SUB edx, ecx
-	SUB ebx, edx
-	SUB eax, ebx
-	MOV eax, eax
-	MOV eax, eax
+	MOV eax, edx
 	MOV ecx, DWORD PTR [ebp + -12]
 	MOV ebx, ecx
 	MOV ecx, DWORD PTR [ebp + -8]
@@ -85,33 +69,28 @@ _LEffectsClass$run:
 	MOV esp, ebp
 	POP ebp
 	RET
-_LBit$set:
+LBit$set:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 0
-	MOV ebx, ebx
 	MOV edx, esi
 	MOV ecx, edi
 	MOV esi, DWORD PTR [ebp + 12]
 	MOV eax, 0
 	IMUL eax, 4
 	ADD esi, eax
-	MOV esi, esi
 	MOV eax, DWORD PTR [ebp + 8]
 	MOV DWORD PTR [esi + 0], eax
 	MOV eax, DWORD PTR [ebp + 8]
-	MOV eax, eax
-	MOV ebx, ebx
 	MOV esi, edx
 	MOV edi, ecx
 	MOV esp, ebp
 	POP ebp
 	RET
-_LBit$value:
+LBit$value:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 0
-	MOV ebx, ebx
 	MOV edx, esi
 	MOV ecx, edi
 	MOV esi, DWORD PTR [ebp + 8]
@@ -120,8 +99,6 @@ _LBit$value:
 	ADD esi, eax
 	MOV eax, esi
 	MOV eax, DWORD PTR [eax + 0]
-	MOV eax, eax
-	MOV ebx, ebx
 	MOV esi, edx
 	MOV edi, ecx
 	MOV esp, ebp

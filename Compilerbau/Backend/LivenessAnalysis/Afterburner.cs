@@ -1,8 +1,5 @@
 ﻿using System.Collections.Generic;
 using Compilerbau.Backend.I386;
-using System;
-using Compilerbau.Intermediate;
-using System.Linq;
 
 namespace Compilerbau.Backend.LivenessAnalysis
 {

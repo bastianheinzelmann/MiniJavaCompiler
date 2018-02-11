@@ -4,29 +4,17 @@ _Lmain:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 0
-	MOV ebx, ebx
-	MOV esi, esi
-	MOV edi, edi
 	MOV eax, 0
 	PUSH eax
 	CALL _L_halloc
 	ADD esp, 4
-	MOV eax, eax
-	MOV eax, eax
 	PUSH eax
 	CALL _LBT$Start
 	ADD esp, 4
-	MOV eax, eax
-	MOV eax, eax
 	PUSH eax
 	CALL _L_println_int
 	ADD esp, 4
-	MOV eax, eax
 	MOV eax, 0
-	MOV eax, eax
-	MOV ebx, ebx
-	MOV esi, esi
-	MOV edi, edi
 	MOV esp, ebp
 	POP ebp
 	RET
@@ -36,8 +24,6 @@ _LBT$Start:
 	SUB esp, 4
 	MOV eax, ebx
 	MOV DWORD PTR [ebp + -4], eax
-	MOV esi, esi
-	MOV edi, edi
 	MOV eax, 24
 	PUSH eax
 	CALL _L_halloc
@@ -49,166 +35,131 @@ _LBT$Start:
 	PUSH eax
 	CALL _LTree$Init
 	ADD esp, 8
-	MOV eax, eax
 	MOV eax, ebx
 	PUSH eax
 	CALL _LTree$Print
 	ADD esp, 4
-	MOV eax, eax
 	MOV eax, 100000000
 	PUSH eax
 	CALL _L_println_int
 	ADD esp, 4
-	MOV eax, eax
 	MOV eax, ebx
 	PUSH eax
 	MOV eax, 8
 	PUSH eax
 	CALL _LTree$Insert
 	ADD esp, 8
-	MOV eax, eax
 	MOV eax, ebx
 	PUSH eax
 	CALL _LTree$Print
 	ADD esp, 4
-	MOV eax, eax
 	MOV eax, ebx
 	PUSH eax
 	MOV eax, 24
 	PUSH eax
 	CALL _LTree$Insert
 	ADD esp, 8
-	MOV eax, eax
 	MOV eax, ebx
 	PUSH eax
 	MOV eax, 4
 	PUSH eax
 	CALL _LTree$Insert
 	ADD esp, 8
-	MOV eax, eax
 	MOV eax, ebx
 	PUSH eax
 	MOV eax, 12
 	PUSH eax
 	CALL _LTree$Insert
 	ADD esp, 8
-	MOV eax, eax
 	MOV eax, ebx
 	PUSH eax
 	MOV eax, 20
 	PUSH eax
 	CALL _LTree$Insert
 	ADD esp, 8
-	MOV eax, eax
 	MOV eax, ebx
 	PUSH eax
 	MOV eax, 28
 	PUSH eax
 	CALL _LTree$Insert
 	ADD esp, 8
-	MOV eax, eax
 	MOV eax, ebx
 	PUSH eax
 	MOV eax, 14
 	PUSH eax
 	CALL _LTree$Insert
 	ADD esp, 8
-	MOV eax, eax
 	MOV eax, ebx
 	PUSH eax
 	CALL _LTree$Print
 	ADD esp, 4
-	MOV eax, eax
 	MOV eax, ebx
 	PUSH eax
 	MOV eax, 24
 	PUSH eax
 	CALL _LTree$Search
 	ADD esp, 8
-	MOV eax, eax
-	MOV eax, eax
 	PUSH eax
 	CALL _L_println_int
 	ADD esp, 4
-	MOV eax, eax
 	MOV eax, ebx
 	PUSH eax
 	MOV eax, 12
 	PUSH eax
 	CALL _LTree$Search
 	ADD esp, 8
-	MOV eax, eax
-	MOV eax, eax
 	PUSH eax
 	CALL _L_println_int
 	ADD esp, 4
-	MOV eax, eax
 	MOV eax, ebx
 	PUSH eax
 	MOV eax, 16
 	PUSH eax
 	CALL _LTree$Search
 	ADD esp, 8
-	MOV eax, eax
-	MOV eax, eax
 	PUSH eax
 	CALL _L_println_int
 	ADD esp, 4
-	MOV eax, eax
 	MOV eax, ebx
 	PUSH eax
 	MOV eax, 50
 	PUSH eax
 	CALL _LTree$Search
 	ADD esp, 8
-	MOV eax, eax
-	MOV eax, eax
 	PUSH eax
 	CALL _L_println_int
 	ADD esp, 4
-	MOV eax, eax
 	MOV eax, ebx
 	PUSH eax
 	MOV eax, 12
 	PUSH eax
 	CALL _LTree$Search
 	ADD esp, 8
-	MOV eax, eax
-	MOV eax, eax
 	PUSH eax
 	CALL _L_println_int
 	ADD esp, 4
-	MOV eax, eax
 	MOV eax, ebx
 	PUSH eax
 	MOV eax, 12
 	PUSH eax
 	CALL _LTree$Delete
 	ADD esp, 8
-	MOV eax, eax
 	MOV eax, ebx
 	PUSH eax
 	CALL _LTree$Print
 	ADD esp, 4
-	MOV eax, eax
 	MOV eax, ebx
 	PUSH eax
 	MOV eax, 12
 	PUSH eax
 	CALL _LTree$Search
 	ADD esp, 8
-	MOV eax, eax
-	MOV eax, eax
 	PUSH eax
 	CALL _L_println_int
 	ADD esp, 4
-	MOV eax, eax
 	MOV eax, 0
-	MOV eax, eax
 	MOV ecx, DWORD PTR [ebp + -4]
 	MOV ebx, ecx
-	MOV esi, esi
-	MOV edi, edi
 	MOV esp, ebp
 	POP ebp
 	RET
@@ -216,14 +167,12 @@ _LTree$Init:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 0
-	MOV ebx, ebx
 	MOV edx, esi
 	MOV ecx, edi
 	MOV esi, DWORD PTR [ebp + 12]
 	MOV eax, 2
 	IMUL eax, 4
 	ADD esi, eax
-	MOV esi, esi
 	MOV eax, DWORD PTR [ebp + 8]
 	MOV DWORD PTR [esi + 0], eax
 	MOV esi, DWORD PTR [ebp + 12]
@@ -239,8 +188,6 @@ _LTree$Init:
 	MOV eax, esi
 	MOV DWORD PTR [eax + 0], 0
 	MOV eax, 1
-	MOV eax, eax
-	MOV ebx, ebx
 	MOV esi, edx
 	MOV edi, ecx
 	MOV esp, ebp
@@ -250,19 +197,15 @@ _LTree$SetRight:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 0
-	MOV ebx, ebx
 	MOV edx, esi
 	MOV ecx, edi
 	MOV esi, DWORD PTR [ebp + 12]
 	MOV eax, 1
 	IMUL eax, 4
 	ADD esi, eax
-	MOV esi, esi
 	MOV eax, DWORD PTR [ebp + 8]
 	MOV DWORD PTR [esi + 0], eax
 	MOV eax, 1
-	MOV eax, eax
-	MOV ebx, ebx
 	MOV esi, edx
 	MOV edi, ecx
 	MOV esp, ebp
@@ -272,19 +215,15 @@ _LTree$SetLeft:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 0
-	MOV ebx, ebx
 	MOV edx, esi
 	MOV ecx, edi
 	MOV esi, DWORD PTR [ebp + 12]
 	MOV eax, 0
 	IMUL eax, 4
 	ADD esi, eax
-	MOV esi, esi
 	MOV eax, DWORD PTR [ebp + 8]
 	MOV DWORD PTR [esi + 0], eax
 	MOV eax, 1
-	MOV eax, eax
-	MOV ebx, ebx
 	MOV esi, edx
 	MOV edi, ecx
 	MOV esp, ebp
@@ -294,7 +233,6 @@ _LTree$GetRight:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 0
-	MOV ebx, ebx
 	MOV edx, esi
 	MOV ecx, edi
 	MOV esi, DWORD PTR [ebp + 8]
@@ -303,8 +241,6 @@ _LTree$GetRight:
 	ADD esi, eax
 	MOV eax, esi
 	MOV eax, DWORD PTR [eax + 0]
-	MOV eax, eax
-	MOV ebx, ebx
 	MOV esi, edx
 	MOV edi, ecx
 	MOV esp, ebp
@@ -314,7 +250,6 @@ _LTree$GetLeft:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 0
-	MOV ebx, ebx
 	MOV edx, esi
 	MOV ecx, edi
 	MOV esi, DWORD PTR [ebp + 8]
@@ -323,8 +258,6 @@ _LTree$GetLeft:
 	ADD esi, eax
 	MOV eax, esi
 	MOV eax, DWORD PTR [eax + 0]
-	MOV eax, eax
-	MOV ebx, ebx
 	MOV esi, edx
 	MOV edi, ecx
 	MOV esp, ebp
@@ -334,7 +267,6 @@ _LTree$GetKey:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 0
-	MOV ebx, ebx
 	MOV edx, esi
 	MOV ecx, edi
 	MOV esi, DWORD PTR [ebp + 8]
@@ -343,8 +275,6 @@ _LTree$GetKey:
 	ADD esi, eax
 	MOV eax, esi
 	MOV eax, DWORD PTR [eax + 0]
-	MOV eax, eax
-	MOV ebx, ebx
 	MOV esi, edx
 	MOV edi, ecx
 	MOV esp, ebp
@@ -354,19 +284,15 @@ _LTree$SetKey:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 0
-	MOV ebx, ebx
 	MOV edx, esi
 	MOV ecx, edi
 	MOV esi, DWORD PTR [ebp + 12]
 	MOV eax, 2
 	IMUL eax, 4
 	ADD esi, eax
-	MOV esi, esi
 	MOV eax, DWORD PTR [ebp + 8]
 	MOV DWORD PTR [esi + 0], eax
 	MOV eax, 1
-	MOV eax, eax
-	MOV ebx, ebx
 	MOV esi, edx
 	MOV edi, ecx
 	MOV esp, ebp
@@ -376,7 +302,6 @@ _LTree$GetHas_Right:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 0
-	MOV ebx, ebx
 	MOV edx, esi
 	MOV ecx, edi
 	MOV esi, DWORD PTR [ebp + 8]
@@ -385,8 +310,6 @@ _LTree$GetHas_Right:
 	ADD esi, eax
 	MOV eax, esi
 	MOV eax, DWORD PTR [eax + 0]
-	MOV eax, eax
-	MOV ebx, ebx
 	MOV esi, edx
 	MOV edi, ecx
 	MOV esp, ebp
@@ -396,7 +319,6 @@ _LTree$GetHas_Left:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 0
-	MOV ebx, ebx
 	MOV edx, esi
 	MOV ecx, edi
 	MOV esi, DWORD PTR [ebp + 8]
@@ -405,8 +327,6 @@ _LTree$GetHas_Left:
 	ADD esi, eax
 	MOV eax, esi
 	MOV eax, DWORD PTR [eax + 0]
-	MOV eax, eax
-	MOV ebx, ebx
 	MOV esi, edx
 	MOV edi, ecx
 	MOV esp, ebp
@@ -416,19 +336,15 @@ _LTree$SetHas_Left:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 0
-	MOV ebx, ebx
 	MOV edx, esi
 	MOV ecx, edi
 	MOV esi, DWORD PTR [ebp + 12]
 	MOV eax, 3
 	IMUL eax, 4
 	ADD esi, eax
-	MOV esi, esi
 	MOV eax, DWORD PTR [ebp + 8]
 	MOV DWORD PTR [esi + 0], eax
 	MOV eax, 1
-	MOV eax, eax
-	MOV ebx, ebx
 	MOV esi, edx
 	MOV edi, ecx
 	MOV esp, ebp
@@ -438,19 +354,15 @@ _LTree$SetHas_Right:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 0
-	MOV ebx, ebx
 	MOV edx, esi
 	MOV ecx, edi
 	MOV esi, DWORD PTR [ebp + 12]
 	MOV eax, 4
 	IMUL eax, 4
 	ADD esi, eax
-	MOV esi, esi
 	MOV eax, DWORD PTR [ebp + 8]
 	MOV DWORD PTR [esi + 0], eax
 	MOV eax, 1
-	MOV eax, eax
-	MOV ebx, ebx
 	MOV esi, edx
 	MOV edi, ecx
 	MOV esp, ebp
@@ -460,13 +372,11 @@ _LTree$Compare:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 0
-	MOV ebx, ebx
 	MOV edx, esi
 	MOV ecx, edi
 	MOV eax, 0
 	MOV eax, DWORD PTR [ebp + 8]
 	ADD eax, 1
-	MOV eax, eax
 	MOV edi, 0
 	MOV esi, DWORD PTR [ebp + 12]
 	CMP esi, DWORD PTR [ebp + 8]
@@ -497,9 +407,6 @@ L$$5:
 	MOV eax, 1
 L$$7:
 L$$2:
-	MOV eax, eax
-	MOV eax, eax
-	MOV ebx, ebx
 	MOV esi, edx
 	MOV edi, ecx
 	MOV esp, ebp
@@ -526,7 +433,6 @@ _LTree$Insert:
 	PUSH eax
 	CALL _LTree$Init
 	ADD esp, 8
-	MOV eax, eax
 	MOV esi, DWORD PTR [ebp + 12]
 	MOV ebx, 1
 L$$10:
@@ -551,7 +457,6 @@ L$$14:
 	PUSH eax
 	CALL _LTree$GetHas_Left
 	ADD esp, 4
-	MOV eax, eax
 	CMP eax, 1
 	JNE L$$18
 L$$19:
@@ -569,14 +474,12 @@ L$$18:
 	PUSH eax
 	CALL _LTree$SetHas_Left
 	ADD esp, 8
-	MOV eax, eax
 	MOV eax, esi
 	PUSH eax
 	MOV eax, edi
 	PUSH eax
 	CALL _LTree$SetLeft
 	ADD esp, 8
-	MOV eax, eax
 L$$20:
 	JMP L$$15
 L$$13:
@@ -584,7 +487,6 @@ L$$13:
 	PUSH eax
 	CALL _LTree$GetHas_Right
 	ADD esp, 4
-	MOV eax, eax
 	CMP eax, 1
 	JNE L$$21
 L$$22:
@@ -602,20 +504,17 @@ L$$21:
 	PUSH eax
 	CALL _LTree$SetHas_Right
 	ADD esp, 8
-	MOV eax, eax
 	MOV eax, esi
 	PUSH eax
 	MOV eax, edi
 	PUSH eax
 	CALL _LTree$SetRight
 	ADD esp, 8
-	MOV eax, eax
 L$$23:
 L$$15:
 	JMP L$$10
 L$$11:
 	MOV eax, 1
-	MOV eax, eax
 	MOV ecx, DWORD PTR [ebp + -12]
 	MOV ebx, ecx
 	MOV ecx, DWORD PTR [ebp + -8]
@@ -647,7 +546,6 @@ L$$24:
 	JNE L$$25
 L$$26:
 	MOV eax, DWORD PTR [ebp + -8]
-	MOV eax, eax
 	PUSH eax
 	CALL _LTree$GetKey
 	ADD esp, 4
@@ -662,23 +560,18 @@ L$$31:
 	JNE L$$27
 L$$28:
 	MOV eax, DWORD PTR [ebp + -8]
-	MOV eax, eax
 	PUSH eax
 	CALL _LTree$GetHas_Left
 	ADD esp, 4
-	MOV eax, eax
 	CMP eax, 1
 	JNE L$$32
 L$$33:
 	MOV eax, DWORD PTR [ebp + -8]
-	MOV eax, eax
 	MOV DWORD PTR [ebp + -4], eax
 	MOV eax, DWORD PTR [ebp + -8]
-	MOV eax, eax
 	PUSH eax
 	CALL _LTree$GetLeft
 	ADD esp, 4
-	MOV eax, eax
 	MOV DWORD PTR [ebp + -8], eax
 	JMP L$$34
 L$$32:
@@ -696,23 +589,18 @@ L$$39:
 	JNE L$$35
 L$$36:
 	MOV eax, DWORD PTR [ebp + -8]
-	MOV eax, eax
 	PUSH eax
 	CALL _LTree$GetHas_Right
 	ADD esp, 4
-	MOV eax, eax
 	CMP eax, 1
 	JNE L$$40
 L$$41:
 	MOV eax, DWORD PTR [ebp + -8]
-	MOV eax, eax
 	MOV DWORD PTR [ebp + -4], eax
 	MOV eax, DWORD PTR [ebp + -8]
-	MOV eax, eax
 	PUSH eax
 	CALL _LTree$GetRight
 	ADD esp, 4
-	MOV eax, eax
 	MOV DWORD PTR [ebp + -8], eax
 	JMP L$$42
 L$$40:
@@ -724,7 +612,6 @@ L$$35:
 	JNE L$$43
 L$$44:
 	MOV eax, DWORD PTR [ebp + -8]
-	MOV eax, eax
 	PUSH eax
 	CALL _LTree$GetHas_Right
 	ADD esp, 4
@@ -735,7 +622,6 @@ L$$44:
 	JNE L$$50
 L$$49:
 	MOV eax, DWORD PTR [ebp + -8]
-	MOV eax, eax
 	PUSH eax
 	CALL _LTree$GetHas_Left
 	ADD esp, 4
@@ -749,7 +635,6 @@ L$$50:
 	MOV ecx, 0
 	MOV eax, 0
 L$$51:
-	MOV eax, eax
 	AND eax, ecx
 	CMP eax, 1
 	JNE L$$46
@@ -760,28 +645,22 @@ L$$46:
 	MOV eax, DWORD PTR [ebp + 12]
 	PUSH eax
 	MOV eax, DWORD PTR [ebp + -4]
-	MOV eax, eax
 	PUSH eax
 	MOV eax, DWORD PTR [ebp + -8]
-	MOV eax, eax
 	PUSH eax
 	CALL _LTree$Remove
 	ADD esp, 12
-	MOV eax, eax
 L$$48:
 	JMP L$$45
 L$$43:
 	MOV eax, DWORD PTR [ebp + 12]
 	PUSH eax
 	MOV eax, DWORD PTR [ebp + -4]
-	MOV eax, eax
 	PUSH eax
 	MOV eax, DWORD PTR [ebp + -8]
-	MOV eax, eax
 	PUSH eax
 	CALL _LTree$Remove
 	ADD esp, 12
-	MOV eax, eax
 L$$45:
 	MOV esi, 1
 	MOV edi, 0
@@ -791,7 +670,6 @@ L$$29:
 	JMP L$$24
 L$$25:
 	MOV eax, esi
-	MOV eax, eax
 	MOV ecx, DWORD PTR [ebp + -20]
 	MOV ebx, ecx
 	MOV ecx, DWORD PTR [ebp + -16]
@@ -807,13 +685,10 @@ _LTree$Remove:
 	SUB esp, 4
 	MOV eax, ebx
 	MOV DWORD PTR [ebp + -4], eax
-	MOV esi, esi
-	MOV edi, edi
 	MOV eax, DWORD PTR [ebp + 8]
 	PUSH eax
 	CALL _LTree$GetHas_Left
 	ADD esp, 4
-	MOV eax, eax
 	CMP eax, 1
 	JNE L$$52
 L$$53:
@@ -825,14 +700,12 @@ L$$53:
 	PUSH eax
 	CALL _LTree$RemoveLeft
 	ADD esp, 12
-	MOV eax, eax
 	JMP L$$54
 L$$52:
 	MOV eax, DWORD PTR [ebp + 8]
 	PUSH eax
 	CALL _LTree$GetHas_Right
 	ADD esp, 4
-	MOV eax, eax
 	CMP eax, 1
 	JNE L$$55
 L$$56:
@@ -844,7 +717,6 @@ L$$56:
 	PUSH eax
 	CALL _LTree$RemoveRight
 	ADD esp, 12
-	MOV eax, eax
 	JMP L$$57
 L$$55:
 	MOV eax, DWORD PTR [ebp + 8]
@@ -856,8 +728,6 @@ L$$55:
 	PUSH eax
 	CALL _LTree$GetLeft
 	ADD esp, 4
-	MOV eax, eax
-	MOV eax, eax
 	PUSH eax
 	CALL _LTree$GetKey
 	ADD esp, 4
@@ -870,7 +740,6 @@ L$$55:
 	PUSH eax
 	CALL _LTree$Compare
 	ADD esp, 12
-	MOV eax, eax
 	CMP eax, 1
 	JNE L$$58
 L$$59:
@@ -885,14 +754,12 @@ L$$59:
 	PUSH eax
 	CALL _LTree$SetLeft
 	ADD esp, 8
-	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + 12]
 	PUSH eax
 	MOV eax, 0
 	PUSH eax
 	CALL _LTree$SetHas_Left
 	ADD esp, 8
-	MOV eax, eax
 	JMP L$$60
 L$$58:
 	MOV eax, DWORD PTR [ebp + 12]
@@ -906,23 +773,18 @@ L$$58:
 	PUSH eax
 	CALL _LTree$SetRight
 	ADD esp, 8
-	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + 12]
 	PUSH eax
 	MOV eax, 0
 	PUSH eax
 	CALL _LTree$SetHas_Right
 	ADD esp, 8
-	MOV eax, eax
 L$$60:
 L$$57:
 L$$54:
 	MOV eax, 1
-	MOV eax, eax
 	MOV ecx, DWORD PTR [ebp + -4]
 	MOV ebx, ecx
-	MOV esi, esi
-	MOV edi, edi
 	MOV esp, ebp
 	POP ebp
 	RET
@@ -932,14 +794,11 @@ _LTree$RemoveRight:
 	SUB esp, 4
 	MOV eax, ebx
 	MOV DWORD PTR [ebp + -4], eax
-	MOV esi, esi
-	MOV edi, edi
 L$$61:
 	MOV eax, DWORD PTR [ebp + 8]
 	PUSH eax
 	CALL _LTree$GetHas_Right
 	ADD esp, 4
-	MOV eax, eax
 	CMP eax, 1
 	JNE L$$62
 L$$63:
@@ -948,8 +807,6 @@ L$$63:
 	PUSH eax
 	CALL _LTree$GetRight
 	ADD esp, 4
-	MOV eax, eax
-	MOV eax, eax
 	PUSH eax
 	CALL _LTree$GetKey
 	ADD esp, 4
@@ -960,7 +817,6 @@ L$$63:
 	PUSH eax
 	CALL _LTree$SetKey
 	ADD esp, 8
-	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + 8]
 	MOV DWORD PTR [ebp + 12], eax
 	MOV eax, DWORD PTR [ebp + 8]
@@ -981,20 +837,15 @@ L$$62:
 	PUSH eax
 	CALL _LTree$SetRight
 	ADD esp, 8
-	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + 12]
 	PUSH eax
 	MOV eax, 0
 	PUSH eax
 	CALL _LTree$SetHas_Right
 	ADD esp, 8
-	MOV eax, eax
 	MOV eax, 1
-	MOV eax, eax
 	MOV ecx, DWORD PTR [ebp + -4]
 	MOV ebx, ecx
-	MOV esi, esi
-	MOV edi, edi
 	MOV esp, ebp
 	POP ebp
 	RET
@@ -1004,14 +855,11 @@ _LTree$RemoveLeft:
 	SUB esp, 4
 	MOV eax, ebx
 	MOV DWORD PTR [ebp + -4], eax
-	MOV esi, esi
-	MOV edi, edi
 L$$64:
 	MOV eax, DWORD PTR [ebp + 8]
 	PUSH eax
 	CALL _LTree$GetHas_Left
 	ADD esp, 4
-	MOV eax, eax
 	CMP eax, 1
 	JNE L$$65
 L$$66:
@@ -1020,8 +868,6 @@ L$$66:
 	PUSH eax
 	CALL _LTree$GetLeft
 	ADD esp, 4
-	MOV eax, eax
-	MOV eax, eax
 	PUSH eax
 	CALL _LTree$GetKey
 	ADD esp, 4
@@ -1032,7 +878,6 @@ L$$66:
 	PUSH eax
 	CALL _LTree$SetKey
 	ADD esp, 8
-	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + 8]
 	MOV DWORD PTR [ebp + 12], eax
 	MOV eax, DWORD PTR [ebp + 8]
@@ -1053,20 +898,15 @@ L$$65:
 	PUSH eax
 	CALL _LTree$SetLeft
 	ADD esp, 8
-	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + 12]
 	PUSH eax
 	MOV eax, 0
 	PUSH eax
 	CALL _LTree$SetHas_Left
 	ADD esp, 8
-	MOV eax, eax
 	MOV eax, 1
-	MOV eax, eax
 	MOV ecx, DWORD PTR [ebp + -4]
 	MOV ebx, ecx
-	MOV esi, esi
-	MOV edi, edi
 	MOV esp, ebp
 	POP ebp
 	RET
@@ -1105,7 +945,6 @@ L$$71:
 	PUSH eax
 	CALL _LTree$GetHas_Left
 	ADD esp, 4
-	MOV eax, eax
 	CMP eax, 1
 	JNE L$$75
 L$$76:
@@ -1133,7 +972,6 @@ L$$79:
 	PUSH eax
 	CALL _LTree$GetHas_Right
 	ADD esp, 4
-	MOV eax, eax
 	CMP eax, 1
 	JNE L$$83
 L$$84:
@@ -1155,7 +993,6 @@ L$$72:
 	JMP L$$67
 L$$68:
 	MOV eax, ebx
-	MOV eax, eax
 	MOV ecx, DWORD PTR [ebp + -12]
 	MOV ebx, ecx
 	MOV ecx, DWORD PTR [ebp + -8]
@@ -1169,9 +1006,6 @@ _LTree$Print:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 0
-	MOV ebx, ebx
-	MOV esi, esi
-	MOV edi, edi
 	MOV ecx, DWORD PTR [ebp + 8]
 	MOV eax, DWORD PTR [ebp + 8]
 	PUSH eax
@@ -1179,12 +1013,7 @@ _LTree$Print:
 	PUSH eax
 	CALL _LTree$RecPrint
 	ADD esp, 8
-	MOV eax, eax
 	MOV eax, 1
-	MOV eax, eax
-	MOV ebx, ebx
-	MOV esi, esi
-	MOV edi, edi
 	MOV esp, ebp
 	POP ebp
 	RET
@@ -1194,13 +1023,10 @@ _LTree$RecPrint:
 	SUB esp, 4
 	MOV eax, ebx
 	MOV DWORD PTR [ebp + -4], eax
-	MOV esi, esi
-	MOV edi, edi
 	MOV eax, DWORD PTR [ebp + 8]
 	PUSH eax
 	CALL _LTree$GetHas_Left
 	ADD esp, 4
-	MOV eax, eax
 	CMP eax, 1
 	JNE L$$86
 L$$87:
@@ -1216,7 +1042,6 @@ L$$87:
 	PUSH eax
 	CALL _LTree$RecPrint
 	ADD esp, 8
-	MOV eax, eax
 	JMP L$$88
 L$$86:
 	MOV eax, 1
@@ -1225,17 +1050,13 @@ L$$88:
 	PUSH eax
 	CALL _LTree$GetKey
 	ADD esp, 4
-	MOV eax, eax
-	MOV eax, eax
 	PUSH eax
 	CALL _L_println_int
 	ADD esp, 4
-	MOV eax, eax
 	MOV eax, DWORD PTR [ebp + 8]
 	PUSH eax
 	CALL _LTree$GetHas_Right
 	ADD esp, 4
-	MOV eax, eax
 	CMP eax, 1
 	JNE L$$89
 L$$90:
@@ -1251,17 +1072,13 @@ L$$90:
 	PUSH eax
 	CALL _LTree$RecPrint
 	ADD esp, 8
-	MOV eax, eax
 	JMP L$$91
 L$$89:
 	MOV eax, 1
 L$$91:
 	MOV eax, 1
-	MOV eax, eax
 	MOV ecx, DWORD PTR [ebp + -4]
 	MOV ebx, ecx
-	MOV esi, esi
-	MOV edi, edi
 	MOV esp, ebp
 	POP ebp
 	RET

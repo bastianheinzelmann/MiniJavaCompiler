@@ -1,12 +1,12 @@
-_Lmain(2) {
- MOVE(TEMP(t8), CALL(NAME(_L_halloc), CONST(0)))
- MOVE(TEMP(t9), CALL(NAME(_LB$run), TEMP(t8), CONST(5), CONST(10)))
- MOVE(TEMP(t1), CALL(NAME(_L_println_int), TEMP(t9)))
+Lmain(2) {
+ MOVE(TEMP(t8), CALL(NAME(L_halloc), CONST(0)))
+ MOVE(TEMP(t9), CALL(NAME(LB$run), TEMP(t8), CONST(5), CONST(10)))
+ MOVE(TEMP(t1), CALL(NAME(L_println_int), TEMP(t9)))
  MOVE(TEMP(t0), CONST(0))
  return t0
 }
 
-_LB$run(3) {
+LB$run(3) {
  MOVE(TEMP(t5), CONST(0))
  CJUMP(LT, CONST(0), CONST(1), L$$6, L$$7)
  LABEL(L$$6)

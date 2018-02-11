@@ -3,8 +3,6 @@ using Compilerbau.AST;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Compilerbau.Intermediate
 {
@@ -12,6 +10,7 @@ namespace Compilerbau.Intermediate
     {
         const int WORDSIZE = 4;
         Label HALLOC = new Label("_halloc");
+        Label RAISE = new Label("_raise");
         
 
         public Dictionary<string, Temp> env = new Dictionary<string, Temp>();
@@ -22,7 +21,6 @@ namespace Compilerbau.Intermediate
 
         public TreeNode BuildIntermediateAst(Prg prg)
         {
-            //PrepareTree(prg);
             return new TreePrg(BuildFunctions(prg));
         }
 
@@ -30,7 +28,7 @@ namespace Compilerbau.Intermediate
         {
             foreach (var classDecl in prg.ClassDeclarations)
             {
-                vshit.RawClass.Add(classDecl.Name, classDecl.VarDeclarations.Select(v => v.Name).ToArray());
+                vshit.RawClass.Add(classDecl.Name, classDecl.VarDeclarations.Select(v => v.Name).ToArray());                
                 foreach(var methodDecl in classDecl.MethodDeclarations)
                 {
                     methodDecl.MethodName = classDecl.Name + "$" + methodDecl.MethodName;
@@ -78,7 +76,7 @@ namespace Compilerbau.Intermediate
                     {
                         body.Add(BuildBody(stm));
                     }
-                    // separate return shit
+                    // separate return
                     Temp returnVal = new Temp();
                     body.Add(new StmMove(new ExpTemp(returnVal), BuildExpression(methodDecl.MethodBody.ReturnExpression)));
                     // create the treefunction and clear enviroments
@@ -113,7 +111,6 @@ namespace Compilerbau.Intermediate
                     }
                 case IfElseBlock ifelseBlock:
                     {
-                        //StmCJump.Relation rel;
                         Label labelF = new Label();
                         Label labelT = new Label();
                         Label labelExit = new Label();
@@ -197,9 +194,6 @@ namespace Compilerbau.Intermediate
                         return new ExpESeq( new StmSeq(new List<TreeStm>() { new StmCJump(StmCJump.Relation.EQ, BuildExpression(and.Left), new ExpConst(1),
                         labelT, labelF), new StmLabel(labelT), new StmMove(rightT, BuildExpression(and.Right)), new StmMove(leftT, new ExpConst(1)), new StmJump(new ExpName(exit), new List<Label> { exit }),
                         new StmLabel(labelF), new StmMove(rightT, new ExpConst(0)), new StmMove(leftT, new ExpConst(0)), new StmLabel(exit) }), new ExpBinOp(ExpBinOp.Op.AND, leftT, rightT));
-
-                        //return new ExpBinOp(ExpBinOp.Op.AND, BuildExpression(and.Left), BuildExpression(and.Right)); // true branch
-                        // ExpBinOp(ExpBinOp.Op.AND, BuildExpression(and.Left), new ExpConst(0)); false branch
                     }
                 case Plus plus:
                     {
@@ -229,11 +223,42 @@ namespace Compilerbau.Intermediate
                     }
                 case GreaterThan gt:
                     {
-                        throw new Exception("Not implemented"); ; // i dont care TODO
+                        throw new Exception("Not implemented"); // i dont care TODO
                     }
                 case ArrayAccess arrAcc:
                     {
-                        return new ExpMem(new ExpBinOp(ExpBinOp.Op.PLUS, BuildExpression(arrAcc.Index), new ExpBinOp(ExpBinOp.Op.MUL, new ExpConst(WORDSIZE), new ExpBinOp(ExpBinOp.Op.PLUS, BuildExpression(arrAcc.Val), new ExpConst(1)))));
+                        ExpMem lengthMem = new ExpMem(BuildExpression(arrAcc.Index));
+
+                        Label ltrue1 = new Label();
+                        Label lfalse1 = new Label();
+                        Label labelExit1 = new Label();
+                        ExpTemp test1 = new ExpTemp(new Temp());
+
+                        Label ltrue2 = new Label();
+                        Label lfalse2 = new Label();
+                        Label labelExit2 = new Label();
+                        ExpTemp test2 = new ExpTemp(new Temp());
+
+                        Label allTrue = new Label();
+                        Label allFalse = new Label();
+                        ExpTemp allTest = new ExpTemp(new Temp());
+
+                        ExpConst trueConst = new ExpConst(1);
+                        ExpConst falseConst = new ExpConst(0);
+
+                        ExpTemp result = new ExpTemp(new Temp());
+                        ExpCall error = new ExpCall(new ExpName(RAISE), new List<TreeExp>() { new ExpConst(1) });
+                        ExpMem positiveResult = new ExpMem(new ExpBinOp(ExpBinOp.Op.PLUS, BuildExpression(arrAcc.Index), new ExpBinOp(ExpBinOp.Op.MUL, new ExpConst(WORDSIZE), new ExpBinOp(ExpBinOp.Op.PLUS, BuildExpression(arrAcc.Val), new ExpConst(1)))));
+
+                        Label labelExit = new Label();
+
+                        // TODO überprüfen, ob sich der wert in den Arraygrenzen befindet sonst L_Raise callen
+                        return new ExpESeq(new StmSeq(new List<TreeStm>() { new StmCJump(StmCJump.Relation.EQ, new ExpBinOp(ExpBinOp.Op.AND, 
+                            new ExpESeq(new StmSeq(new List<TreeStm>(){ new StmCJump(StmCJump.Relation.LT, BuildExpression(arrAcc.Val), lengthMem, ltrue1, lfalse1), new StmLabel(ltrue1), new StmMove(test1, trueConst), new StmJump(new ExpName(labelExit1), new List<Label>() { labelExit1}), new StmLabel(lfalse1), new StmMove(test1, falseConst), new StmLabel(labelExit1)}), test1),
+                            new ExpESeq(new StmSeq(new List<TreeStm>(){ new StmCJump(StmCJump.Relation.GE, BuildExpression(arrAcc.Val), falseConst, ltrue2, lfalse2), new StmLabel(ltrue2), new StmMove(test2, trueConst), new StmJump(new ExpName(labelExit2), new List<Label>() { labelExit2 }), new StmLabel(lfalse2), new StmMove(test2, falseConst), new StmLabel(labelExit2)}), test2)
+                            ), new ExpConst(1), allTrue, allFalse), new StmLabel(allTrue), new StmMove(result, positiveResult), new StmJump( new ExpName(labelExit), new List<Label>(){ labelExit }), new StmLabel(allFalse), new StmMove(result, error), new StmLabel(labelExit)}), result);                        
+                        
+                        //return new ExpMem(new ExpBinOp(ExpBinOp.Op.PLUS, BuildExpression(arrAcc.Index), new ExpBinOp(ExpBinOp.Op.MUL, new ExpConst(WORDSIZE), new ExpBinOp(ExpBinOp.Op.PLUS, BuildExpression(arrAcc.Val), new ExpConst(1)))));
                     }
                 case ArrayLength arrlength:
                     {

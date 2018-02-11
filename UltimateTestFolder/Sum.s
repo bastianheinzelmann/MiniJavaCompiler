@@ -1,40 +1,28 @@
 	.intel_syntax
 	.global _Lmain
-_Lmain:
+Lmain:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 0
-	MOV ebx, ebx
-	MOV esi, esi
-	MOV edi, edi
 	MOV eax, 4
 	PUSH eax
-	CALL _L_halloc
+	CALL L_halloc
 	ADD esp, 4
-	MOV eax, eax
-	MOV eax, eax
 	PUSH eax
 	MOV eax, 0
 	PUSH eax
 	MOV eax, 5
 	PUSH eax
-	CALL _LSumClass$f
+	CALL LSumClass$f
 	ADD esp, 12
-	MOV eax, eax
-	MOV eax, eax
 	PUSH eax
-	CALL _L_println_int
+	CALL L_println_int
 	ADD esp, 4
-	MOV eax, eax
 	MOV eax, 0
-	MOV eax, eax
-	MOV ebx, ebx
-	MOV esi, esi
-	MOV edi, edi
 	MOV esp, ebp
 	POP ebp
 	RET
-_LSumClass$f:
+LSumClass$f:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 8
@@ -42,7 +30,6 @@ _LSumClass$f:
 	MOV DWORD PTR [ebp + -8], eax
 	MOV eax, esi
 	MOV DWORD PTR [ebp + -4], eax
-	MOV edi, edi
 	MOV eax, DWORD PTR [ebp + 12]
 	ADD eax, DWORD PTR [ebp + 8]
 	MOV esi, eax
@@ -55,11 +42,11 @@ _LSumClass$f:
 	PUSH eax
 	MOV eax, esi
 	PUSH eax
-	CALL _LSumClass$g
+	CALL LSumClass$g
 	ADD esp, 8
-	MOV eax, eax
-	MOV ecx, ebx
-	MOV DWORD PTR [ecx + 0], eax
+	MOV ecx, eax
+	MOV eax, ebx
+	MOV DWORD PTR [eax + 0], ecx
 	MOV eax, 0
 	CMP DWORD PTR [ebp + 8], 1
 	JGE L$$4
@@ -78,32 +65,24 @@ L$$0:
 	PUSH eax
 	MOV eax, DWORD PTR [ebp + 8]
 	SUB eax, 1
-	MOV eax, eax
 	PUSH eax
-	CALL _LSumClass$f
+	CALL LSumClass$f
 	ADD esp, 12
-	MOV eax, eax
 L$$2:
-	MOV eax, eax
-	MOV eax, eax
 	MOV ecx, DWORD PTR [ebp + -8]
 	MOV ebx, ecx
 	MOV ecx, DWORD PTR [ebp + -4]
 	MOV esi, ecx
-	MOV edi, edi
 	MOV esp, ebp
 	POP ebp
 	RET
-_LSumClass$g:
+LSumClass$g:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 0
-	MOV ebx, ebx
 	MOV edx, esi
 	MOV ecx, edi
 	MOV eax, DWORD PTR [ebp + 8]
-	MOV eax, eax
-	MOV ebx, ebx
 	MOV esi, edx
 	MOV edi, ecx
 	MOV esp, ebp

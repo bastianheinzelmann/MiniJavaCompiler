@@ -1,19 +1,19 @@
-_Lmain(2) {
- MOVE(TEMP(t5), CALL(NAME(_L_halloc), CONST(4)))
- MOVE(TEMP(t6), CALL(NAME(_LS$run), TEMP(t5), CONST(5), CONST(10)))
- MOVE(TEMP(t1), CALL(NAME(_L_println_int), TEMP(t6)))
+Lmain(2) {
+ MOVE(TEMP(t5), CALL(NAME(L_halloc), CONST(4)))
+ MOVE(TEMP(t6), CALL(NAME(LS$run), TEMP(t5), CONST(5), CONST(10)))
+ MOVE(TEMP(t1), CALL(NAME(L_println_int), TEMP(t6)))
  MOVE(TEMP(t0), CONST(0))
  return t0
 }
 
-_LS$Init(2) {
+LS$Init(2) {
  MOVE(MEM(BINOP(PLUS, PARAM(0), BINOP(MUL, CONST(0), CONST(4)))), PARAM(1))
  MOVE(TEMP(t2), CONST(0))
  return t2
 }
 
-_LS$run(3) {
- MOVE(TEMP(t3), CALL(NAME(_LS$Init), PARAM(0), PARAM(2)))
+LS$run(3) {
+ MOVE(TEMP(t3), CALL(NAME(LS$Init), PARAM(0), PARAM(2)))
  MOVE(TEMP(t4), PARAM(1))
  return t4
 }

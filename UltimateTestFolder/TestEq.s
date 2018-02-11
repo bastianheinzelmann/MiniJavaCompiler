@@ -1,42 +1,27 @@
 	.intel_syntax
 	.global _Lmain
-_Lmain:
+Lmain:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 0
-	MOV ebx, ebx
-	MOV esi, esi
-	MOV edi, edi
 	MOV eax, 0
 	PUSH eax
-	CALL _L_halloc
+	CALL L_halloc
 	ADD esp, 4
-	MOV eax, eax
-	MOV eax, eax
 	PUSH eax
-	CALL _LTestEqMain$run
+	CALL LTestEqMain$run
 	ADD esp, 4
-	MOV eax, eax
-	MOV eax, eax
 	PUSH eax
-	CALL _L_println_int
+	CALL L_println_int
 	ADD esp, 4
-	MOV eax, eax
 	MOV eax, 0
-	MOV eax, eax
-	MOV ebx, ebx
-	MOV esi, esi
-	MOV edi, edi
 	MOV esp, ebp
 	POP ebp
 	RET
-_LTestEqMain$run:
+LTestEqMain$run:
 	PUSH ebp
 	MOV ebp, esp
 	SUB esp, 0
-	MOV ebx, ebx
-	MOV esi, esi
-	MOV edi, edi
 	MOV edx, 0
 	MOV ecx, 4
 	MOV eax, 4
@@ -65,30 +50,22 @@ L$$1:
 	MOV ecx, 0
 	MOV eax, 0
 L$$2:
-	MOV eax, eax
 	AND eax, ecx
-	MOV eax, eax
 	CMP eax, 1
 	JNE L$$7
 L$$8:
 	MOV eax, 1
 	PUSH eax
-	CALL _L_println_int
+	CALL L_println_int
 	ADD esp, 4
-	MOV eax, eax
 	JMP L$$9
 L$$7:
 	MOV eax, 0
 	PUSH eax
-	CALL _L_println_int
+	CALL L_println_int
 	ADD esp, 4
-	MOV eax, eax
 L$$9:
 	MOV eax, 0
-	MOV eax, eax
-	MOV ebx, ebx
-	MOV esi, esi
-	MOV edi, edi
 	MOV esp, ebp
 	POP ebp
 	RET
