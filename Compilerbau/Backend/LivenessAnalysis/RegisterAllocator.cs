@@ -26,15 +26,15 @@ namespace Compilerbau.Backend.LivenessAnalysis
                     registerDict.Clear();
 
                     var cfg = graphGenerator.GenGraphs(n);
-                    Console.WriteLine("Generated Graph.");
+                    //Console.WriteLine("Generated Graph.");
                     var interferenceGraph = livenessMachine.CalcInterferenceGraph(cfg, registers);
-                    Console.WriteLine("Generated Interference Graph");
+                    //Console.WriteLine("Generated Interference Graph");
                     var nodesToSpill = ColorizeGraph(interferenceGraph, registers, registers.Count, n);
-                    Console.WriteLine("Allocated Registers");
+                    //Console.WriteLine("Allocated Registers");
                     if (nodesToSpill.Count > 0)
                     {
                         n.Spill(nodesToSpill);
-                        Console.WriteLine("Spilled.");
+                        //Console.WriteLine("Spilled.");
                     }
                     else
                     {
